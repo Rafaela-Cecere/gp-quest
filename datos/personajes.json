@@ -1,0 +1,303 @@
+[
+  {
+    "id": "rafaela",
+    "nombre": "Rafaela Cecere",
+    "puesto": "Equipo 3D",
+    "sprite": "Insumos/NPC/MUJERES/Rafaela-Front.png",
+    "spriteEspalda": "Insumos/NPC/MUJERES/Rafaela-Back.png",
+    "spriteLado": "Insumos/NPC/MUJERES/Rafaela-Side.png",
+    "retrato": "Insumos/Splash-Personajes/Rafaela-Cecere.png",
+    "x": 6898,
+    "y": 4472,
+    "frase": "La más nueva del equipo 3D.",
+    "dialogos": [
+      {
+        "si": {
+          "flag": "rafaela-amiga"
+        },
+        "id": "rafaela-otra-vez"
+      },
+      {
+        "id": "rafaela-intro"
+      }
+    ]
+  },
+  {
+    "id": "bruno",
+    "nombre": "Bruno Matus",
+    "puesto": "Equipo 3D",
+    "sprite": "Insumos/NPC/HOMBRES/Bruno-Front.png",
+    "spriteEspalda": "Insumos/NPC/HOMBRES/Bruno-Back.png",
+    "spriteLado": "Insumos/NPC/HOMBRES/Bruno-Side.png",
+    "retrato": "Insumos/Splash-Personajes/Bruno-Matus.png",
+    "x": 8826,
+    "y": 3119,
+    "frase": "Una entrega más y me voy.",
+    "dialogos": [
+      {
+        "id": "bruno-intro"
+      }
+    ]
+  },
+  {
+    "id": "rulo",
+    "nombre": "Pablo \"Rulo\" Ivaldi",
+    "puesto": "Equipo 3D",
+    "sprite": "Insumos/NPC/HOMBRES/Pelado-Front.png",
+    "spriteEspalda": "Insumos/NPC/HOMBRES/Pelado-Back.png",
+    "spriteLado": "Insumos/NPC/HOMBRES/Pelado-Side.png",
+    "retrato": "Insumos/Splash-Personajes/Pablo-Ivaldi.png",
+    "x": 8079,
+    "y": 3527,
+    "frase": "Qué te iba a decir...",
+    "dialogos": [
+      {
+        "si": {
+          "flag": "desafio-rulo-ganado"
+        },
+        "id": "rulo-ganado"
+      },
+      {
+        "si": {
+          "flag": "rulo-saludo"
+        },
+        "id": "rulo-otra-vez"
+      },
+      {
+        "id": "rulo-intro"
+      }
+    ]
+  },
+  {
+    "id": "polo",
+    "nombre": "Polo",
+    "puesto": "El perro de Pablo Martínez",
+    "sprite": "Insumos/NPC/ANIMALES/Polo-Sit.png",
+    "spriteEspalda": "Insumos/NPC/ANIMALES/Polo-Sit.png",
+    "spriteLado": "Insumos/NPC/ANIMALES/Polo-Side.png",
+    "ladoMiraIzquierda": true,
+    "alto": 100,
+    "noCuenta": true,
+    "retrato": "Insumos/Splash-Personajes/Polo.png",
+    "x": 7006,
+    "y": 3199,
+    "frase": "¡Guau!",
+    "dialogos": [
+      {
+        "si": {
+          "conoce": "polo"
+        },
+        "id": "polo-otra-vez"
+      },
+      {
+        "id": "polo-intro"
+      }
+    ]
+  },
+  {
+    "id": "juan",
+    "nombre": "Juan Delgado",
+    "puesto": "Equipo 3D",
+    "sprite": "Insumos/NPC/HOMBRES/Juan-Front.png",
+    "spriteEspalda": "Insumos/NPC/HOMBRES/Juan-Back.png",
+    "spriteLado": "Insumos/NPC/HOMBRES/Juan-Side.png",
+    "retrato": "Insumos/Splash-Personajes/Juan-Delgado.png",
+    "x": 7199,
+    "y": 5329,
+    "frase": "Tranqui, a Bruno todavía no lo echaron.",
+    "dialogos": [
+      {
+        "si": {
+          "conoce": "juan"
+        },
+        "id": "juan-otra-vez"
+      },
+      {
+        "id": "juan-intro"
+      }
+    ]
+  },
+  {
+    "id": "rodrigo",
+    "nombre": "Rodrigo Figueredo",
+    "puesto": "Equipo 3D",
+    "sprite": "Insumos/NPC/HOMBRES/Rodrigo-Front.png",
+    "spriteEspalda": "Insumos/NPC/HOMBRES/Rodrigo-Back.png",
+    "spriteLado": "Insumos/NPC/HOMBRES/Rodrigo-Side.png",
+    "retrato": "Insumos/Splash-Personajes/Rodrigo-Figueredo.png",
+    "x": 8332,
+    "y": 3990,
+    "frase": "Ya le pregunté a la IA.",
+    "dialogos": [
+      {
+        "si": {
+          "conoce": "rodrigo"
+        },
+        "id": "rodrigo-otra-vez"
+      },
+      {
+        "id": "rodrigo-intro"
+      }
+    ]
+  },
+  {
+    "id": "roby",
+    "nombre": "Roby",
+    "puesto": "Equipo 3D",
+    "sprite": "Insumos/NPC/HOMBRES/Roby-Front.png",
+    "spriteEspalda": "Insumos/NPC/HOMBRES/Roby-Back.png",
+    "spriteLado": "Insumos/NPC/HOMBRES/Roby-Side.png",
+    "retrato": "Insumos/Splash-Personajes/Martin-Robaina.png",
+    "x": 5770,
+    "y": 4395,
+    "frase": "¡15 AÑOS EN LA EMPRESA!",
+    "dialogos": [
+      {
+        "id": "roby-intro"
+      }
+    ]
+  },
+  {
+    "id": "gabriel",
+    "nombre": "Gabriel Cabrera",
+    "puesto": "",
+    "sprite": "Insumos/NPC/HOMBRES/Gabriel-Front.png",
+    "spriteEspalda": "Insumos/NPC/HOMBRES/Gabriel-Back.png",
+    "spriteLado": "Insumos/NPC/HOMBRES/Gabriel-Side.png",
+    "retrato": "Insumos/Splash-Personajes/Gabriel-Cabrera.png",
+    "x": 5781,
+    "y": 3341,
+    "frase": "No, no crío ovejas.",
+    "dialogos": [
+      {
+        "si": {
+          "conoce": "gabriel"
+        },
+        "id": "gabriel-otra-vez"
+      },
+      {
+        "id": "gabriel-intro"
+      }
+    ]
+  },
+  {
+    "id": "pablo-martinez",
+    "nombre": "Pablo Martínez",
+    "puesto": "",
+    "sprite": "Insumos/NPC/HOMBRES/Pablo-Front.png",
+    "spriteEspalda": "Insumos/NPC/HOMBRES/Pablo-Back.png",
+    "spriteLado": "Insumos/NPC/HOMBRES/Pablo-Side.png",
+    "retrato": "Insumos/Splash-Personajes/Pablo-Martinez.png",
+    "x": 6845,
+    "y": 3193,
+    "frase": "Ay, la espalda...",
+    "dialogos": [
+      {
+        "si": {
+          "conoce": "pablo-martinez"
+        },
+        "id": "pablo-martinez-otra-vez"
+      },
+      {
+        "id": "pablo-martinez-intro"
+      }
+    ]
+  },
+  {
+    "id": "oveja",
+    "nombre": "La Oveja",
+    "puesto": "¿De Gabriel?",
+    "sprite": "Insumos/NPC/ANIMALES/Oveja.png",
+    "ladoMiraIzquierda": true,
+    "alto": 90,
+    "noCuenta": true,
+    "retrato": "Insumos/Splash-Personajes/Oveja.png",
+    "x": 5411,
+    "y": 3634,
+    "frase": "Beeeee.",
+    "dialogos": [
+      {
+        "id": "oveja-intro"
+      }
+    ]
+  },
+  {
+    "id": "jeny",
+    "nombre": "Jeny",
+    "puesto": "Equipo de limpieza",
+    "sprite": "Insumos/NPC/MUJERES/Jeny-Front.png",
+    "spriteEspalda": "Insumos/NPC/MUJERES/Jeny-Back.png",
+    "spriteLado": "Insumos/NPC/MUJERES/Jeny-Side.png",
+    "retrato": "Insumos/Splash-Personajes/Jeny.png",
+    "x": 7677,
+    "y": 4519,
+    "frase": "¿Ya viste Crash Landing on You?",
+    "dialogos": [
+      {
+        "si": {
+          "flag": "jeny-recomendo"
+        },
+        "id": "jeny-otra-vez"
+      },
+      {
+        "id": "jeny-intro"
+      }
+    ]
+  },
+  {
+    "id": "arturo",
+    "nombre": "Arturo",
+    "puesto": "Director de anteproyecto",
+    "sprite": "Insumos/NPC/HOMBRES/Arturo-Front.png",
+    "spriteEspalda": "Insumos/NPC/HOMBRES/Arturo-Back.png",
+    "spriteLado": "Insumos/NPC/HOMBRES/Arturo-Side.png",
+    "retrato": "Insumos/Splash-Personajes/Arturo.png",
+    "x": 3951,
+    "y": 4615,
+    "frase": "Siempre está la opción de las tortafritas.",
+    "dialogos": [
+      {
+        "si": {
+          "flag": "desafio-arturo-ganado"
+        },
+        "id": "arturo-ganado"
+      },
+      {
+        "si": {
+          "flag": "arturo-saludo"
+        },
+        "id": "arturo-otra-vez"
+      },
+      {
+        "id": "arturo-intro"
+      }
+    ]
+  },
+  {
+    "id": "martin-gomez-platero",
+    "nombre": "Martín Gómez Platero",
+    "puesto": "Fundador",
+    "sprite": "Insumos/NPC/HOMBRES/Martin-Gomez-Platero-Front.png",
+    "spriteEspalda": "Insumos/NPC/HOMBRES/Martin-Gomez-Platero-Back.png",
+    "spriteLado": "Insumos/NPC/HOMBRES/Martin-Gomez-Platero-Side.png",
+    "retrato": "Insumos/Splash-Personajes/Martin-Gomez-Platero.png",
+    "x": 5470,
+    "y": 5015,
+    "frase": "Bienvenido a la familia.",
+    "agendaAlFinal": true,
+    "si": {
+      "contactosMinimos": 10
+    },
+    "dialogos": [
+      {
+        "si": {
+          "contactosMinimos": 10
+        },
+        "id": "martin-final"
+      },
+      {
+        "id": "martin-espera"
+      }
+    ]
+  }
+]

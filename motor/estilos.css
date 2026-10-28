@@ -1,0 +1,832 @@
+:root {
+  --fondo: #14141f;
+  --caja: #1b1b2f;
+  --caja-clara: #2a2a48;
+  --borde-oscuro: #4a4a78;
+  --crema: #f4e9d8;
+  --acento: #a3412c;        /* rojo tierra */
+  --acento-claro: #e3907a;  /* rojo tierra para texto sobre fondo oscuro */
+  --fuente: "Pixelify Sans", ui-monospace, monospace;
+  --radio-grande: 18px;
+  --radio-medio: 12px;
+  --pildora: 999px;
+
+  /* Cuadro de diálogo de tamaño fijo: lugar para el texto y para dos respuestas. */
+  --dialogo-letra: 21px;
+  --dialogo-lineas: 2;
+  --opcion-alto: 46px;
+  --opcion-letra: 19px;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--fondo);
+  color: var(--crema);
+  font-family: var(--fuente);
+  /* La tipografía pixel convierte "fi" en un glifo que parece una A. */
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#juego {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* El canvas no debe empujar el tamaño de la página: si al girar el celular queda
+   un momento más ancho que la pantalla, el navegador "agranda" la página y el juego
+   termina ocupando solo una parte. */
+#juego canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+}
+
+.oculto { display: none !important; }
+
+button {
+  font-family: inherit;
+  font-variant-ligatures: inherit;
+  font-feature-settings: inherit;
+  cursor: pointer;
+}
+
+/* ---------- HUD ---------- */
+
+.hud {
+  position: fixed;
+  top: max(10px, env(safe-area-inset-top));
+  right: max(10px, env(safe-area-inset-right));
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.hud-boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 14px;
+  background: var(--caja);
+  border: 3px solid var(--crema);
+  box-shadow: 0 0 0 3px var(--caja);
+  border-radius: var(--pildora);
+  font-size: 17px;
+  color: var(--crema);
+  white-space: nowrap;
+}
+.hud-boton:hover { background: var(--caja-clara); }
+.hud-pantalla { padding: 0; width: 40px; }
+.hud-contador { color: var(--acento-claro); }
+
+/* ---------- Diálogo ---------- */
+
+.dialogo {
+  position: fixed;
+  left: 50%;
+  bottom: max(14px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: min(960px, calc(100vw - 28px));
+  z-index: 20;
+}
+
+.dialogo-retrato {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% - 28px);
+  height: min(46vh, 440px);
+  pointer-events: none;
+  filter: drop-shadow(0 6px 0 rgba(0, 0, 0, 0.35));
+}
+
+.retrato-sprite {
+  image-rendering: pixelated;
+  height: min(40vh, 384px);
+}
+
+.dialogo-caja {
+  position: relative;
+  background: var(--caja);
+  border: 4px solid var(--crema);
+  border-radius: var(--radio-grande);
+  box-shadow: 0 0 0 4px var(--caja), 0 10px 30px rgba(0, 0, 0, 0.5);
+  padding: 22px 22px 16px;
+  font-size: var(--dialogo-letra);
+  line-height: 1.35;
+}
+
+.dialogo-nombre {
+  position: absolute;
+  top: -20px;
+  left: 22px;
+  background: var(--acento);
+  color: var(--crema);
+  border: 3px solid var(--caja);
+  border-radius: var(--pildora);
+  padding: 2px 16px;
+  font-weight: 600;
+  font-size: 19px;
+}
+
+.dialogo-texto {
+  height: calc(var(--dialogo-lineas) * 1.35em);
+  overflow-y: auto;
+}
+
+.dialogo-opciones {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+  height: calc(2 * var(--opcion-alto) + 8px);
+  overflow-y: auto;
+}
+
+.dialogo-opcion {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--opcion-alto);
+  box-sizing: border-box;
+  text-align: left;
+  background: var(--caja-clara);
+  color: var(--crema);
+  border: 3px solid var(--borde-oscuro);
+  border-radius: var(--pildora);
+  padding: 4px 18px 4px 10px;
+  font-size: var(--opcion-letra);
+  animation: aparecer 0.18s ease-out both;
+}
+.dialogo-opcion:hover,
+.dialogo-opcion:focus-visible {
+  border-color: var(--acento-claro);
+  outline: none;
+}
+.dialogo-opcion:active { background: var(--acento); }
+
+.tecla {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--crema);
+  color: var(--caja);
+  font-size: 14px;
+}
+@media (hover: none) {
+  .tecla { display: none; }
+  .dialogo-opcion { padding-left: 18px; }
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(4px); }
+}
+
+/* Celular vertical: retrato centrado arriba del cuadro. */
+@media (max-width: 640px) {
+  :root {
+    --dialogo-letra: 17px;
+    --dialogo-lineas: 4;
+    --opcion-alto: 42px;
+    --opcion-letra: 16px;
+  }
+  .dialogo-retrato {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    height: min(34vh, 320px);
+  }
+  .retrato-sprite { height: min(30vh, 288px); }
+  .dialogo-caja { padding: 20px 14px 12px; }
+  .hud-boton { font-size: 15px; }
+}
+
+/* Celular horizontal: retrato al costado del cuadro. */
+@media (max-height: 500px) and (orientation: landscape) {
+  :root {
+    --dialogo-letra: 16px;
+    --dialogo-lineas: 2;
+    --opcion-alto: 38px;
+    --opcion-letra: 15px;
+  }
+  .dialogo-retrato {
+    bottom: 0;
+    left: auto;
+    right: 0;
+    transform: none;
+    height: 78vh;
+  }
+  .retrato-sprite { height: 70vh; }
+  .dialogo-caja {
+    margin-right: 30%;
+    padding: 18px 14px 10px;
+  }
+}
+
+/* ---------- Ventanas (agenda y final) ---------- */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 20, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 30;
+}
+
+.modal-caja {
+  background: var(--caja);
+  border: 4px solid var(--crema);
+  border-radius: var(--radio-grande);
+  box-shadow: 0 0 0 4px var(--caja);
+  padding: 18px;
+  width: min(900px, 100%);
+  max-height: 85dvh;
+  overflow-y: auto;
+  touch-action: pan-y;
+  box-sizing: border-box;
+}
+
+.agenda-objetivo {
+  background: var(--caja-clara);
+  border-radius: var(--radio-medio);
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  font-size: 18px;
+}
+.agenda-objetivo-titulo {
+  display: inline-block;
+  background: var(--acento);
+  border-radius: var(--pildora);
+  padding: 1px 10px;
+  margin-right: 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.modal-titulo {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.agenda-total { color: var(--acento-claro); }
+
+.agenda-grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.tarjeta {
+  background: var(--caja-clara);
+  border: 3px solid var(--borde-oscuro);
+  border-radius: var(--radio-medio);
+  padding: 10px;
+  text-align: center;
+}
+.tarjeta img {
+  width: 100%;
+  height: 140px;
+  object-fit: contain;
+  object-position: bottom;
+}
+.tarjeta img.tarjeta-sprite { image-rendering: pixelated; }
+.tarjeta-bloqueada img { filter: brightness(0); opacity: 0.35; }
+.tarjeta-nombre { font-weight: 600; margin-top: 6px; }
+.tarjeta-puesto { color: var(--acento-claro); font-size: 14px; }
+.tarjeta-frase { font-size: 14px; margin-top: 6px; opacity: 0.85; }
+
+.modal-botones {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.boton,
+.boton-secundario {
+  border: 3px solid var(--crema);
+  border-radius: var(--pildora);
+  padding: 8px 18px;
+  font-size: 17px;
+}
+.boton { background: var(--acento); color: var(--crema); }
+.boton-secundario { background: transparent; color: var(--crema); }
+.boton:hover, .boton-secundario:hover { filter: brightness(1.15); }
+
+.final-caja { text-align: center; width: min(520px, 100%); }
+.final-titulo { font-size: 38px; font-weight: 600; color: var(--acento-claro); }
+.final-texto { font-size: 19px; }
+.final-caja .modal-botones { justify-content: center; }
+
+/* ---------- Avisos, joystick, depuración ---------- */
+
+.aviso {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: calc(100vw - 40px);
+  box-sizing: border-box;
+  background: var(--acento);
+  color: var(--crema);
+  border: 3px solid var(--caja);
+  border-radius: var(--pildora);
+  padding: 6px 18px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 25;
+}
+.aviso.visible { animation: aviso 2.6s ease both; }
+@keyframes aviso {
+  0% { opacity: 0; transform: translate(-50%, -10px); }
+  10%, 80% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, 0); }
+}
+
+.joystick {
+  display: none;
+  position: fixed;
+  width: 120px;
+  height: 120px;
+  margin: -60px 0 0 -60px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+  z-index: 15;
+}
+.joystick-palanca {
+  position: absolute;
+  left: 35px;
+  top: 35px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.depuracion {
+  position: fixed;
+  left: 10px;
+  bottom: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 8px;
+  padding: 4px 8px;
+  font: 14px ui-monospace, monospace;
+  z-index: 40;
+  pointer-events: none;
+}
+
+/* ---------- Desafío (batalla de preguntas) ---------- */
+
+.desafio {
+  --caja-alto: 252px;   /* lo que ocupa el cuadro de abajo, para ubicar al rival encima */
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  user-select: none;
+}
+.desafio.visible { opacity: 1; }
+
+.desafio-fondo {
+  position: absolute;
+  inset: -24px; /* sobra un poco para que al sacudirse no se vea el juego por los bordes */
+  background:
+    radial-gradient(ellipse at 75% 30%, rgba(163, 65, 44, 0.45), transparent 60%),
+    radial-gradient(ellipse at 20% 100%, rgba(74, 74, 120, 0.5), transparent 60%),
+    #0d0d16;
+}
+
+/* Rayos que giran detrás del rival durante la entrada (y al ganar). */
+.desafio-rayos {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 220vmax;
+  height: 220vmax;
+  margin: -110vmax 0 0 -110vmax;
+  background: repeating-conic-gradient(rgba(244, 233, 216, 0.16) 0deg 6deg, transparent 6deg 18deg);
+  -webkit-mask-image: radial-gradient(circle, transparent 6%, #000 30%);
+  mask-image: radial-gradient(circle, transparent 6%, #000 30%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  animation: desafio-rayos 14s linear infinite;
+}
+.desafio.entrando .desafio-rayos { opacity: 1; }
+.desafio.acomodando .desafio-rayos { opacity: 0; }
+.desafio.final-gano .desafio-rayos { opacity: 0.8; }
+
+@keyframes desafio-rayos { to { transform: rotate(360deg); } }
+
+/* Destello blanco al empezar. */
+.desafio-destello {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+}
+.desafio.entrando .desafio-destello { animation: desafio-destello 0.6s ease-out; }
+.desafio.entrando .desafio-fondo { animation: desafio-sacudir 0.5s ease-out 0.1s; }
+
+@keyframes desafio-destello {
+  0% { opacity: 0.95; }
+  100% { opacity: 0; }
+}
+
+.desafio-titulo {
+  position: absolute;
+  top: 7vh;
+  left: 16px;
+  right: 16px;
+  text-align: center;
+  font-size: clamp(26px, 5vw, 60px);
+  line-height: 1.15;
+  font-weight: 600;
+  color: var(--crema);
+  text-shadow: 0 4px 0 var(--acento), 0 8px 0 var(--caja);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.desafio.entrando .desafio-titulo { opacity: 1; animation: desafio-titulo 0.7s cubic-bezier(0.3, 1.6, 0.5, 1) 0.15s both; }
+.desafio.acomodando .desafio-titulo { opacity: 0; }
+
+@keyframes desafio-titulo {
+  from { transform: translateY(-120%) scale(1.4); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+/* El jugador, de espaldas, abajo a la izquierda. Entra deslizándose cuando termina la entrada. */
+.desafio-jugador {
+  position: absolute;
+  left: 2vw;
+  bottom: 0;
+  height: min(80vh, 660px);
+  transform-origin: 50% 100%;
+  transform: translateX(-130%);
+  transition: transform 0.55s cubic-bezier(0.3, 1.3, 0.5, 1);
+  filter: drop-shadow(0 6px 0 rgba(0, 0, 0, 0.35));
+  pointer-events: none;
+}
+.desafio.acomodando .desafio-jugador,
+.desafio.peleando .desafio-jugador { transform: none; }
+
+/* El rival: en su lugar va arriba a la derecha, sobre el cuadro de diálogo.
+   Durante la entrada se corre al centro (--al-centro lo calcula desafio.js) y más grande. */
+.desafio-rival {
+  position: absolute;
+  right: 3vw;
+  bottom: calc(var(--caja-alto) + 4px);
+  height: min(calc(100vh - var(--caja-alto) - 24px), 470px);
+  transform-origin: 50% 100%;
+  transition: transform 0.6s cubic-bezier(0.5, 0, 0.3, 1.15);
+  filter: drop-shadow(0 6px 0 rgba(0, 0, 0, 0.35));
+  pointer-events: none;
+}
+.desafio.entrando .desafio-rival {
+  transform: var(--al-centro) scale(1.15);
+  animation: desafio-rival-entra 0.7s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+}
+.desafio.entrando.acomodando .desafio-rival { transform: none; animation: none; }
+
+@keyframes desafio-rival-entra {
+  from { transform: var(--al-centro) scale(0.2) rotate(-12deg); opacity: 0; }
+  to { transform: var(--al-centro) scale(1.15); opacity: 1; }
+}
+
+/* Quietos, respiran como los NPC. */
+.desafio.peleando .desafio-rival,
+.desafio.peleando .desafio-jugador { animation: desafio-respirar 1.2s ease-in-out infinite alternate; }
+
+@keyframes desafio-respirar { to { scale: 1 1.02; } }
+
+/* Sacudón al empezar y en cada error. */
+.desafio.peleando.sacudir .desafio-rival,
+.desafio.peleando.sacudir .desafio-jugador {
+  animation: desafio-sacudir 0.4s ease-out, desafio-respirar 1.2s ease-in-out infinite alternate;
+}
+.desafio.peleando.sacudir .desafio-caja { animation: desafio-sacudir 0.4s ease-out; }
+
+@keyframes desafio-sacudir {
+  0%, 100% { translate: 0 0; }
+  20% { translate: -10px 4px; }
+  40% { translate: 9px -3px; }
+  60% { translate: -6px 2px; }
+  80% { translate: 4px -1px; }
+}
+
+.desafio-caja {
+  position: absolute;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  width: min(760px, 60vw);
+  margin: 0; /* el cuadro normal tiene un margen en el celular horizontal que acá no va */
+  box-sizing: border-box;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.desafio.peleando .desafio-caja { opacity: 1; transform: none; }
+.desafio .dialogo-texto { height: calc(3 * 1.35em); }
+/* Las respuestas pueden ocupar dos renglones: el cuadro crece en vez de hacer scroll. */
+.desafio .dialogo-opciones { height: auto; min-height: calc(2 * var(--opcion-alto) + 8px); overflow: visible; }
+.desafio .dialogo-opcion { padding-top: 6px; padding-bottom: 6px; line-height: 1.2; }
+
+/* Un punto por pregunta: ✓ o ✗. */
+.desafio-marcador {
+  position: absolute;
+  top: max(16px, env(safe-area-inset-top));
+  left: max(16px, env(safe-area-inset-left));
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.desafio.peleando .desafio-marcador { opacity: 1; }
+.desafio-marcador span {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 3px solid var(--crema);
+  background: var(--caja);
+  color: var(--crema);
+  font-weight: 600;
+}
+.desafio-marcador span.bien { background: #4f8a3c; animation: desafio-pop 0.35s ease-out; }
+.desafio-marcador span.mal { background: var(--acento); animation: desafio-pop 0.35s ease-out; }
+
+@keyframes desafio-pop { 50% { transform: scale(1.35); } }
+
+/* Cartel final: ¡GANASTE! o PERDISTE. */
+.desafio-resultado {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  display: none;
+  cursor: pointer;
+}
+.desafio-resultado.visible { display: block; animation: desafio-resultado 0.6s cubic-bezier(0.3, 1.6, 0.5, 1) both; }
+.desafio-resultado-titulo {
+  font-size: clamp(44px, 11vw, 120px);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-shadow: 0 6px 0 var(--caja);
+}
+.desafio-resultado.gano .desafio-resultado-titulo { color: #f2c14e; }
+.desafio-resultado.perdio .desafio-resultado-titulo { color: var(--acento-claro); }
+.desafio-resultado-ayuda { margin-top: 8px; font-size: 16px; color: var(--crema); opacity: 0.7; }
+
+@keyframes desafio-resultado {
+  from { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+  to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+/* Celular horizontal: todo más chico. */
+@media (max-height: 500px) and (orientation: landscape) {
+  .desafio { --caja-alto: 180px; }
+  .desafio-caja { width: min(660px, 66vw); }
+  /* Dos renglones; solo los textos largos (el final) usan un tercero. */
+  .desafio .dialogo-texto { height: auto; min-height: calc(2 * 1.35em); max-height: calc(3 * 1.35em); }
+  .desafio-jugador { height: 88vh; }
+  .desafio-titulo { top: 4vh; }
+}
+
+/* Celular vertical: el cuadro ocupa todo el ancho; el rival arriba a la derecha y el jugador
+   asomando por la izquierda, detrás del cuadro. */
+@media (max-width: 640px) and (orientation: portrait) {
+  .desafio { --caja-alto: 300px; }
+  .desafio-caja { left: 12px; right: 12px; width: auto; bottom: 12px; }
+  .desafio .dialogo-texto { height: calc(4 * 1.35em); }
+  /* Arturo más chico, arriba a la derecha (debajo del marcador queda lugar para el jugador). */
+  .desafio-rival { right: 8px; top: max(12px, env(safe-area-inset-top)); bottom: auto; height: min(30vh, 260px); }
+  .desafio-jugador { left: -12vw; bottom: calc(var(--caja-alto) - 40px); height: 34vh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desafio *, .desafio.peleando .desafio-rival, .desafio.peleando .desafio-jugador { animation: none !important; }
+}
+
+/* ---------- Intro ---------- */
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: opacity 1s ease;
+}
+.intro.saliendo { opacity: 0; pointer-events: none; }
+
+/* Pantalla "girá el celular": un celular que pasa de vertical a horizontal, en loop.
+   Va por encima de la intro y se toca en cualquier lugar. */
+.aviso-girar {
+  position: fixed;
+  inset: 0;
+  z-index: 210;
+  background: #000;
+  cursor: pointer;
+  transition: opacity 0.7s ease;
+}
+.aviso-girar.saliendo { opacity: 0; pointer-events: none; }
+
+.intro-girar {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 24px;
+  text-align: center;
+  color: var(--crema);
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+.intro-girar.visible { opacity: 1; }
+
+.intro-celular { stroke: var(--crema); fill: var(--crema); }
+.intro-celular-pantalla { fill: var(--acento); stroke: none; }
+.intro-flecha { stroke: var(--crema); fill: none; animation: intro-flecha 3s ease-in-out infinite; }
+.intro-celular-cuerpo { animation: intro-girar 3s ease-in-out infinite; }
+
+@keyframes intro-girar {
+  0%, 25% { transform: rotate(0deg); }
+  50%, 85% { transform: rotate(90deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes intro-flecha {
+  0%, 10% { opacity: 0; }
+  20%, 45% { opacity: 1; }
+  55%, 100% { opacity: 0; }
+}
+
+.intro-girar-texto {
+  max-width: 22em;
+  font-size: clamp(18px, 5vw, 26px);
+  line-height: 1.4;
+}
+
+.intro-girar-ayuda {
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-celular-cuerpo { animation: none; transform: rotate(90deg); }
+  .intro-flecha { animation: none; }
+}
+
+.intro-escena {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  width: min(820px, 100%);
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+.intro-escena.visible { opacity: 1; }
+
+.intro-texto {
+  min-height: 4.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: clamp(20px, 3.4vw, 30px);
+  line-height: 1.4;
+  color: var(--crema);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.intro-texto.visible { opacity: 1; transform: none; }
+
+/* Ancho completo, así la animación se achica en pantallas angostas (celular vertical). */
+.intro-animacion {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.intro-animacion img,
+.intro-animacion video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  max-height: 40vh;
+  image-rendering: pixelated;
+}
+
+/* El bus quieto con el motor en marcha: respira despacio como los NPC (el contenedor)
+   y tiembla rápido de a saltitos (la imagen). */
+.intro-temblor {
+  transform-origin: 50% 100%;
+  animation: intro-respirar 1.1s ease-in-out infinite alternate;
+}
+
+.intro-temblor img {
+  animation: intro-motor 0.3s steps(2, jump-none) infinite alternate;
+}
+
+@keyframes intro-respirar {
+  from { transform: scaleY(1); }
+  to { transform: scaleY(1.025); }
+}
+
+@keyframes intro-motor {
+  from { transform: translateY(0); }
+  to { transform: translateY(-3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-temblor, .intro-temblor img { animation: none; }
+}
+
+.intro-contador {
+  position: absolute;
+  font-size: clamp(22px, 4.5vw, 40px);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--crema);
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+.intro-contador.visible { opacity: 1; }
+
+.intro-saltar {
+  position: absolute;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  background: transparent;
+  color: var(--crema);
+  border: 2px solid rgba(244, 233, 216, 0.4);
+  border-radius: var(--pildora);
+  padding: 6px 16px;
+  font-size: 15px;
+  opacity: 0.7;
+}
+.intro-saltar:hover { opacity: 1; }
+
+.cargando {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  color: var(--crema);
+  z-index: 50;
+  animation: latido 1.2s ease-in-out infinite;
+}
+@keyframes latido { 50% { opacity: 0.4; } }
+
+.error-carga {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(560px, calc(100vw - 32px));
+  background: #5a1d1d;
+  border: 3px solid #ff8a8a;
+  border-radius: var(--radio-medio);
+  padding: 16px;
+  font: 16px ui-monospace, monospace;
+  z-index: 50;
+}

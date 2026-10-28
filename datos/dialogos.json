@@ -1,0 +1,630 @@
+{
+  "arturo-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Ah, llegaste! ¿Te acordás de mí? Arturo, director de anteproyecto. Yo te hice la entrevista.",
+        "opciones": [
+          {
+            "texto": "¡Claro! Gracias por la oportunidad.",
+            "ir": "espero"
+          },
+          {
+            "texto": "Eh... ¡obvio que sí!",
+            "ir": "olvido"
+          }
+        ]
+      },
+      "espero": {
+        "texto": "Espero que hagas un buen trabajo, eh. Yo di la cara por vos.",
+        "siguiente": "tortafritas"
+      },
+      "olvido": {
+        "texto": "No te acordás. Bueno... Espero que hagas un mejor trabajo que tu memoria.",
+        "siguiente": "tortafritas"
+      },
+      "tortafritas": {
+        "texto": "Y si no sale, tranquilo: siempre está la opción de abrir un puesto de tortafritas.",
+        "opciones": [
+          {
+            "texto": "¡No te voy a defraudar!",
+            "ir": "desafio",
+            "efectos": [
+              {
+                "tipo": "flag",
+                "nombre": "arturo-saludo"
+              }
+            ]
+          },
+          {
+            "texto": "¿Con azúcar o sin azúcar?",
+            "ir": "azucar"
+          }
+        ]
+      },
+      "azucar": {
+        "texto": "...Ya estás pensando en el plan B. Empezamos bien.",
+        "opciones": [
+          {
+            "texto": "Era un chiste...",
+            "ir": "desafio",
+            "efectos": [
+              {
+                "tipo": "flag",
+                "nombre": "arturo-saludo"
+              }
+            ]
+          }
+        ]
+      },
+      "desafio": {
+        "narrador": true,
+        "texto": "¿Quisieras desafiar a Arturo para ver qué tan bien lo conocés?",
+        "opciones": [
+          {
+            "texto": "Sí",
+            "efectos": [
+              {
+                "tipo": "desafio",
+                "id": "arturo"
+              }
+            ]
+          },
+          {
+            "texto": "No"
+          }
+        ]
+      }
+    }
+  },
+  "arturo-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¿Cómo va ese primer día? Acordate: las tortafritas siempre son una opción. Pero mejor que no haga falta.",
+        "siguiente": "desafio"
+      },
+      "desafio": {
+        "narrador": true,
+        "texto": "¿Quisieras desafiar a Arturo para ver qué tan bien lo conocés?",
+        "opciones": [
+          {
+            "texto": "Sí",
+            "efectos": [
+              {
+                "tipo": "desafio",
+                "id": "arturo"
+              }
+            ]
+          },
+          {
+            "texto": "No"
+          }
+        ]
+      }
+    }
+  },
+  "arturo-ganado": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "Todavía me acuerdo de tu respuesta del capitel. ¡Así me gusta! Andá, que la fiesta sigue."
+      }
+    }
+  },
+  "rafaela-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Vos sos el nuevo, ¿no? Yo soy Rafaela, parte del equipo de 3D ¡Y la única mujer!",
+        "opciones": [
+          {
+            "texto": "¡Hola! ¿El equipo de 3D? ¿Qué tal es trabajar ahí?",
+            "ir": "equipo"
+          },
+          {
+            "texto": "Me gustaría ser parte del equipo, pero me parece que escucho llanto en la oficina de 3D...",
+            "ir": "consejo"
+          }
+        ]
+      },
+      "equipo": {
+        "texto": "A veces son un poco ruidosos, ¡pero creo que somos el equipo con más resiliencia y buena onda! Eso sí, no somos los más puntuales...",
+        "opciones": [
+          {
+            "texto": "¿Y ese llanto que se escucha de la oficina de 3D?",
+            "ir": "consejo"
+          },
+          {
+            "texto": "Suena a que son un buen equipo del cual ser parte. ¡Un gusto, Rafaela!",
+            "ir": "placer",
+            "efectos": [
+              {
+                "tipo": "flag",
+                "nombre": "rafaela-amiga"
+              }
+            ]
+          }
+        ]
+      },
+      "placer": {
+        "texto": "El placer es mío. Ahora, si me disculpás, voy a buscar un tecito para empezar la fiesta bien arriba."
+      },
+      "consejo": {
+        "texto": "Ah, sí... Bruno. Probablemente los chicos le dijeron que lo iban a despedir si no terminaba la entrega... ¡Pero te juro que somos normales!",
+        "opciones": [
+          {
+            "texto": "Ah... sí... claro...",
+            "efectos": [
+              {
+                "tipo": "flag",
+                "nombre": "rafaela-amiga"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rafaela-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "Si tenés tiempo, podés desafiar a algún jefe de proyecto para ver qué tan bien lo conocés. ¡Rulo siempre habla de su tío!"
+      }
+    }
+  },
+  "bruno-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "*snif* Perdón... es que Rulo me tapa de laburo. ¡Hoy es la fiesta y yo con tres entregas!",
+        "opciones": [
+          {
+            "texto": "¿Querés que te ayude?",
+            "ir": "ayuda"
+          },
+          {
+            "texto": "Tranqui, es fin de año.",
+            "ir": "tranqui"
+          }
+        ]
+      },
+      "ayuda": {
+        "texto": "¿En serio? Sos un ángel. Pero si Rulo se entera, me da cinco entregas más. Soy Bruno, un gusto."
+      },
+      "tranqui": {
+        "texto": "Eso dije el año pasado. Y el anterior. *snif* Soy Bruno, encantado igual."
+      }
+    }
+  },
+  "rulo-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "Hola... qué tal... vos sos... el nuevo... ¿no? ...Qué te iba a decir...",
+        "opciones": [
+          {
+            "texto": "¿Sí...?",
+            "ir": "algo"
+          },
+          {
+            "texto": "Vos sos Rulo, ¿no?",
+            "ir": "apodo"
+          }
+        ]
+      },
+      "algo": {
+        "texto": "Ah, sí... que te iba a decir... no, se me fue... Ya me voy a acordar. Bienvenido... al equipo.",
+        "siguiente": "desafio"
+      },
+      "apodo": {
+        "texto": "Pablo... pero todos me dicen Rulo... Si Bruno llora, no le hagas caso... Qué te iba a decir...",
+        "siguiente": "desafio"
+      },
+      "desafio": {
+        "narrador": true,
+        "texto": "¿Quisieras desafiar a Rulo para ver qué tan bien lo conocés?",
+        "opciones": [
+          {
+            "texto": "Sí",
+            "efectos": [
+              {
+                "tipo": "flag",
+                "nombre": "rulo-saludo"
+              },
+              {
+                "tipo": "desafio",
+                "id": "rulo"
+              }
+            ]
+          },
+          {
+            "texto": "No",
+            "efectos": [
+              {
+                "tipo": "flag",
+                "nombre": "rulo-saludo"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rulo-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "Ah... sos vos... ¿Qué te iba a decir? ...No, nada. ¿Todo bien?",
+        "siguiente": "desafio"
+      },
+      "desafio": {
+        "narrador": true,
+        "texto": "¿Quisieras desafiar a Rulo para ver qué tan bien lo conocés?",
+        "opciones": [
+          {
+            "texto": "Sí",
+            "efectos": [
+              {
+                "tipo": "desafio",
+                "id": "rulo"
+              }
+            ]
+          },
+          {
+            "texto": "No"
+          }
+        ]
+      }
+    }
+  },
+  "rulo-ganado": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "Ah, el de la rubia legendaria... Te iba a decir algo... ¿Ya te conté de cuando fuimos a pescar con mi tío?"
+      }
+    }
+  },
+  "polo-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Guau! ¡Guau! (Polo mueve la cola como loco.)",
+        "opciones": [
+          {
+            "texto": "Acariciarlo",
+            "ir": "caricia"
+          },
+          {
+            "texto": "¿Dónde está tu dueño?",
+            "ir": "dueno"
+          }
+        ]
+      },
+      "caricia": {
+        "texto": "Polo se tira panza arriba. Acabás de hacer un amigo para toda la vida."
+      },
+      "dueno": {
+        "texto": "Polo mira a Pablo Martínez, después a vos, y se sienta. No piensa moverse de al lado de su dueño."
+      }
+    }
+  },
+  "polo-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Guau Guau!"
+      }
+    }
+  },
+  "juan-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¿Ya desafiaste al jefe de 3D? Siempre anda hablando de física cuántica..."
+      }
+    }
+  },
+  "juan-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Bienvenido! Tranqui, si te mandás alguna, no te van a echar. A Bruno todavía no lo echaron.",
+        "opciones": [
+          {
+            "texto": "Jaja, ¿tan así?",
+            "ir": "asi"
+          },
+          {
+            "texto": "Me dejás más tranquilo.",
+            "ir": "tranquilo"
+          }
+        ]
+      },
+      "asi": {
+        "texto": "Una vez Bruno demoró 3 días haciendo una maqueta blanca. Y acá sigue. Soy Juan, un gusto."
+      },
+      "tranquilo": {
+        "texto": "¡Esa es la actitud! Soy Juan. Cualquier duda, preguntame. O al Rodri, que sabe todo. O más bien le pregunta a Claudia."
+      }
+    }
+  },
+  "rodrigo-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "Si tenés alguna duda, feliz de ayudar. Y si no, podés preguntarle a Claudia."
+      }
+    }
+  },
+  "rodrigo-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "Hola. Antes de que preguntes: sí, ya le pregunté a la IA. Y sí, tenía razón. Como siempre.",
+        "opciones": [
+          {
+            "texto": "¿Qué le preguntaste?",
+            "ir": "pregunta"
+          },
+          {
+            "texto": "¿Sabés dónde está el fundador?",
+            "ir": "fundador"
+          }
+        ]
+      },
+      "pregunta": {
+        "texto": "Cómo llegar a la fiesta sin cruzarme con Roby. Me dio tres rutas. Soy Rodrigo, bienvenido."
+      },
+      "fundador": {
+        "texto": "Estadísticamente, cerca de la comida. Pero conocé más gente antes. Soy Rodrigo, un gusto."
+      }
+    }
+  },
+  "roby-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡¡EEEEY!! ¡¿ SOS EL NUEVO VOS?! ¿Que haces loco? Soy Roby, parte del equipo de 3D",
+        "opciones": [
+          {
+            "texto": "¡Un gusto! ¿Es cierto que hay comadrejas en el estudio?",
+            "ir": "felicitaciones"
+          },
+          {
+            "texto": "¡Que alto sos!",
+            "ir": "bajo"
+          }
+        ]
+      },
+      "felicitaciones": {
+        "texto": "Obvio, hay una en el tacho de basura, pero las comadrejas son re bien, no como algun nutria que hay aca en el estudio. ¡Bienvenido!"
+      },
+      "bajo": {
+        "texto": "Soy el más alto de 3D, y probablemente del estudio. Pero Rulo nos gana a todos en largo. En fin, Bienvenido, disfruta la fiesta."
+      }
+    }
+  },
+  "gabriel-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "Te juro que no es mi oveja..."
+      }
+    }
+  },
+  "gabriel-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Gabriel. Y antes de que digas algo: no, la oveja no es mía.",
+        "opciones": [
+          {
+            "texto": "¿Seguro? Te sigue a todos lados...",
+            "ir": "seguro"
+          },
+          {
+            "texto": "¿Sos del equipo de 3D?",
+            "ir": "interior"
+          }
+        ]
+      },
+      "seguro": {
+        "texto": "¡Es una casualidad! Soy del interior, no crío ovejas. Bueno... no muchas... ¡pero definitivamente no esta!"
+      },
+      "interior": {
+        "texto": "Si, soy nuevo pero trabajo remoto desde el interior, y por eso te van a decir que crío ovejas. ¡Es mentira! ... Esa vino sola."
+      }
+    }
+  },
+  "objetivo-cumplido": {
+    "inicio": "felicitaciones",
+    "nodos": {
+      "felicitaciones": {
+        "narrador": true,
+        "texto": "¡Felicitaciones! Te ganaste tu lugar en la fiesta.",
+        "siguiente": "falta-uno"
+      },
+      "falta-uno": {
+        "narrador": true,
+        "texto": "¡Conociste a todos los compañeros de la fiesta! Falta uno muy importante que te espera en la sala grande de reuniones..."
+      }
+    }
+  },
+  "pablo-martinez-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "Cuando quieras podemos jugar un partidito de fútbol, o de básquet. ¡Tenemos un tablero en el estudio!"
+      }
+    }
+  },
+  "pablo-martinez-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Buenas! Soy Pablo Martínez. Perdón que no me agache a saludar... ay, la espalda.",
+        "opciones": [
+          {
+            "texto": "¿Es tuyo el perro?",
+            "ir": "polo"
+          },
+          {
+            "texto": "¿Sos de 3D? ¿Cuántos integrantes son?",
+            "ir": "cuantos"
+          }
+        ]
+      },
+      "polo": {
+        "texto": "Sí, es Polo. Si lo levanto a upa después no me puedo enderezar en una semana, pero vos sos libre de intentar. ¡Bienvenido a GP!"
+      },
+      "cuantos": {
+        "texto": "Si, somos 8 en 3D. Y quienes digan que siempre hacemos relajo, miente. En todo caso Rafaela es la peor, aunque no lo admita..."
+      }
+    }
+  },
+  "oveja-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "Beeeee.",
+        "opciones": [
+          {
+            "texto": "¿Sos de Gabriel?",
+            "ir": "gabriel"
+          },
+          {
+            "texto": "¿Qué hacés en la fiesta?",
+            "ir": "fiesta"
+          }
+        ]
+      },
+      "gabriel": {
+        "texto": "Beeeee. *mira a Gabriel con mucho cariño pero Gabriel hace como que no la conoce*"
+      },
+      "fiesta": {
+        "texto": "Beeeee. *vino con Gabriel. Él dice que no. Ella dice que sí*"
+      }
+    }
+  },
+  "jeny-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Holaaa! ¡Bienvenido! Soy Jeny, del equipo de limpieza. ¡Qué lindo que viniste a la fiesta!",
+        "opciones": [
+          {
+            "texto": "¡Gracias! ¿Qué te gusta hacer?",
+            "ir": "gustos"
+          },
+          {
+            "texto": "¿Me recomendás algo para ver?",
+            "ir": "recomendar"
+          }
+        ]
+      },
+      "gustos": {
+        "texto": "¡Me encantan el anime y los dramas coreanos! Me puedo ver una temporada entera en un fin de semana.",
+        "opciones": [
+          {
+            "texto": "¿Y cuál me recomendás?",
+            "ir": "recomendar"
+          },
+          {
+            "texto": "¡Qué bueno! Yo también.",
+            "ir": "tambien"
+          }
+        ]
+      },
+      "tambien": {
+        "texto": "¡¿En serio?! ¡Al fin alguien! Tenemos que armar un club. Yo llevo las galletitas.",
+        "siguiente": "recomendar"
+      },
+      "recomendar": {
+        "texto": "Una peli coreana: Guerreras K-Pop, que es re divertido. ¡Y de anime, Prism Rondo!",
+        "opciones": [
+          {
+            "texto": "¿Y algun anime romántico?",
+            "ir": "pelicula",
+            "efectos": [
+              {
+                "tipo": "flag",
+                "nombre": "jeny-recomendo"
+              }
+            ]
+          },
+          {
+            "texto": "¡Anotado, gracias!",
+            "ir": "gracias",
+            "efectos": [
+              {
+                "tipo": "flag",
+                "nombre": "jeny-recomendo"
+              }
+            ]
+          }
+        ]
+      },
+      "pelicula": {
+        "texto": "Si querés llorar en serio, Nana. Llevá pañuelos.",
+        "siguiente": "gracias"
+      },
+      "gracias": {
+        "texto": "¡De nada! Después contame qué te pareció. ¡Disfrutá la fiesta!"
+      }
+    }
+  },
+  "jeny-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¿Ya empezaste a ver alguna? Si te gustó, después te paso diez más. ¡Tengo una lista eterna!"
+      }
+    }
+  },
+  "martin-espera": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "Hola, ¿vos sos el nuevo? ¡Qué bueno! Antes de charlar, conocé a la gente: es lo mejor que tenemos."
+      }
+    }
+  },
+  "martin-final": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Que haces fiera! Así que vos sos el nuevo del que todos hablan Ya conociste al equipo. Eso es lo más importante acá.",
+        "opciones": [
+          {
+            "texto": "Un gusto, Martín. Me encanta este lugar.",
+            "ir": "fin"
+          },
+          {
+            "texto": "Me dijeron que a veces hay videos sorpresa en las fiestas de fin de año, ¿Es cierto?",
+            "ir": "bruno"
+          }
+        ]
+      },
+      "bruno": {
+        "texto": "¡Claro que si! Y a ti, jugador, te esperamos el 11 de Dicembre para festejar a lo grande!",
+        "siguiente": "fin"
+      },
+      "fin": {
+        "texto": "Me alegro mucho. ¡Bienvenido a GP! Disfruta de la fiesta, ¡siempre hay alguna sorpresa!",
+        "opciones": [
+          {
+            "texto": "¡Feliz fin de año!",
+            "efectos": [
+              {
+                "tipo": "final"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

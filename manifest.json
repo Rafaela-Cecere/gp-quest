@@ -1,0 +1,9 @@
+{
+  "name": "Fiesta de fin de año",
+  "short_name": "Fiesta",
+  "start_url": "./index.html",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#14141f",
+  "theme_color": "#14141f"
+}

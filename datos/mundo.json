@@ -1,0 +1,233 @@
+{
+  "escala": 2,
+  "tile": 48,
+  "altoPersonaje": 192,
+  "mapa": {
+    "columnas": 4,
+    "anchoPieza": 2560,
+    "altoPieza": 1440,
+    "piezas": [
+      { "nombre": "A", "imagen": "Insumos/Mapas/A.jpg", "colision": "Insumos/Mapas/Colision/A.png" },
+      { "nombre": "B", "imagen": "Insumos/Mapas/B.jpg", "colision": "Insumos/Mapas/Colision/B.png" },
+      { "nombre": "C", "imagen": "Insumos/Mapas/C.jpg", "colision": "Insumos/Mapas/Colision/C.png" },
+      { "nombre": "D", "imagen": "Insumos/Mapas/D.jpg", "colision": "Insumos/Mapas/Colision/D.png" },
+      { "nombre": "E", "imagen": "Insumos/Mapas/E.jpg", "colision": "Insumos/Mapas/Colision/E.png" },
+      { "nombre": "F", "imagen": "Insumos/Mapas/F.jpg", "colision": "Insumos/Mapas/Colision/F.png" },
+      { "nombre": "G", "imagen": "Insumos/Mapas/G.jpg", "colision": "Insumos/Mapas/Colision/G.png" },
+      { "nombre": "H", "imagen": "Insumos/Mapas/H.jpg", "colision": "Insumos/Mapas/Colision/H.png" },
+      { "nombre": "I", "imagen": "Insumos/Mapas/I.jpg", "colision": "Insumos/Mapas/Colision/I.png" },
+      { "nombre": "J", "imagen": "Insumos/Mapas/J.jpg", "colision": "Insumos/Mapas/Colision/J.png" },
+      { "nombre": "K", "imagen": "Insumos/Mapas/K.jpg", "colision": "Insumos/Mapas/Colision/K.png" },
+      { "nombre": "L", "imagen": "Insumos/Mapas/L.jpg", "colision": "Insumos/Mapas/Colision/L.png" },
+      { "nombre": "M", "imagen": "Insumos/Mapas/M.jpg", "colision": "Insumos/Mapas/Colision/M.png" },
+      { "nombre": "N", "imagen": "Insumos/Mapas/N.jpg", "colision": "Insumos/Mapas/Colision/N.png" },
+      { "nombre": "Ñ", "imagen": "Insumos/Mapas/Ñ.jpg", "colision": "Insumos/Mapas/Colision/Ñ.png" },
+      { "nombre": "O", "imagen": "Insumos/Mapas/O.jpg", "colision": "Insumos/Mapas/Colision/O.png" },
+      { "nombre": "P", "imagen": "Insumos/Mapas/P.jpg", "colision": "Insumos/Mapas/Colision/P.png" },
+      { "nombre": "Q", "imagen": "Insumos/Mapas/Q.jpg", "colision": "Insumos/Mapas/Colision/Q.png" },
+      { "nombre": "R", "imagen": "Insumos/Mapas/R.jpg", "colision": "Insumos/Mapas/Colision/R.png" },
+      { "nombre": "S", "imagen": "Insumos/Mapas/S.jpg", "colision": "Insumos/Mapas/Colision/S.png" },
+      { "nombre": "T", "imagen": "Insumos/Mapas/T.jpg", "colision": "Insumos/Mapas/Colision/T.png" },
+      { "nombre": "U", "imagen": "Insumos/Mapas/U.jpg", "colision": "Insumos/Mapas/Colision/U.png" },
+      { "nombre": "V", "imagen": "Insumos/Mapas/V.jpg", "colision": "Insumos/Mapas/Colision/V.png" },
+      { "nombre": "W", "imagen": "Insumos/Mapas/W.jpg", "colision": "Insumos/Mapas/Colision/W.png" },
+      { "nombre": "X", "imagen": "Insumos/Mapas/X.jpg", "colision": "Insumos/Mapas/Colision/X.png" },
+      { "nombre": "Y", "imagen": "Insumos/Mapas/Y.jpg", "colision": "Insumos/Mapas/Colision/Y.png" },
+      { "nombre": "Z", "imagen": "Insumos/Mapas/Z.jpg", "colision": "Insumos/Mapas/Colision/Z.png" },
+      { "nombre": "Alfa", "imagen": "Insumos/Mapas/Alfa.jpg", "colision": "Insumos/Mapas/Colision/Alfa.png" }
+    ]
+  },
+  "jugador": {
+    "sprite": "Insumos/Personaje-Principal/MC-Front.png",
+    "spriteEspalda": "Insumos/Personaje-Principal/MC-Back.png",
+    "spriteLado": "Insumos/Personaje-Principal/MC-Side.png",
+    "caminando": ["Insumos/Personaje-Principal/MC-Walking-01.png", "Insumos/Personaje-Principal/MC-Walking-02.png", "Insumos/Personaje-Principal/MC-Walking-03.png", "Insumos/Personaje-Principal/MC-Walking-04.png", "Insumos/Personaje-Principal/MC-Walking-05.png"],
+    "caminandoFrente": ["Insumos/Personaje-Principal/MC-Front-Left.png", "Insumos/Personaje-Principal/MC-Front-Left-02.png", "Insumos/Personaje-Principal/MC-Front-Left.png", "Insumos/Personaje-Principal/MC-Front.png", "Insumos/Personaje-Principal/MC-Front-Right.png", "Insumos/Personaje-Principal/MC-Front-Right-02.png", "Insumos/Personaje-Principal/MC-Front-Right.png", "Insumos/Personaje-Principal/MC-Front.png"],
+    "caminandoEspalda": ["Insumos/Personaje-Principal/MC-Back-Left.png", "Insumos/Personaje-Principal/MC-Back-Left-02.png", "Insumos/Personaje-Principal/MC-Back-Left.png", "Insumos/Personaje-Principal/MC-Back.png", "Insumos/Personaje-Principal/MC-Back-Right.png", "Insumos/Personaje-Principal/MC-Back-Right-02.png", "Insumos/Personaje-Principal/MC-Back-Right.png", "Insumos/Personaje-Principal/MC-Back.png"],
+    "inicio": { "x": 6938, "y": 9613 },
+    "mirandoAlInicio": "espalda",
+    "sonidoPasos": "Insumos/Sonidos/Step.wav",
+    "volumenPasos": 0.4,
+    "velocidad": 420
+  },
+  "objetivo": {
+    "titulo": "¡Hablá con 100 personas para conocer a un invitado especial!",
+    "fundador": "martin-gomez-platero",
+    "contactosNecesarios": 10,
+    "dialogoAlCompletar": "objetivo-cumplido"
+  },
+  "intro": {
+    "lineas": [
+      "Hoy es tu primer día en Gómez Platero",
+      "No conocés a nadie. No sabés dónde queda nada y además hay un pequeño detalle...",
+      "Hoy es la fiesta de fin de año de la empresa.",
+      "Tu misión: ¡Conocerlos a todos antes de que termine la fiesta!",
+      "Respirá hondo... ¡Y bienvenido a GP!"
+    ],
+    "extraPrimerTexto": 1,
+    "contador": "PERSONAS CONOCIDAS: {conocidas}/{total}",
+    "total": 100,
+    "animacion": "",
+    "cuadros": ["Insumos/Items/Bus/Bus-01.png", "Insumos/Items/Bus/Bus-02.png", "Insumos/Items/Bus/Bus-03.png", "Insumos/Items/Bus/Bus-04.png", "Insumos/Items/Bus/Bus-05.png"],
+    "cuadrosPorSegundo": 8
+  },
+  "objetos": [
+    { "id": "arbol-1", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 4473, "y": 834, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-2", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 4959, "y": 974, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-3", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 7097, "y": 834, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-4", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 8369, "y": 834, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-5", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 2605, "y": 1066, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-6", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 6253, "y": 1204, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-7", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 3169, "y": 1640, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-8", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 3627, "y": 1496, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-9", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 7707, "y": 1778, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-10", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 8073, "y": 1622, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-11", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 2207, "y": 2084, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-12", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 7047, "y": 2486, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-13", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 8155, "y": 2730, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-14", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 7561, "y": 3392, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-15", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 1987, "y": 3576, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-16", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 2797, "y": 4140, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-17", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 2783, "y": 5382, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-18", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 2463, "y": 6200, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-19", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 1895, "y": 7060, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-20", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 2769, "y": 7556, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-21", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 3425, "y": 8606, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-22", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 5437, "y": 8722, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-23", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 4335, "y": 8892, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
+    { "id": "arbol-24", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 6347, "y": 9410, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" }
+  ],
+  "musica": { "archivo": "Insumos/Sonidos/Background-Music.mp3", "volumen": 0.0375 },
+  "desafios": {
+    "arturo": {
+      "titulo": "¡A ver cuánto aprendiste!",
+      "musica": "Insumos/Sonidos/Desafio.mp3",
+      "volumen": 0.15,
+      "sonidos": {
+        "correcta": "Insumos/Sonidos/Right.mp3",
+        "incorrecta": "Insumos/Sonidos/Wrong.mp3",
+        "victoria": "Insumos/Sonidos/Victory.mp3"
+      },
+      "volumenSonidos": 0.5,
+      "duracionEntrada": 4000,
+      "erroresParaPerder": 2,
+      "rival": {
+        "nombre": "Arturo",
+        "splash": {
+          "desafiante": "Insumos/Splash-Personajes/Arturo-Desafiante.png",
+          "pregunta": "Insumos/Splash-Personajes/Arturo-Arrogante.png",
+          "correcta": "Insumos/Splash-Personajes/Arturo.png",
+          "incorrecta": "Insumos/Splash-Personajes/Arturo-desepcionado.png",
+          "gana": "Insumos/Splash-Personajes/Arturo-Desafiante.png",
+          "pierde": "Insumos/Splash-Personajes/Arturo-desepcionado.png"
+        }
+      },
+      "jugador": {
+        "splash": {
+          "neutral": "Insumos/Personaje-Principal/Splash-Desafio-de-opiniones/PP-Neutral.png",
+          "festejo": "Insumos/Personaje-Principal/Splash-Desafio-de-opiniones/PP-Festejo.png",
+          "derrotado": "Insumos/Personaje-Principal/Splash-Desafio-de-opiniones/PP-Derrotado.png"
+        }
+      },
+      "preguntas": [
+        {
+          "texto": "Primera pregunta... ¿Las cosas que forman parte de nuestro entorno, qué representan?",
+          "respuestas": [
+            { "texto": "Representan siempre sus presentes perfectos.", "correcta": true, "reaccion": "Veo que prestás atención a los GP Talks... Muy bien." },
+            { "texto": "Creo que representan su pasado en la historia de su contexto.", "reaccion": "Eso no es correcto. Pensá mejor la próxima pregunta." }
+          ]
+        },
+        {
+          "texto": "Ahora... Si abrieras un puesto de tortafritas, ¿en qué ubicación lo harías?",
+          "respuestas": [
+            { "texto": "Obviamente en Gorlero, topísimo.", "correcta": true, "reaccion": "Me gusta cómo pensás. Correcto." },
+            { "texto": "Emmm... ¿Ciudad Vieja?", "reaccion": "No pienso igual, lo lamento." }
+          ]
+        },
+        {
+          "texto": "Última pregunta... Si tuvieras que hacer un capitel, ¿lo harías con revoque de mica o con una impresora 3D?",
+          "respuestas": [
+            { "texto": "La impresora 3D, no hay dudas.", "correcta": true, "reaccion": "¡Excelente! Me gusta que estés a la par del avance tecnológico..." },
+            { "texto": "Con revoque de mica, sería una papa.", "reaccion": "Por favor... ¡Mucha suerte encontrando a un constructor que lo haga!" }
+          ]
+        }
+      ],
+      "textoPerder": "Lamento decirte que esta es la segunda respuesta incorrecta. Andá buscando otro trabajo... y de paso buscame uno a mí, porque me van a despedir por contratarte.",
+      "textoGanar": "Yo sabía que no me equivocaba con vos. ¡Si tan solo me hubieras dicho que en vez de un capitel hacías una pérgola, te presentaba a Martín GP yo mismo!",
+      "alGanar": [{ "tipo": "flag", "nombre": "desafio-arturo-ganado" }]
+    },
+    "rulo": {
+      "titulo": "¡A ver si tenés madera para ser del equipo de 3D!",
+      "musica": "Insumos/Sonidos/Desafio.mp3",
+      "volumen": 0.15,
+      "sonidos": {
+        "correcta": "Insumos/Sonidos/Right.mp3",
+        "incorrecta": "Insumos/Sonidos/Wrong.mp3",
+        "victoria": "Insumos/Sonidos/Victory.mp3"
+      },
+      "volumenSonidos": 0.5,
+      "duracionEntrada": 4000,
+      "erroresParaPerder": 2,
+      "rival": {
+        "nombre": "Rulo",
+        "splash": {
+          "desafiante": "Insumos/Splash-Personajes/Pablo-Ivaldi-Desafiante.png",
+          "pregunta": "Insumos/Splash-Personajes/Pablo-Ivaldi-Arrogante.png",
+          "correcta": "Insumos/Splash-Personajes/Pablo-Ivaldi.png",
+          "incorrecta": "Insumos/Splash-Personajes/Pablo-Ivaldi-desepcionado.png",
+          "gana": "Insumos/Splash-Personajes/Pablo-Ivaldi-Desafiante.png",
+          "pierde": "Insumos/Splash-Personajes/Pablo-Ivaldi-desepcionado.png"
+        }
+      },
+      "jugador": {
+        "splash": {
+          "neutral": "Insumos/Personaje-Principal/Splash-Desafio-de-opiniones/PP-Neutral.png",
+          "festejo": "Insumos/Personaje-Principal/Splash-Desafio-de-opiniones/PP-Festejo.png",
+          "derrotado": "Insumos/Personaje-Principal/Splash-Desafio-de-opiniones/PP-Derrotado.png"
+        }
+      },
+      "preguntas": [
+        {
+          "texto": "Primera pregunta... ¿Qué estudia principalmente la física cuántica?",
+          "respuestas": [
+            { "texto": "Claramente el comportamiento de las partículas muy pequeñas, como los átomos y electrones.", "correcta": true, "reaccion": "Veo que sabés lo necesario... Muy bien." },
+            { "texto": "Sin dudas el comportamiento de la materia y la energía a gran escala, como los cuerpos celestes.", "reaccion": "Emm... No... Este... Otro día yo te explico." }
+          ]
+        },
+        {
+          "texto": "Ahora... ¿Sobre qué familiar hablo siempre?",
+          "respuestas": [
+            { "texto": "Y... tiene que ser tu tío.", "correcta": true, "reaccion": "¡Por supuesto! ¿Ya te conté sobre la vez que fuimos a pescar?" },
+            { "texto": "Todo el mundo sabe que hablás de tu primo en Holanda.", "reaccion": "Ehhh... No tengo un primo en Holanda... ¿Qué te iba a decir?" }
+          ]
+        },
+        {
+          "texto": "Última pregunta... Si la IA no existiera y tuvieras que poner una persona en Photoshop, ¿qué pondrías?",
+          "respuestas": [
+            { "texto": "Hay una rubia que siempre va bien con todo, obviamente esa.", "correcta": true, "reaccion": "¿Conocés a la rubia legendaria? ¡Increíble!" },
+            { "texto": "Siempre voy por el hombre casual que camina de la mano con su mujer.", "reaccion": "Todos saben que no hay nada que le gane a la mona legendaria. ¡Incorrecto!" }
+          ]
+        }
+      ],
+      "textoPerder": "Eh... ¿Qué te iba a decir? Ah, esta es la segunda respuesta incorrecta... Eh... ¿Ya te conté sobre un accidente que tuvo mi tío?",
+      "textoGanar": "¡Excelente! Con vos en el equipo de 3D nunca se nos llenaría la canasta. Ehh... ¿Qué te iba a decir?...",
+      "alGanar": [{ "tipo": "flag", "nombre": "desafio-rulo-ganado" }]
+    }
+  },
+  "distanciaParaHablar": 170,
+  "tilesVisibles": { "corto": 8, "largo": 13 },
+  "trafico": [
+    {
+      "id": "autos-bajando",
+      "imagenes": ["Insumos/Items/Auto-Azul.png", "Insumos/Items/Auto-Blanco.png", "Insumos/Items/Auto-Negro.png"],
+      "x": 112, "y": -400, "x2": 112, "y2": 8600,
+      "largo": 360, "velocidad": 320, "cadaMin": 4, "cadaMax": 11
+    },
+    {
+      "id": "autos-subiendo",
+      "imagenes": ["Insumos/Items/Auto-Azul.png", "Insumos/Items/Auto-Blanco.png", "Insumos/Items/Auto-Negro.png"],
+      "x": 336, "y": 8600, "x2": 336, "y2": -400,
+      "largo": 360, "velocidad": 280, "cadaMin": 5, "cadaMax": 13
+    }
+  ]
+}
