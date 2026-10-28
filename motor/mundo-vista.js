@@ -32,6 +32,12 @@ export function crearTexturasBase(escena) {
   g.clear();
   g.fillStyle(0xffffff, 1).fillRect(0, 0, 6, 10);
   g.generateTexture('chispa', 6, 10);
+  g.clear();
+  // Hojita (clara con borde oscuro; se tiñe de verdes al usarla, así se ve sobre la copa).
+  g.fillStyle(0x333333, 1).fillEllipse(11, 7, 22, 14);
+  g.fillStyle(0xffffff, 1).fillEllipse(11, 7, 17, 9);
+  g.fillStyle(0xbbbbbb, 1).fillRect(4, 6, 14, 2);
+  g.generateTexture('hoja', 22, 14);
   g.destroy();
 
   // Punto de luz suave para partículas.

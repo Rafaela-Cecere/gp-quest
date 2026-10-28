@@ -69,6 +69,7 @@ export function texturasUsadas({ mundo, personajes }) {
     if (o.copa) pedidos.push({ ruta: o.copa, alto: o.alto || 0 });
   }
   for (const t of mundo.trafico) for (const ruta of t.imagenes || []) pedidos.push({ ruta, alto: t.largo || 0 });
+  if (mundo.arboles?.premio) pedidos.push({ ruta: mundo.arboles.premio, alto: mundo.arboles.altoPremio || 110 });
   return pedidos;
 }
 
@@ -95,6 +96,7 @@ export function audiosUsados(datos) {
   const audios = new Set();
   for (const s of mundo.sonidos) audios.add(s.archivo);
   if (mundo.jugador.sonidoPasos) audios.add(mundo.jugador.sonidoPasos);
+  if (mundo.arboles?.sonidoPremio) audios.add(mundo.arboles.sonidoPremio);
   for (const ef of todosLosEfectos(datos)) if (ef.tipo === 'sonido' && ef.archivo) audios.add(ef.archivo);
   audios.delete(undefined);
   audios.delete('');

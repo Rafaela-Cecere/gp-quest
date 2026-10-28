@@ -71,6 +71,14 @@
     "cuadros": ["Insumos/Items/Bus/Bus-01.png", "Insumos/Items/Bus/Bus-02.png", "Insumos/Items/Bus/Bus-03.png", "Insumos/Items/Bus/Bus-04.png", "Insumos/Items/Bus/Bus-05.png"],
     "cuadrosPorSegundo": 8
   },
+  "arboles": {
+    "premio": "Insumos/Items/Palta.png",
+    "altoPremio": 140,
+    "probabilidad": 0.333,
+    "textoPremio": "¡Conseguiste una palta!",
+    "sonidoPremio": "Insumos/Sonidos/Right.mp3",
+    "volumenPremio": 0.5
+  },
   "objetos": [
     { "id": "arbol-1", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 4473, "y": 834, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },
     { "id": "arbol-2", "imagen": "Insumos/Mapas/Arboles/Arbol.png", "x": 4959, "y": 974, "capa": "suelo", "copa": "Insumos/Mapas/Arboles/Arbol-Copa.png" },

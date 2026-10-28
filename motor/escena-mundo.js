@@ -9,7 +9,7 @@ import { Dialogo } from './dialogo.js';
 import { Interfaz } from './interfaz.js';
 import { Estado } from './estado.js';
 import { audiosUsados, altoDe, spritesDe } from './datos.js';
-import { crearTexturasBase, crearObjeto, crearCopa, crearSpritePersonaje, crearParticulas } from './mundo-vista.js';
+import { crearTexturasBase, crearObjeto, crearCopa, crearSpritePersonaje, crearParticulas, profundidad } from './mundo-vista.js';
 import { claveTextura, registrarLienzos } from './texturas.js';
 import { Trafico } from './trafico.js';
 import { Desafio, precargarDesafio } from './desafio.js';
@@ -363,11 +363,16 @@ export class EscenaMundo extends Phaser.Scene {
   // Si no hay nadie cerca y se tocó a alguien lejos, avisa que hay que acercarse.
   alTocar(pointer) {
     if (!this.puedeInteractuar()) return;
+    const punto = this.cameras.main.getWorldPoint(pointer.x, pointer.y);
+    const arbol = this.arbolEn(punto.x, punto.y);
+    if (arbol) {
+      this.sacudirArbol(arbol);
+      return;
+    }
     if (this.cercano) {
       this.hablar(this.cercano);
       return;
     }
-    const punto = this.cameras.main.getWorldPoint(pointer.x, pointer.y);
     const tocado = this.interactuables.some(e => e.visible && e.sprite.getBounds().contains(punto.x, punto.y));
     if (tocado) this.textoFlotante('Acercate para hablar');
   }
@@ -525,6 +530,94 @@ export class EscenaMundo extends Phaser.Scene {
       stroke: '#1b1b2f', strokeThickness: 6,
     }).setOrigin(0.5, 1).setDepth(2e5);
     this.tweens.add({ targets: t, y: t.y - 40, alpha: 0, duration: 1200, delay: 400, onComplete: () => t.destroy() });
+  }
+
+  // Árbol (objeto con copa) tocado en ese punto: el de más adelante, y solo si se tocó
+  // una parte dibujada (no el borde transparente de la imagen).
+  arbolEn(x, y) {
+    let mejor = null;
+    for (const e of this.entidades) {
+      if (!e.copa || !e.visible || !e.sprite.getBounds().contains(x, y)) continue;
+      const s = e.sprite;
+      const lx = Math.floor((x - s.getTopLeft().x) / s.scaleX);
+      const ly = Math.floor((y - s.getTopLeft().y) / s.scaleY);
+      if (this.textures.getPixelAlpha(lx, ly, s.texture.key) < 100) continue;
+      if (!mejor || e.datos.y > mejor.datos.y) mejor = e;
+    }
+    return mejor;
+  }
+
+  // Sacudón del árbol con hojitas que caen; a veces sale un premio (mundo.json → arboles).
+  sacudirArbol(e) {
+    const ahora = performance.now();
+    if (ahora - (e.ultimaSacudida || 0) < 900) return;
+    e.ultimaSacudida = ahora;
+    const partes = [e.sprite, e.copa];
+    this.tweens.killTweensOf(partes);
+    partes.forEach(p => p.setAngle(0));
+    this.tweens.chain({
+      targets: partes,
+      tweens: [
+        { angle: 1.6, duration: 70 }, { angle: -1.4, duration: 110 }, { angle: 1, duration: 100 },
+        { angle: -0.5, duration: 100 }, { angle: 0, duration: 120, ease: 'Sine.easeOut' },
+      ],
+    });
+
+    const d = e.datos, ancho = e.sprite.displayWidth, alto = e.sprite.displayHeight;
+    const hojas = this.add.particles(0, 0, 'hoja', {
+      x: { min: d.x - ancho * 0.38, max: d.x + ancho * 0.38 },
+      y: { min: d.y - alto * 0.9, max: d.y - alto * 0.35 },
+      speedX: { min: -70, max: 70 }, speedY: { min: -60, max: 30 }, gravityY: 160,
+      rotate: { onEmit: () => Math.random() * 360, onUpdate: (p, k, t, v) => v + 3 },
+      scale: { min: 0.8, max: 1.5 },
+      alpha: { start: 1, end: 0, ease: 'Quad.easeIn' },
+      lifespan: { min: 1300, max: 2300 },
+      tint: [0x6fae3a, 0x9bd14a, 0xc6e06a, 0x7fbf45, 0xd9c45a],
+      emitting: false,
+    }).setDepth(profundidad('arriba', d.y) + 1);
+    hojas.explode(24);
+    this.time.delayedCall(2500, () => hojas.destroy());
+
+    const cfg = this.mundo.arboles;
+    if (cfg?.premio && Math.random() < (cfg.probabilidad ?? 1 / 3)) this.time.delayedCall(250, () => this.darPremio(e));
+  }
+
+  // El premio salta de la copa con un brillo y chispas, y avisa.
+  darPremio(e) {
+    const cfg = this.mundo.arboles;
+    const d = e.datos;
+    const capa = profundidad('arriba', d.y) + 2;
+    // Sube desde la copa, pero sin salirse de lo que se ve en pantalla.
+    const x = d.x, desde = d.y - e.sprite.displayHeight * 0.45;
+    const hasta = Math.max(desde - 170, this.cameras.main.worldView.y + 130);
+
+    const brillo = this.add.image(x, hasta, 'punto').setTint(0xfff2a8).setBlendMode('ADD').setScale(0).setDepth(capa);
+    const premio = this.add.image(x, desde, claveTextura(cfg.premio, cfg.altoPremio || 110)).setScale(0).setDepth(capa + 1);
+    this.tweens.add({ targets: premio, y: hasta, scale: 1, duration: 450, ease: 'Back.easeOut' });
+    this.tweens.add({ targets: brillo, scale: 10, duration: 450, ease: 'Back.easeOut' });
+    this.tweens.add({ targets: brillo, angle: 360, duration: 2400 });
+    this.time.delayedCall(350, () => {
+      const chispas = this.add.particles(x, hasta, 'chispa', {
+        speed: { min: 220, max: 480 }, angle: { min: 0, max: 360 }, gravityY: 350,
+        rotate: { min: 0, max: 360 }, scale: { start: 1.4, end: 0.3 },
+        lifespan: { min: 600, max: 1000 }, tint: [0xffd34d, 0xfff2a8, 0x9bd14a, 0xffffff],
+        emitting: false,
+      }).setDepth(capa + 2);
+      chispas.explode(36);
+      this.time.delayedCall(1100, () => chispas.destroy());
+    });
+    // Flota un momento y se va.
+    this.tweens.add({ targets: premio, y: hasta - 14, duration: 380, yoyo: true, repeat: 1, delay: 450, ease: 'Sine.easeInOut' });
+    this.tweens.add({
+      targets: [premio, brillo], alpha: 0, duration: 450, delay: 2000,
+      onComplete: () => { premio.destroy(); brillo.destroy(); },
+    });
+    this.tweens.add({ targets: premio, y: hasta - 90, scale: 0.6, duration: 450, delay: 2000, ease: 'Quad.easeIn' });
+
+    if (cfg.sonidoPremio && this.cache.audio.exists(cfg.sonidoPremio)) {
+      this.sound.play(cfg.sonidoPremio, { volume: cfg.volumenPremio ?? 0.5 });
+    }
+    this.interfaz.mostrarAviso(cfg.textoPremio || '¡Conseguiste una palta!', 3);
   }
 
   // Al llegar a los contactos necesarios: confeti y el diálogo de felicitaciones
