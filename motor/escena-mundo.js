@@ -66,6 +66,8 @@ export class EscenaMundo extends Phaser.Scene {
       ...this.mundo.objetos.map(o => ({ tipo: 'objeto', datos: o, sprite: crearObjeto(this, o), copa: crearCopa(this, o) })),
     ];
     this.interactuables = this.entidades.filter(e => e.datos.dialogos?.length);
+    // Objetos con efectos "al tocar" (como el tacho): también se activan de cerca, como al hablar.
+    this.tocables = this.entidades.filter(e => e.tipo === 'objeto' && e.datos.alTocar?.length && !e.datos.dialogos?.length);
     for (const e of this.interactuables) e.sprite.setInteractive({ useHandCursor: true });
     for (const p of this.mundo.particulas) crearParticulas(this, p);
     this.trafico = new Trafico(this, this.mundo.trafico);
@@ -108,7 +110,7 @@ export class EscenaMundo extends Phaser.Scene {
 
     this.input.keyboard.on('keydown', e => {
       if ([' ', 'Enter', 'e', 'E'].includes(e.key) && this.puedeInteractuar() && this.cercano) {
-        this.hablar(this.cercano);
+        this.interactuar(this.cercano);
       }
       if (e.key === 'c' || e.key === 'C') this.alternarDepuracion();
     });
@@ -338,13 +340,15 @@ export class EscenaMundo extends Phaser.Scene {
   actualizarCercano(time) {
     const rango = this.mundo.distanciaParaHablar;
     let mejor = null, mejorDist = Infinity;
-    for (const e of this.interactuables) {
+    // Los objetos "al tocar" cuentan solo mientras su condición se cumpla (el tacho, hasta que sale la comadreja).
+    const tocables = this.tocables.filter(e => this.estado.cumple(e.datos.alTocarSi, this.personajes));
+    for (const e of [...this.interactuables, ...tocables]) {
       if (!e.visible) continue;
       const d = Math.hypot(e.datos.x - this.pos.x, e.datos.y - this.pos.y);
       if (d <= rango && d < mejorDist) { mejor = e; mejorDist = d; }
     }
     this.cercano = mejor;
-    const visible = !!mejor && !this.dialogo.abierto;
+    const visible = !!mejor && !this.dialogo.abierto && !this.ocupado;
     this.etiqueta.setVisible(visible && !!mejor.datos.nombre);
     this.burbuja.setVisible(visible);
     if (!visible) return;
@@ -355,41 +359,65 @@ export class EscenaMundo extends Phaser.Scene {
   }
 
   puedeInteractuar() {
-    return !this.dialogo.abierto && !this.interfaz.bloqueaJuego() && !this.datos.intro?.activa && !this.desafioActivo &&
+    return !this.dialogo.abierto && !this.interfaz.bloqueaJuego() && !this.datos.intro?.activa && !this.desafioActivo && !this.ocupado &&
       performance.now() - this.ultimoCierre > ESPERA_TRAS_DIALOGO;
   }
 
-  // Click o tap: si estás cerca de alguien, se habla tocando en cualquier lugar.
+  // Click o tap. En orden: un objeto que se sacude (árbol, tacho), una zona que se activa al
+  // tocarla, y si no, hablar con quien esté cerca (tocando en cualquier lugar).
   // Si no hay nadie cerca y se tocó a alguien lejos, avisa que hay que acercarse.
   alTocar(pointer) {
     if (!this.puedeInteractuar()) return;
     const punto = this.cameras.main.getWorldPoint(pointer.x, pointer.y);
-    const arbol = this.arbolEn(punto.x, punto.y);
-    if (arbol) {
-      this.sacudirArbol(arbol);
+    const objeto = this.objetoTocableEn(punto.x, punto.y);
+    if (objeto) {
+      this.sacudir(objeto);
       return;
     }
+    if (this.tocarZona(punto.x, punto.y)) return;
     if (this.cercano) {
-      this.hablar(this.cercano);
+      this.interactuar(this.cercano);
       return;
     }
     const tocado = this.interactuables.some(e => e.visible && e.sprite.getBounds().contains(punto.x, punto.y));
     if (tocado) this.textoFlotante('Acercate para hablar');
   }
 
-  hablar(entidad) {
-    this.controles.cancelar();
-    this.mirarHacia(entidad, this.pos.x, this.pos.y);
-    this.dialogo.abrir(entidad.datos, () => this.alTerminarDialogo(entidad));
+  // Zonas de evento marcadas "al tocar": se activan con un click o tap adentro (no caminando).
+  tocarZona(x, y) {
+    const ev = this.mundo.eventos.find(ev => ev.alTocar &&
+      x >= ev.x && x <= ev.x + ev.ancho && y >= ev.y && y <= ev.y + ev.alto);
+    if (!ev || !this.estado.cumple(ev.si, this.personajes)) return false;
+    if (ev.unaVez) {
+      if (this.estado.flags[`evento:${ev.id}`]) return false;
+      this.estado.activarFlag(`evento:${ev.id}`);
+    }
+    for (const efecto of ev.efectos || []) this.aplicarEfecto(efecto, ev);
+    return true;
   }
 
-  alTerminarDialogo(entidad) {
+  // Con quien esté cerca: se habla, o si es un objeto "al tocar" (el tacho), se sacude.
+  interactuar(entidad) {
+    if (this.tocables.includes(entidad)) this.sacudir(entidad);
+    else this.hablar(entidad);
+  }
+
+  // idDialogo: abre ese diálogo en particular (no el que toque según las condiciones);
+  // en ese caso la charla no suma el contacto a la agenda.
+  hablar(entidad, idDialogo) {
+    this.controles.cancelar();
+    this.mirarHacia(entidad, this.pos.x, this.pos.y);
+    const datos = idDialogo ? { ...entidad.datos, dialogos: [{ id: idDialogo }] } : entidad.datos;
+    this.dialogo.abrir(datos, () => this.alTerminarDialogo(entidad, !idDialogo));
+  }
+
+  alTerminarDialogo(entidad, sumaContacto = true) {
     this.ultimoCierre = performance.now();
     if (entidad.texturas) this.time.delayedCall(2500, () => { if (!this.dialogo.abierto) this.mirarAlFrente(entidad); });
     const p = entidad.datos;
     const obj = this.mundo.objetivo;
     const antes = this.estado.cantidadContactos(this.personajes);
-    if (entidad.tipo === 'personaje' && (!p.agendaAlFinal || this.estado.terminado)) {
+    if (sumaContacto && entidad.tipo === 'personaje' && (!p.agendaAlFinal || this.estado.terminado)) {
       if (this.estado.agregarContacto(p.id)) this.interfaz.mostrarAviso(`Nuevo contacto: ${p.nombre}`);
     }
     const despues = this.estado.cantidadContactos(this.personajes);
@@ -407,10 +435,14 @@ export class EscenaMundo extends Phaser.Scene {
       this.desafioPendiente = null;
       this.empezarDesafio(id);
     } else if (this.dialogoPendiente) {
-      const siguiente = this.dialogoPendiente;
+      const abrir = this.dialogoPendiente;
       this.dialogoPendiente = null;
-      this.time.delayedCall(150, () => this.hablar(siguiente));
+      this.time.delayedCall(150, abrir);
     }
+    // Un personaje que se va corriendo (efecto "huir"), cuando se cierra el diálogo.
+    const huidas = this.huidasPendientes || [];
+    this.huidasPendientes = [];
+    for (const efecto of huidas) this.huir(efecto);
   }
 
   // Sube o baja el volumen de la música de a poco, entre dos valores fijos. No se anima el volumen
@@ -474,12 +506,32 @@ export class EscenaMundo extends Phaser.Scene {
         if (this.cache.audio.exists(efecto.archivo)) this.sound.play(efecto.archivo);
         break;
       case 'dialogo': {
+        // "dialogo": uno en particular; "exclamacion": antes le sale un "!" arriba de la cabeza.
         const entidad = this.interactuables.find(e => e.datos.id === efecto.id);
         if (!entidad) break;
-        if (this.dialogo.abierto) this.dialogoPendiente = entidad;
-        else this.hablar(entidad);
+        const abrir = () => this.hablar(entidad, efecto.dialogo);
+        const seguir = efecto.exclamacion ? () => this.exclamar(entidad, abrir) : abrir;
+        if (this.dialogo.abierto) this.dialogoPendiente = seguir;
+        else seguir();
         break;
       }
+      case 'premio': {
+        // Sale del personaje que habla o del objeto tocado, como la palta de los árboles.
+        const desde = this.entidades.find(e => e.datos === origen || e.datos.id === origen?.id);
+        if (desde) this.darPremio(desde, efecto);
+        break;
+      }
+      case 'aparecer': {
+        const entidad = this.entidades.find(e => e.datos.id === efecto.id);
+        const desde = this.entidades.find(e => e.datos === origen);
+        if (entidad) this.aparecer(entidad, desde, efecto.hablar);
+        break;
+      }
+      case 'huir':
+        // Si se eligió en un diálogo, se va cuando el diálogo se cierra.
+        if (this.dialogo.abierto) (this.huidasPendientes ??= []).push(efecto);
+        else this.huir(efecto);
+        break;
       case 'desafio':
         // Si se eligió en un diálogo, empieza cuando el diálogo se cierra.
         this.desafioPendiente = efecto.id;
@@ -499,6 +551,7 @@ export class EscenaMundo extends Phaser.Scene {
   // Zonas de evento: se disparan al entrar caminando.
   revisarEventos() {
     for (const ev of this.mundo.eventos) {
+      if (ev.alTocar) continue; // esas se activan tocándolas (ver tocarZona)
       const dentro = this.pos.x >= ev.x && this.pos.x <= ev.x + ev.ancho &&
         this.pos.y >= ev.y && this.pos.y <= ev.y + ev.alto;
       const estabaDentro = this.dentroDeEvento.has(ev.id);
@@ -532,12 +585,13 @@ export class EscenaMundo extends Phaser.Scene {
     this.tweens.add({ targets: t, y: t.y - 40, alpha: 0, duration: 1200, delay: 400, onComplete: () => t.destroy() });
   }
 
-  // Árbol (objeto con copa) tocado en ese punto: el de más adelante, y solo si se tocó
-  // una parte dibujada (no el borde transparente de la imagen).
-  arbolEn(x, y) {
+  // Objeto que se sacude al tocarlo (un árbol, o uno con efectos "al tocar", como el tacho)
+  // en ese punto: el de más adelante, y solo si se tocó una parte dibujada.
+  objetoTocableEn(x, y) {
     let mejor = null;
     for (const e of this.entidades) {
-      if (!e.copa || !e.visible || !e.sprite.getBounds().contains(x, y)) continue;
+      if (e.tipo !== 'objeto' || !(e.copa || e.datos.alTocar?.length)) continue;
+      if (!e.visible || !e.sprite.getBounds().contains(x, y)) continue;
       const s = e.sprite;
       const lx = Math.floor((x - s.getTopLeft().x) / s.scaleX);
       const ly = Math.floor((y - s.getTopLeft().y) / s.scaleY);
@@ -547,12 +601,13 @@ export class EscenaMundo extends Phaser.Scene {
     return mejor;
   }
 
-  // Sacudón del árbol con hojitas que caen; a veces sale un premio (mundo.json → arboles).
-  sacudirArbol(e) {
+  // Sacudón del objeto. Los árboles largan hojitas y a veces un premio (mundo.json → arboles);
+  // los objetos con efectos "al tocar" (alTocar, si se cumple alTocarSi) los aplican después.
+  sacudir(e) {
     const ahora = performance.now();
     if (ahora - (e.ultimaSacudida || 0) < 900) return;
     e.ultimaSacudida = ahora;
-    const partes = [e.sprite, e.copa];
+    const partes = [e.sprite, e.copa].filter(Boolean);
     this.tweens.killTweensOf(partes);
     partes.forEach(p => p.setAngle(0));
     this.tweens.chain({
@@ -562,6 +617,11 @@ export class EscenaMundo extends Phaser.Scene {
         { angle: -0.5, duration: 100 }, { angle: 0, duration: 120, ease: 'Sine.easeOut' },
       ],
     });
+
+    if (e.datos.alTocar?.length && this.estado.cumple(e.datos.alTocarSi, this.personajes)) {
+      this.time.delayedCall(450, () => { for (const efecto of e.datos.alTocar) this.aplicarEfecto(efecto, e.datos); });
+    }
+    if (!e.copa) return;
 
     const d = e.datos, ancho = e.sprite.displayWidth, alto = e.sprite.displayHeight;
     const hojas = this.add.particles(0, 0, 'hoja', {
@@ -578,13 +638,16 @@ export class EscenaMundo extends Phaser.Scene {
     hojas.explode(24);
     this.time.delayedCall(2500, () => hojas.destroy());
 
-    const cfg = this.mundo.arboles;
-    if (cfg?.premio && Math.random() < (cfg.probabilidad ?? 1 / 3)) this.time.delayedCall(250, () => this.darPremio(e));
+    const a = this.mundo.arboles;
+    if (a?.premio && Math.random() < (a.probabilidad ?? 1 / 3)) {
+      const premio = { imagen: a.premio, alto: a.altoPremio, texto: a.textoPremio, sonido: a.sonidoPremio, volumen: a.volumenPremio };
+      this.time.delayedCall(250, () => this.darPremio(e, premio));
+    }
   }
 
-  // El premio salta de la copa con un brillo y chispas, y avisa.
-  darPremio(e) {
-    const cfg = this.mundo.arboles;
+  // Un premio (imagen) salta desde la entidad con un brillo y chispas, suena y avisa (si tiene texto).
+  // cfg: { imagen, alto, texto, sonido, volumen }.
+  darPremio(e, cfg) {
     const d = e.datos;
     const capa = profundidad('arriba', d.y) + 2;
     // Sube desde la copa, pero sin salirse de lo que se ve en pantalla.
@@ -592,7 +655,7 @@ export class EscenaMundo extends Phaser.Scene {
     const hasta = Math.max(desde - 170, this.cameras.main.worldView.y + 130);
 
     const brillo = this.add.image(x, hasta, 'punto').setTint(0xfff2a8).setBlendMode('ADD').setScale(0).setDepth(capa);
-    const premio = this.add.image(x, desde, claveTextura(cfg.premio, cfg.altoPremio || 110)).setScale(0).setDepth(capa + 1);
+    const premio = this.add.image(x, desde, claveTextura(cfg.imagen, cfg.alto || 110)).setScale(0).setDepth(capa + 1);
     this.tweens.add({ targets: premio, y: hasta, scale: 1, duration: 450, ease: 'Back.easeOut' });
     this.tweens.add({ targets: brillo, scale: 10, duration: 450, ease: 'Back.easeOut' });
     this.tweens.add({ targets: brillo, angle: 360, duration: 2400 });
@@ -614,10 +677,80 @@ export class EscenaMundo extends Phaser.Scene {
     });
     this.tweens.add({ targets: premio, y: hasta - 90, scale: 0.6, duration: 450, delay: 2000, ease: 'Quad.easeIn' });
 
-    if (cfg.sonidoPremio && this.cache.audio.exists(cfg.sonidoPremio)) {
-      this.sound.play(cfg.sonidoPremio, { volume: cfg.volumenPremio ?? 0.5 });
-    }
-    this.interfaz.mostrarAviso(cfg.textoPremio || '¡Conseguiste una palta!', 3);
+    if (cfg.sonido && this.cache.audio.exists(cfg.sonido)) this.sound.play(cfg.sonido, { volume: cfg.volumen ?? 0.5 });
+    if (cfg.texto) this.interfaz.mostrarAviso(cfg.texto, 3);
+  }
+
+  // Un "!" salta arriba de la cabeza del personaje; después sigue (por ejemplo, abre su diálogo).
+  exclamar(entidad, luego) {
+    this.controles.cancelar();
+    this.ocupado = true;
+    this.mirarHacia(entidad, this.pos.x, this.pos.y);
+    const cabeza = entidad.datos.y - entidad.sprite.displayHeight - 12;
+    const signo = this.add.text(entidad.datos.x, cabeza, '!', {
+      fontFamily: '"Pixelify Sans", monospace', fontSize: '72px', fontStyle: '600', color: '#ffd34d',
+      stroke: '#1b1b2f', strokeThickness: 10,
+    }).setOrigin(0.5, 1).setDepth(2e5).setScale(0);
+    this.tweens.add({ targets: signo, scale: 1, duration: 260, ease: 'Back.easeOut' });
+    this.tweens.add({ targets: signo, y: cabeza - 24, duration: 160, yoyo: true, repeat: 1, delay: 260, ease: 'Sine.easeOut' });
+    this.time.delayedCall(950, () => {
+      signo.destroy();
+      this.ocupado = false;
+      luego();
+    });
+  }
+
+  // Un personaje oculto aparece de un salto desde un objeto (por ejemplo, la comadreja del tacho).
+  // La condición "si" del personaje la tiene que dejar visible (un efecto "flag" antes de este).
+  aparecer(entidad, desde, hablarDespues) {
+    this.actualizarVisibilidad();
+    const s = entidad.sprite, d = entidad.datos;
+    const x0 = desde ? desde.datos.x : d.x, y0 = desde ? desde.datos.y - desde.sprite.displayHeight * 0.6 : d.y;
+    const salto = { t: 0 };
+    s.setPosition(x0, y0).setAlpha(0);
+    entidad.sombra?.setAlpha(0);
+    this.ocupado = true;
+    this.tweens.add({
+      targets: salto, t: 1, duration: 650, ease: 'Sine.easeInOut',
+      onUpdate: () => {
+        const t = salto.t;
+        s.setPosition(x0 + (d.x - x0) * t, y0 + (d.y - y0) * t - Math.sin(Math.PI * t) * 140).setAlpha(Math.min(1, t * 4));
+      },
+      onComplete: () => {
+        s.setPosition(d.x, d.y);
+        entidad.sombra?.setAlpha(1);
+        this.ocupado = false;
+        if (hablarDespues) this.time.delayedCall(250, () => this.hablar(entidad));
+      },
+    });
+    const humo = this.add.particles(x0, y0, 'punto', {
+      speed: { min: 60, max: 180 }, angle: { min: 180, max: 360 }, scale: { start: 1.2, end: 0 },
+      alpha: { start: 0.8, end: 0 }, lifespan: 600, tint: 0xd8d2c4, emitting: false,
+    }).setDepth(s.depth + 1);
+    humo.explode(14);
+    this.time.delayedCall(800, () => humo.destroy());
+  }
+
+  // Un personaje se va corriendo (lejos del jugador) y desaparece; al final activa efecto.flag.
+  huir(efecto) {
+    const entidad = this.entidades.find(e => e.datos.id === efecto.id);
+    if (!entidad) return;
+    const s = entidad.sprite, d = entidad.datos;
+    const lado = d.x >= this.pos.x ? 1 : -1;
+    if (entidad.texturas) s.setTexture(entidad.texturas.lado).setFlipX((lado < 0) !== !!d.ladoMiraIzquierda);
+    entidad.sombra?.setVisible(false);
+    this.ocupado = true;
+    this.tweens.add({ targets: s, y: d.y - 18, duration: 110, yoyo: true, repeat: 4, ease: 'Sine.easeOut' });
+    this.tweens.add({
+      targets: s, x: d.x + lado * 650, alpha: 0, duration: 1000, ease: 'Quad.easeIn',
+      onComplete: () => {
+        if (efecto.flag) this.estado.activarFlag(efecto.flag);
+        this.actualizarVisibilidad();
+        s.setPosition(d.x, d.y).setAlpha(1);
+        this.mirarAlFrente(entidad);
+        this.ocupado = false;
+      },
+    });
   }
 
   // Al llegar a los contactos necesarios: confeti y el diálogo de felicitaciones

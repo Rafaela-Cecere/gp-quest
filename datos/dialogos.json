@@ -10,13 +10,13 @@
             "ir": "espero"
           },
           {
-            "texto": "Eh... ¡obvio que sí!",
+            "texto": "Eh... ¿Si?",
             "ir": "olvido"
           }
         ]
       },
       "espero": {
-        "texto": "Espero que hagas un buen trabajo, eh. Yo di la cara por vos.",
+        "texto": "Espero que hagas un buen trabajo, eh. Por el bien de ambos....",
         "siguiente": "tortafritas"
       },
       "olvido": {
@@ -108,7 +108,7 @@
     "inicio": "hola",
     "nodos": {
       "hola": {
-        "texto": "Todavía me acuerdo de tu respuesta del capitel. ¡Así me gusta! Andá, que la fiesta sigue."
+        "texto": "Yo sabía que no me equivocaba contigo. ¡Así me gusta! Andá, que la fiesta sigue."
       }
     }
   },
@@ -227,7 +227,7 @@
         "siguiente": "desafio"
       },
       "apodo": {
-        "texto": "Pablo... pero todos me dicen Rulo... Si Bruno llora, no le hagas caso... Qué te iba a decir...",
+        "texto": "Pablo... pero todos me dicen Rulo... Qué te iba a decir...",
         "siguiente": "desafio"
       },
       "desafio": {
@@ -291,7 +291,7 @@
     "inicio": "hola",
     "nodos": {
       "hola": {
-        "texto": "Ah, el de la rubia legendaria... Te iba a decir algo... ¿Ya te conté de cuando fuimos a pescar con mi tío?"
+        "texto": "Ah, el que sabe sobre física cuántica... Te iba a decir algo... ¿Ya te conté de cuando fuimos a pescar con mi tío?"
       }
     }
   },
@@ -299,7 +299,7 @@
     "inicio": "hola",
     "nodos": {
       "hola": {
-        "texto": "¡Guau! ¡Guau! (Polo mueve la cola como loco.)",
+        "texto": "¡Guau! ¡Guau! *mueve la cola como loco*",
         "opciones": [
           {
             "texto": "Acariciarlo",
@@ -312,7 +312,7 @@
         ]
       },
       "caricia": {
-        "texto": "Polo se tira panza arriba. Acabás de hacer un amigo para toda la vida."
+        "texto": "Polo se tira panza arriba. Acabás de hacer un amigo muy esponjoso."
       },
       "dueno": {
         "texto": "Polo mira a Pablo Martínez, después a vos, y se sienta. No piensa moverse de al lado de su dueño."
@@ -339,23 +339,23 @@
     "inicio": "hola",
     "nodos": {
       "hola": {
-        "texto": "¡Bienvenido! Tranqui, si te mandás alguna, no te van a echar. A Bruno todavía no lo echaron.",
+        "texto": "¡Bienvenido! Sos el nuevo, ¿No? ¿De casualidad no viste una oveja por acá?",
         "opciones": [
           {
-            "texto": "Jaja, ¿tan así?",
+            "texto": "¡Si, soy el nuevo! ¿Una oveja?",
             "ir": "asi"
           },
           {
-            "texto": "Me dejás más tranquilo.",
+            "texto": "Ah si, está con su dueño, Gabriel, sos del equipo de 3D entonces?",
             "ir": "tranquilo"
           }
         ]
       },
       "asi": {
-        "texto": "Una vez Bruno demoró 3 días haciendo una maqueta blanca. Y acá sigue. Soy Juan, un gusto."
+        "texto": "Si, siguió a Gabriel desde su casa hasta la fiesta, tas loco. Soy Juan, un gusto."
       },
       "tranquilo": {
-        "texto": "¡Esa es la actitud! Soy Juan. Cualquier duda, preguntame. O al Rodri, que sabe todo. O más bien le pregunta a Claudia."
+        "texto": "Si, soy integrante  de 3D, me llamo Juan. Cualquier duda, preguntame. O al Rodri, que sabe todo. O más bien le pregunta a Claudia..."
       }
     }
   },
@@ -581,6 +581,158 @@
       },
       "gracias": {
         "texto": "¡De nada! Después contame qué te pareció. ¡Disfrutá la fiesta!"
+      }
+    }
+  },
+  "jeny-escalera": {
+    "inicio": "picada",
+    "nodos": {
+      "picada": {
+        "texto": "¡Ay! Están organizando los bocaditos de la picada en el comedor. Mejor explorá el resto del estudio."
+      }
+    }
+  },
+  "franco-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Franco, pero todos me dicen Pala. Soy de Gestión de Talento y también ayudo a coordinar los eventos.",
+        "opciones": [
+          {
+            "texto": "¿Vos ayudaste a organizar la fiesta?",
+            "ir": "fiesta"
+          },
+          {
+            "texto": "¡Un gusto, Pala!",
+            "ir": "fin"
+          }
+        ]
+      },
+      "fiesta": {
+        "texto": "¡Sí! Y tranqui, que hoy no llueve. Lo chequeé tres veces...",
+        "opciones": [
+          {
+            "texto": "Me contaron que cancelás los asados de los viernes...",
+            "ir": "asados"
+          },
+          {
+            "texto": "¡Genial, gracias!",
+            "ir": "fin"
+          }
+        ]
+      },
+      "asados": {
+        "texto": "Los cancelé porque iba a llover. Que después no haya llovido es otro tema. ¡El pronóstico decía que sí! "
+      },
+      "fin": {
+        "texto": "Cualquier cosa que necesites, avisame. Y si ves nubes de lluvia, avisame también... por las dudas."
+      }
+    }
+  },
+  "franco-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¿Viste esa nube? Mmm... capaz que suspendo el asado del viernes."
+      }
+    }
+  },
+  "analia-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Analía, de Gestión de Talento. Si tenés cualquier pregunta, lo que sea, preguntame nomás.",
+        "opciones": [
+          {
+            "texto": "¿Algún consejo para el primer día?",
+            "ir": "consejo"
+          },
+          {
+            "texto": "¿Qué hay en el menú de la fiesta?",
+            "ir": "almuerzo"
+          }
+        ]
+      },
+      "consejo": {
+        "texto": "Preguntá todo, que nadie nace sabiendo. Y si traés vianda, nada de calentar pescado en el microondas.",
+        "opciones": [
+          {
+            "texto": "Jaja, anotado. ¡Gracias, Analía!",
+            "ir": "fin"
+          }
+        ]
+      },
+      "almuerzo": {
+        "texto": "Eso es sorpresa. Pero te pido una sola cosa: si alguna vez almorzas pescado, no lo calientes en el microondas. Por favor.",
+        "opciones": [
+          {
+            "texto": "Prometido. ¡Gracias, Analía!",
+            "ir": "fin"
+          }
+        ]
+      },
+      "fin": {
+        "texto": "¡Para eso estoy! Cualquier otra duda, ya sabés dónde encontrarme."
+      }
+    }
+  },
+  "analia-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¿Alguna pregunta? Estoy para eso. Ah y no te olvides del carnet de salud al día."
+      }
+    }
+  },
+  "comadreja-intro": {
+    "inicio": "mira",
+    "nodos": {
+      "mira": {
+        "texto": "*te mira agradecida de que la hayas sacado del bote de basura*",
+        "opciones": [
+          {
+            "texto": "Shu, shu",
+            "ir": "se-va",
+            "efectos": [
+              {
+                "tipo": "huir",
+                "id": "comadreja",
+                "flag": "comadreja-se-fue"
+              }
+            ]
+          },
+          {
+            "texto": "Aw, pobrecita",
+            "ir": "regalo",
+            "efectos": [
+              {
+                "tipo": "flag",
+                "nombre": "comadreja-amiga"
+              },
+              {
+                "tipo": "premio",
+                "imagen": "Insumos/Items/Pendrive.png",
+                "alto": 110,
+                "sonido": "Insumos/Sonidos/Right.mp3"
+              }
+            ]
+          }
+        ]
+      },
+      "se-va": {
+        "texto": "*se va corriendo*"
+      },
+      "regalo": {
+        "narrador": true,
+        "texto": "La comadreja te ofrece un pendrive... pero sin pedirle un ticket a IT no vas a poder usarlo..."
+      }
+    }
+  },
+  "comadreja-otra-vez": {
+    "inicio": "mira",
+    "nodos": {
+      "mira": {
+        "texto": "*te mira contenta desde al lado del tacho*"
       }
     }
   },

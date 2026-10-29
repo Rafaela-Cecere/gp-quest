@@ -52,7 +52,7 @@ export function spritesDe(p) {
 }
 
 // Qué imágenes hay que preparar y a qué tamaño: [{ ruta, alto }].
-export function texturasUsadas({ mundo, personajes }) {
+export function texturasUsadas({ mundo, personajes, dialogos }) {
   const pedidos = [];
   const agregarPersonaje = p => {
     const alto = altoDe(p, mundo);
@@ -70,6 +70,11 @@ export function texturasUsadas({ mundo, personajes }) {
   }
   for (const t of mundo.trafico) for (const ruta of t.imagenes || []) pedidos.push({ ruta, alto: t.largo || 0 });
   if (mundo.arboles?.premio) pedidos.push({ ruta: mundo.arboles.premio, alto: mundo.arboles.altoPremio || 110 });
+  if (dialogos) {
+    for (const ef of todosLosEfectos({ mundo, dialogos })) {
+      if (ef.tipo === 'premio' && ef.imagen) pedidos.push({ ruta: ef.imagen, alto: ef.alto || 110 });
+    }
+  }
   return pedidos;
 }
 
@@ -80,7 +85,7 @@ export const esImagen = ruta => EXT_IMAGEN.test(ruta);
 export const esAudio = ruta => EXT_AUDIO.test(ruta);
 export const esVideo = ruta => EXT_VIDEO.test(ruta);
 
-// Recorre todos los efectos (diálogos y eventos) para saber qué sonidos hay que precargar.
+// Recorre todos los efectos (diálogos, eventos y objetos que se tocan) para saber qué hay que precargar.
 function* todosLosEfectos({ mundo, dialogos }) {
   for (const d of Object.values(dialogos)) {
     for (const nodo of Object.values(d.nodos || {})) {
@@ -88,6 +93,7 @@ function* todosLosEfectos({ mundo, dialogos }) {
     }
   }
   for (const ev of mundo.eventos) yield* ev.efectos || [];
+  for (const o of mundo.objetos) yield* o.alTocar || [];
 }
 
 // Todos los audios que usa el juego, para precargarlos. La música no: se baja por detrás (escena-mundo.js).
@@ -97,7 +103,10 @@ export function audiosUsados(datos) {
   for (const s of mundo.sonidos) audios.add(s.archivo);
   if (mundo.jugador.sonidoPasos) audios.add(mundo.jugador.sonidoPasos);
   if (mundo.arboles?.sonidoPremio) audios.add(mundo.arboles.sonidoPremio);
-  for (const ef of todosLosEfectos(datos)) if (ef.tipo === 'sonido' && ef.archivo) audios.add(ef.archivo);
+  for (const ef of todosLosEfectos(datos)) {
+    if (ef.tipo === 'sonido' && ef.archivo) audios.add(ef.archivo);
+    if (ef.tipo === 'premio' && ef.sonido) audios.add(ef.sonido);
+  }
   audios.delete(undefined);
   audios.delete('');
   return audios;
