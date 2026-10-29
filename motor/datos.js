@@ -70,6 +70,9 @@ export function texturasUsadas({ mundo, personajes, dialogos }) {
   }
   for (const t of mundo.trafico) for (const ruta of t.imagenes || []) pedidos.push({ ruta, alto: t.largo || 0 });
   if (mundo.arboles?.premio) pedidos.push({ ruta: mundo.arboles.premio, alto: mundo.arboles.altoPremio || 110 });
+  for (const p of premiosDeMinijuegos(mundo)) {
+    if (p?.imagen) pedidos.push({ ruta: p.imagen, alto: p.alto || 110 });
+  }
   if (dialogos) {
     for (const ef of todosLosEfectos({ mundo, dialogos })) {
       if (ef.tipo === 'premio' && ef.imagen) pedidos.push({ ruta: ef.imagen, alto: ef.alto || 110 });
@@ -84,6 +87,9 @@ const EXT_VIDEO = /\.(webm|mp4)$/i;
 export const esImagen = ruta => EXT_IMAGEN.test(ruta);
 export const esAudio = ruta => EXT_AUDIO.test(ruta);
 export const esVideo = ruta => EXT_VIDEO.test(ruta);
+
+// Premios al ganar o perder los minijuegos (frutas y ping pong).
+const premiosDeMinijuegos = mundo => [mundo.fruitNinja, mundo.pingPong].flatMap(m => [m?.premioGanar, m?.premioPerder]);
 
 // Recorre todos los efectos (diálogos, eventos y objetos que se tocan) para saber qué hay que precargar.
 function* todosLosEfectos({ mundo, dialogos }) {
@@ -103,6 +109,7 @@ export function audiosUsados(datos) {
   for (const s of mundo.sonidos) audios.add(s.archivo);
   if (mundo.jugador.sonidoPasos) audios.add(mundo.jugador.sonidoPasos);
   if (mundo.arboles?.sonidoPremio) audios.add(mundo.arboles.sonidoPremio);
+  for (const p of premiosDeMinijuegos(mundo)) if (p?.sonido) audios.add(p.sonido);
   for (const ef of todosLosEfectos(datos)) {
     if (ef.tipo === 'sonido' && ef.archivo) audios.add(ef.archivo);
     if (ef.tipo === 'premio' && ef.sonido) audios.add(ef.sonido);

@@ -13,6 +13,8 @@ import { crearTexturasBase, crearObjeto, crearCopa, crearSpritePersonaje, crearP
 import { claveTextura, registrarLienzos } from './texturas.js';
 import { Trafico } from './trafico.js';
 import { Desafio, precargarDesafio } from './desafio.js';
+import { FruitNinja, precargarFruitNinja } from './fruit-ninja.js';
+import { PingPong, precargarPingPong } from './ping-pong.js';
 
 const PIES = { ancho: 56, alto: 24 }; // caja de colisión en los pies de cada personaje
 const ALTO_BASE_SOLIDA = 40;          // alto de la parte que choca en los objetos sólidos
@@ -119,12 +121,20 @@ export class EscenaMundo extends Phaser.Scene {
     // Los desafíos se bajan por detrás cuando ya arrancó el juego, para que después no esperen.
     Promise.resolve(this.datos.intro?.terminada).then(() => {
       for (const d of Object.values(this.mundo.desafios || {})) precargarDesafio(d);
+      precargarFruitNinja(this.mundo.fruitNinja);
+      precargarPingPong(this.mundo.pingPong);
     });
 
     // ?hablar=<id> abre el diálogo de ese personaje al empezar (para probar diálogos rápido).
     // ?desafio=<id> empieza directamente ese desafío.
     const probar = this.interactuables.find(e => e.datos.id === params.get('hablar'));
-    if (params.has('desafio')) Promise.resolve(this.datos.intro?.terminada).then(() => this.empezarDesafio(params.get('desafio')));
+    // ?frutas / ?pingpong empiezan directamente esos minijuegos (el premio sale del objeto que los abre).
+    const conMinijuego = tipo => this.entidades.find(e => e.datos.alTocar?.some(ef => ef.tipo === tipo))?.datos;
+    if (params.has('frutas')) {
+      Promise.resolve(this.datos.intro?.terminada).then(() => this.empezarFruitNinja(conMinijuego('fruitNinja')));
+    } else if (params.has('pingpong')) {
+      Promise.resolve(this.datos.intro?.terminada).then(() => this.empezarPingPong(conMinijuego('pingPong')));
+    } else if (params.has('desafio')) Promise.resolve(this.datos.intro?.terminada).then(() => this.empezarDesafio(params.get('desafio')));
     else if (probar) this.hablar(probar);
     else if (!this.estado.terminado) {
       // El aviso del objetivo sale cuando termina la intro (si la hay).
@@ -191,6 +201,8 @@ export class EscenaMundo extends Phaser.Scene {
           this.musica = this.sound.add(m.archivo, { loop: true, volume: 0 });
           this.musica.play();
           this.fundirMusica(0, m.volumen ?? 0.15, 3000);
+          // Si terminó de bajar justo durante un desafío o minijuego, espera callada hasta que termine.
+          if (this.desafioActivo) this.musica.pause();
         });
       }
       this.sonidosAmbiente = this.mundo.sonidos
@@ -218,6 +230,12 @@ export class EscenaMundo extends Phaser.Scene {
     // Nunca mostrar fuera del mapa.
     zoom = Math.max(zoom, width / this.anchoMapa, height / this.altoMapa);
     this.cameras.main.setZoom(zoom);
+    // El personaje va un poco más abajo del medio de la pantalla, para ver mejor hacia dónde caminás
+    // (mundo.json → camaraAbajo: fracción de la pantalla; 0 = en el medio). En el celular acostado
+    // la pantalla es muy bajita y casi no se notaba, así que ahí va más abajo (camaraAbajoCelular).
+    const celular = matchMedia('(pointer: coarse)').matches && width > height;
+    const abajo = celular ? this.mundo.camaraAbajoCelular ?? 0.22 : this.mundo.camaraAbajo ?? 0.12;
+    this.cameras.main.setFollowOffset(0, abajo * height / zoom);
   }
 
   update(time, delta) {
@@ -483,6 +501,83 @@ export class EscenaMundo extends Phaser.Scene {
     this.ultimoCierre = performance.now();
   }
 
+  // Minijuego de frutas (mundo.json → fruitNinja). Como en los desafíos, el mundo se frena mientras dura.
+  // Al terminar, el premio (naranja o banana verde) sale del objeto que lo abrió (el canasto).
+  async empezarFruitNinja(origen) {
+    const config = this.mundo.fruitNinja;
+    if (!config) {
+      console.warn('No hay "fruitNinja" en mundo.json.');
+      return;
+    }
+    // Antes, un diálogo (por ejemplo, "¡Apurate o perdés!"); mientras tanto terminan de bajar las frutas.
+    precargarFruitNinja(config);
+    if (config.dialogoAntes && this.dialogo.dialogos[config.dialogoAntes]) {
+      await new Promise(r => this.dialogo.abrir({ id: 'fruit-ninja', dialogos: [{ id: config.dialogoAntes }] }, r));
+    }
+    const r = await this.jugarMinijuego(new FruitNinja(config));
+    if (!r.abandonado) this.premioDeMinijuego(r.gano ? config.premioGanar : config.premioPerder, origen);
+  }
+
+  // Ping pong (mundo.json → pingPong). Antes pregunta si querés jugar: solo se juega si la
+  // respuesta elegida activa el flag "flagJugar" (que después se borra, para la próxima vez).
+  async empezarPingPong(origen) {
+    const config = this.mundo.pingPong;
+    if (!config) {
+      console.warn('No hay "pingPong" en mundo.json.');
+      return;
+    }
+    precargarPingPong(config);
+    if (config.dialogoAntes && this.dialogo.dialogos[config.dialogoAntes]) {
+      if (config.flagJugar) this.estado.activarFlag(config.flagJugar, false);
+      await new Promise(r => this.dialogo.abrir({ id: 'ping-pong', dialogos: [{ id: config.dialogoAntes }] }, r));
+      if (config.flagJugar) {
+        const quiere = this.estado.flags[config.flagJugar];
+        this.estado.activarFlag(config.flagJugar, false);
+        if (!quiere) {
+          this.ultimoCierre = performance.now();
+          return;
+        }
+      }
+    }
+    const r = await this.jugarMinijuego(new PingPong(config));
+    if (!r.abandonado) this.premioDeMinijuego(r.gano ? config.premioGanar : config.premioPerder, origen);
+  }
+
+  // Corre un minijuego en pantalla completa. Como en los desafíos, el mundo se frena mientras dura;
+  // la música de fondo se calla y vuelve de a poco al terminar. Devuelve el resultado del juego.
+  async jugarMinijuego(juego) {
+    this.desafioActivo = true;
+    this.controles.cancelar();
+    const volumen = this.mundo.musica.volumen ?? 0.15;
+    if (this.musica) this.fundirMusica(volumen, 0, 400, () => this.musica.pause());
+    const r = await juego.correr();
+    await juego.cerrar();
+    if (this.musica) {
+      this.musica.resume();
+      this.fundirMusica(0, volumen, 2000);
+    }
+    this.desafioActivo = false;
+    this.ultimoCierre = performance.now();
+    return r;
+  }
+
+  // El premio sale del objeto que abrió el minijuego. Sin imagen, solo el aviso.
+  // Con "dialogo", después el personaje principal dice ese diálogo (por ejemplo, lee el vale), sin retrato.
+  premioDeMinijuego(premio, origen) {
+    if (!premio) return;
+    const desde = this.entidades.find(e => e.datos === origen);
+    if (premio.imagen && desde) this.time.delayedCall(300, () => this.darPremio(desde, premio));
+    else if (premio.texto) this.interfaz.mostrarAviso(premio.texto, premio.segundos ?? 3);
+    if (premio.dialogo && this.dialogo.dialogos[premio.dialogo]) {
+      const yo = { id: 'jugador', nombre: '', dialogos: [{ id: premio.dialogo }] };
+      this.time.delayedCall(premio.imagen ? 2900 : 800, () => {
+        if (this.dialogo.abierto) return;
+        this.controles.cancelar();
+        this.dialogo.abrir(yo, () => { this.ultimoCierre = performance.now(); });
+      });
+    }
+  }
+
   // Efectos que se pueden poner en las opciones de los diálogos y en los eventos.
   aplicarEfecto(efecto, origen) {
     switch (efecto.tipo) {
@@ -527,6 +622,12 @@ export class EscenaMundo extends Phaser.Scene {
         if (entidad) this.aparecer(entidad, desde, efecto.hablar);
         break;
       }
+      case 'fruitNinja':
+        this.empezarFruitNinja(origen);
+        break;
+      case 'pingPong':
+        this.empezarPingPong(origen);
+        break;
       case 'huir':
         // Si se eligió en un diálogo, se va cuando el diálogo se cierra.
         if (this.dialogo.abierto) (this.huidasPendientes ??= []).push(efecto);
@@ -678,7 +779,7 @@ export class EscenaMundo extends Phaser.Scene {
     this.tweens.add({ targets: premio, y: hasta - 90, scale: 0.6, duration: 450, delay: 2000, ease: 'Quad.easeIn' });
 
     if (cfg.sonido && this.cache.audio.exists(cfg.sonido)) this.sound.play(cfg.sonido, { volume: cfg.volumen ?? 0.5 });
-    if (cfg.texto) this.interfaz.mostrarAviso(cfg.texto, 3);
+    if (cfg.texto) this.interfaz.mostrarAviso(cfg.texto, cfg.segundos ?? 3);
   }
 
   // Un "!" salta arriba de la cabeza del personaje; después sigue (por ejemplo, abre su diálogo).

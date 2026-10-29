@@ -836,6 +836,94 @@ button {
 }
 @keyframes latido { 50% { opacity: 0.4; } }
 
+/* ---------- Minijuego de frutas (fruit-ninja.js) ---------- */
+
+.fruta-juego {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  background: #12121f;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  font-family: var(--fuente);
+  color: var(--crema);
+}
+.fruta-juego.visible { opacity: 1; }
+.fruta-lienzo { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: crosshair; }
+.fruta-hud {
+  position: absolute;
+  top: max(12px, env(safe-area-inset-top));
+  left: 16px;
+  right: 64px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  pointer-events: none;
+  font-size: 22px;
+  font-weight: 600;
+  text-shadow: 0 2px 0 #000, 0 0 6px #000;
+}
+.fruta-escapadas { color: #ff6b5a; letter-spacing: 4px; }
+.fruta-salir {
+  position: absolute;
+  top: max(10px, env(safe-area-inset-top));
+  right: 12px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 3px solid var(--crema);
+  background: rgba(20, 20, 35, 0.7);
+  color: var(--crema);
+  font: 600 18px var(--fuente);
+  cursor: pointer;
+}
+.fruta-mensaje {
+  position: absolute;
+  left: 50%;
+  top: 38%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(28px, 6vw, 60px);
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  text-shadow: 0 4px 0 #000, 0 0 14px #000;
+  pointer-events: none;
+  opacity: 0;
+}
+.fruta-mensaje.grande { font-size: clamp(64px, 16vw, 150px); color: #f2c14e; }
+.fruta-mensaje.chico { font-size: clamp(20px, 4vw, 32px); color: #ff6b5a; top: 80%; }
+.fruta-mensaje.chico.bien { color: #8fe36b; }
+/* Ping pong (ping-pong.js): usa el mismo fondo, marcador y carteles que el de frutas. */
+.ping-lienzo { cursor: ew-resize; }
+.ping-marcador { margin: 0 auto; padding-left: 48px; }
+.fruta-mensaje.visible { animation: fruta-mensaje 1.1s ease both; }
+@keyframes fruta-mensaje {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+  20% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
+  30% { transform: translate(-50%, -50%) scale(1); }
+  75% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.fruta-resultado {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: calc(100vw - 32px);
+  animation: desafio-resultado 0.6s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+  text-shadow: 0 4px 0 #000, 0 0 16px #000;
+  pointer-events: none;
+}
+.fruta-resultado-titulo { font-size: clamp(34px, 8vw, 84px); font-weight: 600; }
+.fruta-resultado.gano .fruta-resultado-titulo { color: #f2c14e; }
+.fruta-resultado.perdio .fruta-resultado-titulo { color: var(--acento-claro); }
+.fruta-resultado-detalle { font-size: clamp(18px, 3vw, 26px); margin-top: 6px; }
+.fruta-resultado-ayuda { margin-top: 14px; font-size: 16px; opacity: 0.75; }
+
 .error-carga {
   position: fixed;
   top: 50%;

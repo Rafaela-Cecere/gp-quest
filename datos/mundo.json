@@ -224,6 +224,97 @@
     "sonidoPremio": "Insumos/Sonidos/Right.mp3",
     "volumenPremio": 0.5
   },
+  "fruitNinja": {
+    "titulo": "¡Cortá todas las frutas!",
+    "fondo": "Insumos/Items/Fruit-Ninja/Fondo-para-fruit-ninja.png",
+    "dialogoAntes": "fruit-ninja-antes",
+    "cantidad": 20,
+    "velocidad": 1.3,
+    "frutas": [
+      {
+        "entera": "Insumos/Items/Fruit-Ninja/Manzana.png",
+        "mitades": [
+          "Insumos/Items/Fruit-Ninja/Manzana-Cortada-01.png",
+          "Insumos/Items/Fruit-Ninja/Manzana-Cortada-02.png"
+        ],
+        "jugo": "#c8202a"
+      },
+      {
+        "entera": "Insumos/Items/Fruit-Ninja/Manzana-verde.png",
+        "mitades": [
+          "Insumos/Items/Fruit-Ninja/Manzana-Verde-Cortada-01.png",
+          "Insumos/Items/Fruit-Ninja/Manzana-Verde-Cortada-02.png"
+        ],
+        "jugo": "#9cc93a"
+      },
+      {
+        "entera": "Insumos/Items/Fruit-Ninja/Banana.png",
+        "mitades": [
+          "Insumos/Items/Fruit-Ninja/Banana-Cortada-01.png",
+          "Insumos/Items/Fruit-Ninja/Banana-Cortada-02.png"
+        ],
+        "jugo": "#f3d34a"
+      },
+      {
+        "entera": "Insumos/Items/Fruit-Ninja/Naranja.png",
+        "mitades": [
+          "Insumos/Items/Fruit-Ninja/Naranja-Cortada-01.png",
+          "Insumos/Items/Fruit-Ninja/Naranja-Cortada-02.png"
+        ],
+        "jugo": "#f39a1e"
+      }
+    ],
+    "sonidos": {
+      "inicio": "Insumos/Items/Fruit-Ninja/sounds/Start.mp3",
+      "lanzar": "Insumos/Items/Fruit-Ninja/sounds/Fruit-Levitating.mp3",
+      "corte": "Insumos/Items/Fruit-Ninja/sounds/Fruit-Cut-01.mp3",
+      "aire": "Insumos/Items/Fruit-Ninja/sounds/Blade-no-cut.mp3"
+    },
+    "volumenSonidos": 0.6,
+    "premioGanar": {
+      "imagen": "Insumos/Items/Fruit-Ninja/Naranja.png",
+      "alto": 110,
+      "texto": "¡Ganaste una naranja!",
+      "sonido": "Insumos/Sonidos/Right.mp3"
+    },
+    "premioPerder": {
+      "imagen": "Insumos/Items/Banana-Verde.png",
+      "alto": 120,
+      "texto": "Ganaste una banana medio verde... tenés que esperar a que madure.",
+      "segundos": 4.5
+    }
+  },
+  "pingPong": {
+    "titulo": "¡El primero que haga 4 puntos, gana!",
+    "fondo": "Insumos/Items/Tennis/Fondo-Tenis.png",
+    "paletaJugador": "Insumos/Items/Tennis/Paleta-Personaje-Principal.png",
+    "paletaRival": "Insumos/Items/Tennis/Paleta-IA.png",
+    "pelota": "Insumos/Items/Tennis/Ping-Pong-Ball.png",
+    "dialogoAntes": "ping-pong-antes",
+    "flagJugar": "ping-pong-jugar",
+    "puntos": 4,
+    "velocidad": 1,
+    "nivelRival": 1,
+    "tamPelota": 1,
+    "sonidos": {
+      "golpe": "Insumos/Items/Tennis/Sounds/Paleta-hit-ball.mp3",
+      "pique": "Insumos/Items/Tennis/Sounds/Ball-Hit-Table.mp3",
+      "puntoGanado": "Insumos/Items/Tennis/Sounds/Point-win.mp3",
+      "puntoPerdido": "Insumos/Items/Tennis/Sounds/Point-Lose.mp3"
+    },
+    "volumenSonidos": 0.6,
+    "premioGanar": {
+      "imagen": "Insumos/Items/Tennis/Vale-por.png",
+      "alto": 150,
+      "texto": "¡Ganaste un vale!",
+      "sonido": "Insumos/Sonidos/Right.mp3",
+      "dialogo": "vale-asado"
+    },
+    "premioPerder": {
+      "texto": "Perdiste el partido... ¡la revancha cuando quieras!",
+      "segundos": 3.5
+    }
+  },
   "objetos": [
     {
       "id": "arbol-1",
@@ -442,11 +533,30 @@
     },
     {
       "id": "cajon-de-fruta",
+      "alTocar": [
+        {
+          "tipo": "fruitNinja"
+        }
+      ],
       "imagen": "Insumos/Items/Cajon-de-Fruta.png",
       "x": 6386,
       "y": 4841,
       "alto": 96,
       "capa": "normal"
+    },
+    {
+      "id": "tennis-mapa",
+      "alTocar": [
+        {
+          "tipo": "pingPong"
+        }
+      ],
+      "imagen": "Insumos/Items/Tennis/Tennis-Mapa.png",
+      "x": 7133,
+      "y": 2743,
+      "alto": 360,
+      "capa": "normal",
+      "solido": true
     }
   ],
   "musica": {

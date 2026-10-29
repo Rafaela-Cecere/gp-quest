@@ -584,6 +584,55 @@
       }
     }
   },
+  "fruit-ninja-antes": {
+    "inicio": "apurate",
+    "nodos": {
+      "apurate": {
+        "narrador": true,
+        "texto": "¡Todo el mundo está agarrando fruta! ¡Apurate o perdés!",
+        "opciones": [
+          { "texto": "¡Vamos!" }
+        ]
+      }
+    }
+  },
+  "ping-pong-antes": {
+    "inicio": "pregunta",
+    "nodos": {
+      "pregunta": {
+        "narrador": true,
+        "texto": "¿Sale un partidito rápido?",
+        "opciones": [
+          { "texto": "¡Sale!", "ir": "reglas", "efectos": [ { "tipo": "flag", "nombre": "ping-pong-jugar" } ] },
+          { "texto": "Ahora no" }
+        ]
+      },
+      "reglas": {
+        "narrador": true,
+        "texto": "¡El primero que haga 4 puntos, gana!",
+        "opciones": [
+          { "texto": "¡Vamos!" }
+        ]
+      }
+    }
+  },
+  "vale-asado": {
+    "inicio": "leer",
+    "nodos": {
+      "leer": {
+        "narrador": true,
+        "texto": "*Das vuelta el vale y leés en voz alta lo que dice atrás...*",
+        "siguiente": "vale"
+      },
+      "vale": {
+        "texto": "\"Vale por medio ticket de asado\"",
+        "siguiente": "silencio"
+      },
+      "silencio": {
+        "texto": "..."
+      }
+    }
+  },
   "jeny-escalera": {
     "inicio": "picada",
     "nodos": {
