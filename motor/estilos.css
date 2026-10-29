@@ -320,6 +320,25 @@ button {
   margin-top: 16px;
 }
 
+/* En la agenda solo se desplaza el contenido: los botones quedan siempre a la vista abajo. */
+.agenda-caja {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.agenda-desplazable {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  touch-action: pan-y;
+}
+.agenda-caja .modal-botones {
+  flex-shrink: 0;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 2px solid var(--borde-oscuro);
+}
+
 .boton,
 .boton-secundario {
   border: 3px solid var(--crema);

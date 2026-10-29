@@ -34,10 +34,12 @@ export class Interfaz {
     this.agenda = document.createElement('div');
     this.agenda.className = 'modal oculto';
     this.agenda.innerHTML = `
-      <div class="modal-caja">
-        <div class="agenda-objetivo"></div>
-        <div class="modal-titulo">Agenda de contactos <span class="agenda-total"></span></div>
-        <div class="agenda-grilla"></div>
+      <div class="modal-caja agenda-caja">
+        <div class="agenda-desplazable">
+          <div class="agenda-objetivo"></div>
+          <div class="modal-titulo">Agenda de contactos <span class="agenda-total"></span></div>
+          <div class="agenda-grilla"></div>
+        </div>
         <div class="modal-botones">
           <button class="boton-secundario agenda-reiniciar">Reiniciar partida</button>
           <button class="boton agenda-cerrar">Cerrar</button>
