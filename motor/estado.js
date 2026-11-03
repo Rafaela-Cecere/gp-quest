@@ -59,7 +59,10 @@ export class Estado {
     if (cond.flag && !this.flags[cond.flag]) return false;
     if (cond.sinFlag && this.flags[cond.sinFlag]) return false;
     if (cond.conoce && !this.conoce(cond.conoce)) return false;
+    if (cond.noConoce && this.conoce(cond.noConoce)) return false;
     if (cond.contactosMinimos != null && this.cantidadContactos(personajes) < cond.contactosMinimos) return false;
+    // "azar": probabilidad en % de que se cumpla (se sortea cada vez que se abre el diálogo).
+    if (cond.azar != null && Math.random() * 100 >= cond.azar) return false;
     return true;
   }
 

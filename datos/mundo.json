@@ -181,8 +181,8 @@
       "Insumos/Personaje-Principal/MC-Back.png"
     ],
     "inicio": {
-      "x": 6938,
-      "y": 9613
+      "x": 6975,
+      "y": 9585
     },
     "mirandoAlInicio": "espalda",
     "sonidoPasos": "Insumos/Sonidos/Step.wav",
@@ -198,9 +198,9 @@
   "intro": {
     "lineas": [
       "Hoy es tu primer día en Gómez Platero",
-      "No conocés a nadie. No sabés dónde queda nada y además hay un pequeño detalle...",
-      "Hoy es la fiesta de fin de año de la empresa.",
-      "Tu misión: ¡Conocerlos a todos antes de que termine la fiesta!",
+      "No conocés a nadie. Tu nuevo equipo es 3D, pero ni sabés dónde está, y además hay un pequeño detalle...",
+      "Hoy es el día de la fiesta de fin de año de la empresa.",
+      "Tu misión: ¡Poner a prueba qué tan bien conocés a los integrantes de 3D antes de que empiece la fiesta!",
       "Respirá hondo... ¡Y bienvenido a GP!"
     ],
     "extraPrimerTexto": 1,
@@ -511,8 +511,8 @@
     {
       "id": "basura",
       "imagen": "Insumos/Items/Basura.png",
-      "x": 8237,
-      "y": 2965,
+      "x": 8241,
+      "y": 2885,
       "alto": 144,
       "capa": "normal",
       "solido": true,
@@ -528,6 +528,38 @@
           "tipo": "aparecer",
           "id": "comadreja",
           "hablar": true
+        }
+      ]
+    },
+    {
+      "id": "arbusto-vanessa",
+      "imagen": "Insumos/Items/Arbusto.png",
+      "x": 2847,
+      "y": 1727,
+      "alto": 140,
+      "capa": "normal",
+      "solido": true,
+      "temblequeo": true,
+      "alTocarSi": {
+        "sinFlag": "vanessa-afuera"
+      },
+      "alTocar": [
+        {
+          "tipo": "flag",
+          "nombre": "vanessa-afuera"
+        },
+        {
+          "tipo": "aparecer",
+          "id": "vanessa-scarenzio",
+          "hablar": true
+        }
+      ],
+      "dialogos": [
+        {
+          "si": {
+            "flag": "vanessa-escondida"
+          },
+          "id": "arbusto-shhh"
         }
       ]
     },
@@ -552,9 +584,18 @@
         }
       ],
       "imagen": "Insumos/Items/Tennis/Tennis-Mapa.png",
-      "x": 7133,
-      "y": 2743,
+      "x": 7121,
+      "y": 2737,
       "alto": 360,
+      "capa": "normal",
+      "solido": true
+    },
+    {
+      "id": "aro-basquet",
+      "imagen": "Insumos/Items/Aro-Basquet.png",
+      "x": 2926,
+      "y": 2143,
+      "alto": 352,
       "capa": "normal",
       "solido": true
     }
@@ -579,12 +620,12 @@
       "rival": {
         "nombre": "Arturo",
         "splash": {
-          "desafiante": "Insumos/Splash-Personajes/Arturo-Desafiante.png",
-          "pregunta": "Insumos/Splash-Personajes/Arturo-Arrogante.png",
-          "correcta": "Insumos/Splash-Personajes/Arturo.png",
-          "incorrecta": "Insumos/Splash-Personajes/Arturo-desepcionado.png",
-          "gana": "Insumos/Splash-Personajes/Arturo-Desafiante.png",
-          "pierde": "Insumos/Splash-Personajes/Arturo-desepcionado.png"
+          "desafiante": "Insumos/Splash-Personajes/Anteproyecto/Arturo-Desafiante.png",
+          "pregunta": "Insumos/Splash-Personajes/Anteproyecto/Arturo-Arrogante.png",
+          "correcta": "Insumos/Splash-Personajes/Anteproyecto/Arturo.png",
+          "incorrecta": "Insumos/Splash-Personajes/Anteproyecto/Arturo-desepcionado.png",
+          "gana": "Insumos/Splash-Personajes/Anteproyecto/Arturo-Desafiante.png",
+          "pierde": "Insumos/Splash-Personajes/Anteproyecto/Arturo-desepcionado.png"
         }
       },
       "jugador": {
@@ -662,12 +703,12 @@
       "rival": {
         "nombre": "Rulo",
         "splash": {
-          "desafiante": "Insumos/Splash-Personajes/Pablo-Ivaldi-Desafiante.png",
-          "pregunta": "Insumos/Splash-Personajes/Pablo-Ivaldi-Arrogante.png",
-          "correcta": "Insumos/Splash-Personajes/Pablo-Ivaldi.png",
-          "incorrecta": "Insumos/Splash-Personajes/Pablo-Ivaldi-desepcionado.png",
-          "gana": "Insumos/Splash-Personajes/Pablo-Ivaldi-Desafiante.png",
-          "pierde": "Insumos/Splash-Personajes/Pablo-Ivaldi-desepcionado.png"
+          "desafiante": "Insumos/Splash-Personajes/3D/Pablo-Ivaldi-Desafiante.png",
+          "pregunta": "Insumos/Splash-Personajes/3D/Pablo-Ivaldi-Arrogante.png",
+          "correcta": "Insumos/Splash-Personajes/3D/Pablo-Ivaldi.png",
+          "incorrecta": "Insumos/Splash-Personajes/3D/Pablo-Ivaldi-desepcionado.png",
+          "gana": "Insumos/Splash-Personajes/3D/Pablo-Ivaldi-Desafiante.png",
+          "pierde": "Insumos/Splash-Personajes/3D/Pablo-Ivaldi-desepcionado.png"
         }
       },
       "jugador": {

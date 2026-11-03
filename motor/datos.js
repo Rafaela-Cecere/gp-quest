@@ -57,7 +57,8 @@ export function texturasUsadas({ mundo, personajes, dialogos }) {
   const agregarPersonaje = p => {
     const alto = altoDe(p, mundo);
     const todas = [p.sprite, p.spriteEspalda, p.spriteLado,
-      ...(p.caminando || []), ...(p.caminandoFrente || []), ...(p.caminandoEspalda || [])];
+      ...(p.caminando || []), ...(p.caminandoFrente || []), ...(p.caminandoEspalda || []),
+      ...Object.values(p.quieto || {}), ...(p.animacion?.cuadros || [])];
     for (const ruta of todas) {
       if (ruta) pedidos.push({ ruta, alto });
     }

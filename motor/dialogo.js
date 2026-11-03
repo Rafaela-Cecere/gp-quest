@@ -60,7 +60,8 @@ export class Dialogo {
     }
     this.nodo = nodo;
     // Un nodo "narrador" no es el personaje hablando: sin nombre ni retrato.
-    const nombre = nodo.narrador ? '' : this.personaje.nombre || '';
+    // "nombre" en el nodo: habla otro (por ejemplo, la mascota de quien charla).
+    const nombre = nodo.narrador ? '' : nodo.nombre ?? this.personaje.nombre ?? '';
     this.elNombre.textContent = nombre;
     this.elNombre.classList.toggle('oculto', !nombre);
     if (nodo.narrador) this.elRetrato.classList.add('oculto');

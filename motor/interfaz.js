@@ -87,8 +87,10 @@ export class Interfaz {
     return !this.agenda.classList.contains('oculto') || !this.final.classList.contains('oculto');
   }
 
+  // En la agenda solo están los personajes con los que se puede hablar (los que todavía no tienen
+  // diálogos están en el mapa de adorno y no se pueden conocer).
   conocibles() {
-    return this.personajes.filter(p => !p.agendaAlFinal || this.estado.conoce(p.id));
+    return this.personajes.filter(p => p.dialogos?.length && (!p.agendaAlFinal || this.estado.conoce(p.id)));
   }
 
   textoObjetivo() {

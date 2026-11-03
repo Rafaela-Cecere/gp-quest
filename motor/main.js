@@ -23,7 +23,7 @@ function empezarIntro(datos, estado) {
   const config = datos.mundo.intro;
   if (!config.lineas?.length || params.has('sinIntro') || params.has('hablar') || params.has('desafio')) return null;
   if (estado.introVista && !params.has('intro')) return null;
-  const total = datos.personajes.filter(p => !p.agendaAlFinal && !p.noCuenta).length;
+  const total = datos.personajes.filter(p => p.dialogos?.length && !p.agendaAlFinal && !p.noCuenta).length;
   return new Intro(config, { conocidas: estado.contactos.length, total });
 }
 

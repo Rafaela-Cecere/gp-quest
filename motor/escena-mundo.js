@@ -15,6 +15,7 @@ import { Trafico } from './trafico.js';
 import { Desafio, precargarDesafio } from './desafio.js';
 import { FruitNinja, precargarFruitNinja } from './fruit-ninja.js';
 import { PingPong, precargarPingPong } from './ping-pong.js';
+import { Poses } from './poses.js';
 
 const PIES = { ancho: 56, alto: 24 }; // caja de colisión en los pies de cada personaje
 const ALTO_BASE_SOLIDA = 40;          // alto de la parte que choca en los objetos sólidos
@@ -69,8 +70,11 @@ export class EscenaMundo extends Phaser.Scene {
     ];
     this.interactuables = this.entidades.filter(e => e.datos.dialogos?.length);
     // Objetos con efectos "al tocar" (como el tacho): también se activan de cerca, como al hablar.
-    this.tocables = this.entidades.filter(e => e.tipo === 'objeto' && e.datos.alTocar?.length && !e.datos.dialogos?.length);
+    // Si además tienen un diálogo disponible (el arbusto de Vanessa, después), de cerca se habla.
+    this.tocables = this.entidades.filter(e => e.tipo === 'objeto' && e.datos.alTocar?.length);
     for (const e of this.interactuables) e.sprite.setInteractive({ useHandCursor: true });
+    for (const e of this.entidades) if (e.tipo === 'objeto' && e.datos.temblequeo) this.temblequear(e);
+    this.poses = new Poses(this, this.entidades);
     for (const p of this.mundo.particulas) crearParticulas(this, p);
     this.trafico = new Trafico(this, this.mundo.trafico);
 
@@ -153,6 +157,9 @@ export class EscenaMundo extends Phaser.Scene {
       caminando: s.caminando?.map(clave) ?? null,
       caminandoFrente: s.caminandoFrente?.map(clave) ?? null,
       caminandoEspalda: s.caminandoEspalda?.map(clave) ?? null,
+      // Extras de algunos personajes (ver poses.js): poses de cuando está solo y una animación.
+      quieto: p.quieto ? Object.fromEntries(Object.entries(p.quieto).map(([k, r]) => [k, clave(r)])) : null,
+      animacion: p.animacion?.cuadros?.length ? p.animacion.cuadros.map(clave) : null,
     };
   }
 
@@ -169,20 +176,13 @@ export class EscenaMundo extends Phaser.Scene {
     return { tipo: 'personaje', datos, sprite, sombra, texturas };
   }
 
-  // Un personaje mira hacia un punto. El sprite de costado mira a la derecha,
-  // salvo que el personaje tenga "ladoMiraIzquierda" (como los animales).
+  // Un personaje mira hacia un punto (y deja de cambiar de pose solo hasta mirarAlFrente). Ver poses.js.
   mirarHacia(entidad, x, y) {
-    if (!entidad.texturas) return;
-    const dx = x - entidad.datos.x, dy = y - entidad.datos.y;
-    if (Math.abs(dx) > Math.abs(dy)) {
-      entidad.sprite.setTexture(entidad.texturas.lado).setFlipX((dx < 0) !== !!entidad.datos.ladoMiraIzquierda);
-    } else {
-      entidad.sprite.setTexture(dy < 0 ? entidad.texturas.espalda : entidad.texturas.frente).setFlipX(false);
-    }
+    this.poses.mirarHacia(entidad, x, y);
   }
 
   mirarAlFrente(entidad) {
-    if (entidad.texturas) entidad.sprite.setTexture(entidad.texturas.frente).setFlipX(false);
+    this.poses.soltar(entidad);
   }
 
   iniciarSonidos() {
@@ -257,6 +257,7 @@ export class EscenaMundo extends Phaser.Scene {
     this.ubicarJugador();
     this.mapa.actualizar(this.cameras.main.worldView);
     this.trafico.update(dt);
+    this.poses.actualizar(dt);
     this.actualizarCercano(time);
     if (!bloqueado) this.revisarEventos();
     this.actualizarVolumenes();
@@ -360,7 +361,8 @@ export class EscenaMundo extends Phaser.Scene {
     let mejor = null, mejorDist = Infinity;
     // Los objetos "al tocar" cuentan solo mientras su condición se cumpla (el tacho, hasta que sale la comadreja).
     const tocables = this.tocables.filter(e => this.estado.cumple(e.datos.alTocarSi, this.personajes));
-    for (const e of [...this.interactuables, ...tocables]) {
+    const hablables = this.interactuables.filter(e => e.tipo === 'personaje' || this.hayDialogo(e));
+    for (const e of new Set([...hablables, ...tocables])) {
       if (!e.visible) continue;
       const d = Math.hypot(e.datos.x - this.pos.x, e.datos.y - this.pos.y);
       if (d <= rango && d < mejorDist) { mejor = e; mejorDist = d; }
@@ -389,7 +391,8 @@ export class EscenaMundo extends Phaser.Scene {
     const punto = this.cameras.main.getWorldPoint(pointer.x, pointer.y);
     const objeto = this.objetoTocableEn(punto.x, punto.y);
     if (objeto) {
-      this.sacudir(objeto);
+      if (objeto === this.cercano && this.hayDialogo(objeto)) this.interactuar(objeto);
+      else this.sacudir(objeto);
       return;
     }
     if (this.tocarZona(punto.x, punto.y)) return;
@@ -416,8 +419,16 @@ export class EscenaMundo extends Phaser.Scene {
 
   // Con quien esté cerca: se habla, o si es un objeto "al tocar" (el tacho), se sacude.
   interactuar(entidad) {
-    if (this.tocables.includes(entidad)) this.sacudir(entidad);
+    if (entidad.tipo === 'objeto' && this.hayDialogo(entidad)) {
+      if (this.tocables.includes(entidad) || entidad.datos.temblequeo) this.sacudir(entidad, true);
+      this.hablar(entidad);
+    } else if (this.tocables.includes(entidad)) this.sacudir(entidad);
     else this.hablar(entidad);
+  }
+
+  // ¿Tiene algún diálogo que se pueda abrir ahora? (Sin sortear los "de vez en cuando".)
+  hayDialogo(e) {
+    return (e.datos.dialogos || []).some(d => this.estado.cumple(d.si && { ...d.si, azar: undefined }, this.personajes));
   }
 
   // idDialogo: abre ese diálogo en particular (no el que toque según las condiciones);
@@ -431,7 +442,10 @@ export class EscenaMundo extends Phaser.Scene {
 
   alTerminarDialogo(entidad, sumaContacto = true) {
     this.ultimoCierre = performance.now();
-    if (entidad.texturas) this.time.delayedCall(2500, () => { if (!this.dialogo.abierto) this.mirarAlFrente(entidad); });
+    // Un rato después vuelve a lo suyo (salvo que ya estén hablando de nuevo con él).
+    if (entidad.texturas) this.time.delayedCall(2500, () => {
+      if (!(this.dialogo.abierto && this.dialogo.personaje?.id === entidad.datos.id)) this.mirarAlFrente(entidad);
+    });
     const p = entidad.datos;
     const obj = this.mundo.objetivo;
     const antes = this.estado.cantidadContactos(this.personajes);
@@ -460,7 +474,10 @@ export class EscenaMundo extends Phaser.Scene {
     // Un personaje que se va corriendo (efecto "huir"), cuando se cierra el diálogo.
     const huidas = this.huidasPendientes || [];
     this.huidasPendientes = [];
-    for (const efecto of huidas) this.huir(efecto);
+    for (const efecto of huidas) {
+      if (efecto.tipo === 'esconderse') this.esconderse(efecto);
+      else this.huir(efecto);
+    }
   }
 
   // Sube o baja el volumen de la música de a poco, entre dos valores fijos. No se anima el volumen
@@ -628,6 +645,10 @@ export class EscenaMundo extends Phaser.Scene {
       case 'pingPong':
         this.empezarPingPong(origen);
         break;
+      case 'esconderse':
+        if (this.dialogo.abierto) (this.huidasPendientes ??= []).push(efecto);
+        else this.esconderse(efecto);
+        break;
       case 'huir':
         // Si se eligió en un diálogo, se va cuando el diálogo se cierra.
         if (this.dialogo.abierto) (this.huidasPendientes ??= []).push(efecto);
@@ -704,7 +725,8 @@ export class EscenaMundo extends Phaser.Scene {
 
   // Sacudón del objeto. Los árboles largan hojitas y a veces un premio (mundo.json → arboles);
   // los objetos con efectos "al tocar" (alTocar, si se cumple alTocarSi) los aplican después.
-  sacudir(e) {
+  // soloVisual: se sacude y larga hojas, pero no aplica los efectos "al tocar".
+  sacudir(e, soloVisual = false) {
     const ahora = performance.now();
     if (ahora - (e.ultimaSacudida || 0) < 900) return;
     e.ultimaSacudida = ahora;
@@ -719,31 +741,91 @@ export class EscenaMundo extends Phaser.Scene {
       ],
     });
 
-    if (e.datos.alTocar?.length && this.estado.cumple(e.datos.alTocarSi, this.personajes)) {
+    if (!soloVisual && e.datos.alTocar?.length && this.estado.cumple(e.datos.alTocarSi, this.personajes)) {
       this.time.delayedCall(450, () => { for (const efecto of e.datos.alTocar) this.aplicarEfecto(efecto, e.datos); });
     }
-    if (!e.copa) return;
+    if (!e.copa && !e.datos.temblequeo) return;
 
-    const d = e.datos, ancho = e.sprite.displayWidth, alto = e.sprite.displayHeight;
-    const hojas = this.add.particles(0, 0, 'hoja', {
-      x: { min: d.x - ancho * 0.38, max: d.x + ancho * 0.38 },
-      y: { min: d.y - alto * 0.9, max: d.y - alto * 0.35 },
+    const hojas = this.particulasHojas(e, {
       speedX: { min: -70, max: 70 }, speedY: { min: -60, max: 30 }, gravityY: 160,
-      rotate: { onEmit: () => Math.random() * 360, onUpdate: (p, k, t, v) => v + 3 },
-      scale: { min: 0.8, max: 1.5 },
-      alpha: { start: 1, end: 0, ease: 'Quad.easeIn' },
-      lifespan: { min: 1300, max: 2300 },
-      tint: [0x6fae3a, 0x9bd14a, 0xc6e06a, 0x7fbf45, 0xd9c45a],
-      emitting: false,
-    }).setDepth(profundidad('arriba', d.y) + 1);
+      scale: { min: 0.8, max: 1.5 }, lifespan: { min: 1300, max: 2300 }, emitting: false,
+    });
     hojas.explode(24);
     this.time.delayedCall(2500, () => hojas.destroy());
+    if (!e.copa) return;
 
     const a = this.mundo.arboles;
     if (a?.premio && Math.random() < (a.probabilidad ?? 1 / 3)) {
       const premio = { imagen: a.premio, alto: a.altoPremio, texto: a.textoPremio, sonido: a.sonidoPremio, volumen: a.volumenPremio };
       this.time.delayedCall(250, () => this.darPremio(e, premio));
     }
+  }
+
+  // Hojitas que salen de la parte de arriba del objeto (árboles al sacudirlos, el arbusto de Vanessa).
+  particulasHojas(e, config) {
+    const d = e.datos, ancho = e.sprite.displayWidth, alto = e.sprite.displayHeight;
+    return this.add.particles(0, 0, 'hoja', {
+      x: { min: d.x - ancho * 0.38, max: d.x + ancho * 0.38 },
+      y: { min: d.y - alto * 0.9, max: d.y - alto * 0.35 },
+      rotate: { onEmit: () => Math.random() * 360, onUpdate: (p, k, t, v) => v + 3 },
+      alpha: { start: 1, end: 0, ease: 'Quad.easeIn' },
+      tint: [0x6fae3a, 0x9bd14a, 0xc6e06a, 0x7fbf45, 0xd9c45a],
+      ...config,
+    }).setDepth(profundidad('arriba', d.y) + 1);
+  }
+
+  // Objeto "temblequeo": cada tanto se sacude un poquito, como si alguien se moviera adentro,
+  // y larga alguna hojita suelta.
+  temblequear(e) {
+    const partes = [e.sprite, e.copa].filter(Boolean);
+    this.time.addEvent({
+      delay: 700, loop: true,
+      callback: () => {
+        if (!e.visible || Math.random() < 0.3 || this.tweens.isTweening(e.sprite)) return;
+        const fuerza = 0.6 + Math.random() * 0.8;
+        this.tweens.chain({
+          targets: partes,
+          tweens: [
+            { angle: fuerza, duration: 60 }, { angle: -fuerza, duration: 90 }, { angle: fuerza * 0.6, duration: 80 },
+            { angle: -fuerza * 0.3, duration: 80 }, { angle: 0, duration: 90, ease: 'Sine.easeOut' },
+          ],
+        });
+      },
+    });
+    this.particulasHojas(e, {
+      speedX: { min: -35, max: 35 }, speedY: { min: -30, max: 10 }, gravityY: 90,
+      scale: { min: 0.6, max: 1.1 }, lifespan: { min: 1200, max: 2000 }, frequency: 600, quantity: 1,
+    });
+  }
+
+  // Un personaje se mete de un salto en un objeto (efecto.en) y desaparece; al final activa efecto.flag.
+  esconderse(efecto) {
+    const entidad = this.entidades.find(e => e.datos.id === efecto.id);
+    if (!entidad) return;
+    const dentro = this.entidades.find(e => e.datos.id === efecto.en);
+    const s = entidad.sprite, d = entidad.datos;
+    const x1 = dentro ? dentro.datos.x : d.x;
+    const y1 = dentro ? dentro.datos.y - dentro.sprite.displayHeight * 0.3 : d.y;
+    this.mirarHacia(entidad, x1, d.y);
+    entidad.sombra?.setVisible(false);
+    this.ocupado = true;
+    const salto = { t: 0 };
+    this.tweens.add({
+      targets: salto, t: 1, duration: 600, ease: 'Sine.easeInOut',
+      onUpdate: () => {
+        const t = salto.t;
+        s.setPosition(d.x + (x1 - d.x) * t, d.y + (y1 - d.y) * t - Math.sin(Math.PI * t) * 140)
+          .setAlpha(Math.min(1, (1 - t) * 3));
+      },
+      onComplete: () => {
+        if (efecto.flag) this.estado.activarFlag(efecto.flag);
+        this.actualizarVisibilidad();
+        s.setPosition(d.x, d.y).setAlpha(1);
+        this.mirarAlFrente(entidad);
+        this.ocupado = false;
+        if (dentro) this.sacudir(dentro, true);
+      },
+    });
   }
 
   // Un premio (imagen) salta desde la entidad con un brillo y chispas, suena y avisa (si tiene texto).
@@ -838,7 +920,7 @@ export class EscenaMundo extends Phaser.Scene {
     if (!entidad) return;
     const s = entidad.sprite, d = entidad.datos;
     const lado = d.x >= this.pos.x ? 1 : -1;
-    if (entidad.texturas) s.setTexture(entidad.texturas.lado).setFlipX((lado < 0) !== !!d.ladoMiraIzquierda);
+    this.mirarHacia(entidad, d.x + lado * 100, d.y);
     entidad.sombra?.setVisible(false);
     this.ocupado = true;
     this.tweens.add({ targets: s, y: d.y - 18, duration: 110, yoyo: true, repeat: 4, ease: 'Sine.easeOut' });

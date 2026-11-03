@@ -591,7 +591,9 @@
         "narrador": true,
         "texto": "¡Todo el mundo está agarrando fruta! ¡Apurate o perdés!",
         "opciones": [
-          { "texto": "¡Vamos!" }
+          {
+            "texto": "¡Vamos!"
+          }
         ]
       }
     }
@@ -603,16 +605,1955 @@
         "narrador": true,
         "texto": "¿Sale un partidito rápido?",
         "opciones": [
-          { "texto": "¡Sale!", "ir": "reglas", "efectos": [ { "tipo": "flag", "nombre": "ping-pong-jugar" } ] },
-          { "texto": "Ahora no" }
+          {
+            "texto": "¡Sale!",
+            "ir": "reglas",
+            "efectos": [
+              {
+                "tipo": "flag",
+                "nombre": "ping-pong-jugar"
+              }
+            ]
+          },
+          {
+            "texto": "Ahora no"
+          }
         ]
       },
       "reglas": {
         "narrador": true,
         "texto": "¡El primero que haga 4 puntos, gana!",
         "opciones": [
-          { "texto": "¡Vamos!" }
+          {
+            "texto": "¡Vamos!"
+          }
         ]
+      }
+    }
+  },
+  "alejandro-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Alejandro, el jefe de TI. Si algo de la compu no anda, es culpa nuestra... y también lo arreglamos nosotros.",
+        "opciones": [
+          {
+            "texto": "¿Qué hacen en TI?",
+            "ir": "ti"
+          },
+          {
+            "texto": "¡Un gusto, Alejandro!",
+            "ir": "consejo"
+          }
+        ]
+      },
+      "ti": {
+        "texto": "Mantenemos todo andando: las computadoras, la red, los mails... y que nadie haga clic donde no tiene que hacerlo.",
+        "siguiente": "consejo"
+      },
+      "consejo": {
+        "texto": "Ah, y un pedido: si te llega un mail raro, o encontrás un pendrive tirado por ahí, no lo abras ni lo enchufes. Avisame a mí antes de hacer nada. ¿Trato?",
+        "opciones": [
+          {
+            "texto": "¡Trato!",
+            "ir": "fin"
+          },
+          {
+            "texto": "¿Y si el pendrive es muy lindo?",
+            "ir": "lindo"
+          }
+        ]
+      },
+      "lindo": {
+        "texto": "Ese es el más peligroso de todos.",
+        "siguiente": "fin"
+      },
+      "fin": {
+        "texto": "Perfecto. Disfrutá la fiesta... con cuidado."
+      }
+    }
+  },
+  "alejandro-pendrive": {
+    "inicio": "pregunta",
+    "nodos": {
+      "pregunta": {
+        "texto": "Momento... ¿eso que tenés ahí es un pendrive? ¿De dónde lo sacaste?",
+        "opciones": [
+          {
+            "texto": "Me lo dio una comadreja...",
+            "ir": "comadreja",
+            "efectos": [
+              {
+                "tipo": "flag",
+                "nombre": "pendrive-a-ti"
+              }
+            ]
+          },
+          {
+            "texto": "Lo encontré por ahí",
+            "ir": "tirado",
+            "efectos": [
+              {
+                "tipo": "flag",
+                "nombre": "pendrive-a-ti"
+              }
+            ]
+          }
+        ]
+      },
+      "comadreja": {
+        "texto": "...Una comadreja. Bueno. Ni se te ocurra enchufarlo. Dámelo, que lo reviso yo.",
+        "siguiente": "gracias"
+      },
+      "tirado": {
+        "texto": "¿Tirado? ¡Justo lo que te dije que no hay que enchufar! Dámelo, que lo reviso yo.",
+        "siguiente": "gracias"
+      },
+      "gracias": {
+        "narrador": true,
+        "texto": "*Le das el pendrive a Alejandro*"
+      }
+    }
+  },
+  "alejandro-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "Acordate: mail sospechoso o pendrive misterioso, primero me avisás a mí."
+      }
+    }
+  },
+  "alejandro-revisado": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "Revisé el pendrive que me diste. Tenía cuatrocientas fotos de tachos de basura. Peligroso no es... pero raro, sí."
+      }
+    }
+  },
+  "gonzalo-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "*carraspea* ...Gonzalo. Soporte técnico. TI.",
+        "opciones": [
+          {
+            "texto": "¿Me ayudás si se me traba la compu?",
+            "ir": "ayuda"
+          },
+          {
+            "texto": "¿Es cierto que hablás poco?",
+            "ir": "poco"
+          }
+        ]
+      },
+      "ayuda": {
+        "texto": "Sí.",
+        "opciones": [
+          {
+            "texto": "¿Algún truco para cuando se traba?",
+            "ir": "truco"
+          },
+          {
+            "texto": "¡Gracias, Gonzalo!",
+            "ir": "bueno"
+          }
+        ]
+      },
+      "truco": {
+        "texto": "*carraspea* ...¿Probaste apagarla y prenderla?"
+      },
+      "poco": {
+        "texto": "No."
+      },
+      "bueno": {
+        "texto": "Bueno."
+      }
+    }
+  },
+  "gonzalo-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "*carraspea*",
+        "opciones": [
+          {
+            "texto": "¿Todo bien, Gonzalo?",
+            "ir": "si"
+          },
+          {
+            "texto": "¿Hay mucho trabajo hoy?",
+            "ir": "no"
+          }
+        ]
+      },
+      "si": {
+        "texto": "Sí."
+      },
+      "no": {
+        "texto": "...No. Bueno. Sí."
+      }
+    }
+  },
+  "leonardo-intro": {
+    "inicio": "ruido",
+    "nodos": {
+      "ruido": {
+        "texto": "¡BRRRRRRRRRRR...! ¡Ay, perdón! *apaga la sopladora* No te había escuchado. Soy Leonardo, de TI. ¡Un gusto!",
+        "opciones": [
+          {
+            "texto": "¿Qué estabas haciendo?",
+            "ir": "polvo"
+          },
+          {
+            "texto": "¡Qué ruido hace eso!",
+            "ir": "ruido-fuerte"
+          }
+        ]
+      },
+      "polvo": {
+        "texto": "Les saco el polvo a las computadoras. Hace poco hubo que mover un montón de máquinas de lugar, y salieron con más tierra que una obra.",
+        "siguiente": "oferta"
+      },
+      "ruido-fuerte": {
+        "texto": "¡Sí, perdón! Pero deja las compus como nuevas. Si la tuya hace mucho ruido de ventilador, es polvo: avisame y te la limpio.",
+        "siguiente": "oferta"
+      },
+      "oferta": {
+        "texto": "¿Querés que te sople algo a vos? ¡Es broma! ...Salvo que tengas una compu con polvo, eh."
+      }
+    }
+  },
+  "leonardo-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola de nuevo! Ya me quedan solo... *cuenta con los dedos* ...treinta y siete computadoras. ¡Casi!"
+      }
+    }
+  },
+  "cecilia-igorra-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! ¡Qué bueno verte por acá! Soy Cecilia, la gerenta de Gestión de Talento.",
+        "opciones": [
+          {
+            "texto": "¡Hola, Cecilia! Un gusto.",
+            "ir": "novedad"
+          },
+          {
+            "texto": "¿Quienes son parte de Gestión de Talento?",
+            "ir": "talento"
+          }
+        ]
+      },
+      "talento": {
+        "texto": "Yo, Ani y Pala, ya los vas a ir conociendo si todavía no los viste, y ya que estas, decile a Pala que hoy seguro no llueve....",
+        "siguiente": "novedad"
+      },
+      "novedad": {
+        "texto": "Ah, ¡te tengo una novedad! Desde ahora vas a ser parte del equipo de 3D, Visualización Arquitectónica.",
+        "opciones": [
+          {
+            "texto": "¡Qué bueno! ¿Dónde los encuentro?",
+            "ir": "donde",
+            "efectos": [
+              {
+                "tipo": "flag",
+                "nombre": "sabe-equipo-3d"
+              }
+            ]
+          },
+          {
+            "texto": "¿3D? ¿Y qué hacen?",
+            "ir": "que-hacen",
+            "efectos": [
+              {
+                "tipo": "flag",
+                "nombre": "sabe-equipo-3d"
+              }
+            ]
+          }
+        ]
+      },
+      "que-hacen": {
+        "texto": "¡Que no hacen es más fácil de contestar! Son re divertidos, te va a encantar.",
+        "siguiente": "donde"
+      },
+      "donde": {
+        "texto": "Están en la casita apartada, al lado de Dirección de obra. Andá para ese lado y los vas conociendo.",
+        "siguiente": "formularios"
+      },
+      "formularios": {
+        "texto": "¡Y no te olvides de llenar los formularios que mandamos! Son cortitos, prometido.",
+        "opciones": [
+          {
+            "texto": "¡Los lleno!",
+            "ir": "gracias"
+          },
+          {
+            "texto": "¿Cuántos son?",
+            "ir": "cuantos"
+          }
+        ]
+      },
+      "cuantos": {
+        "texto": "Pocos. Bueno... algunos. Bueno, varios. ¡Pero cortitos!",
+        "siguiente": "gracias"
+      },
+      "gracias": {
+        "texto": "¡Gracias! Cualquier cosa que necesites, me buscás. ¡Te va a ir genial con el equipo de 3D!"
+      }
+    }
+  },
+  "cecilia-igorra-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola de nuevo! ¿Ya llenaste los formularios que mandamos? Y si todavía no conociste al equipo de 3D, están en la casita al lado de Dirección de obra."
+      }
+    }
+  },
+  "alejandro-baptista-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "Alejandro Baptista, jefe de proyecto. Trabajo con Fede y con Bruna. ¿Necesitás algo? Estoy a mil.",
+        "opciones": [
+          {
+            "texto": "Te quería mostrar una imagen",
+            "ir": "lo-vio-fede"
+          },
+          {
+            "texto": "Solo pasaba a saludar",
+            "ir": "saludo"
+          }
+        ]
+      },
+      "saludo": {
+        "texto": "Bueno, bueno. Saludos. *vuelve a mirar la pantalla* ...No, esto está todo mal."
+      },
+      "lo-vio-fede": {
+        "texto": "¿Lo vio Fede antes?",
+        "opciones": [
+          {
+            "si": {
+              "flag": "fede-vio-imagen"
+            },
+            "texto": "Sí, ya lo vio",
+            "ir": "mira"
+          },
+          {
+            "si": {
+              "sinFlag": "fede-vio-imagen"
+            },
+            "texto": "No, todavía no",
+            "ir": "anda-a-fede"
+          }
+        ]
+      },
+      "anda-a-fede": {
+        "texto": "Entonces mostráselo a Fede primero. Yo estoy muy ocupado."
+      },
+      "mira": {
+        "texto": "*mira la imagen* ...No, esto está todo mal. Este color no es el que pedí, se ve distinto.",
+        "opciones": [
+          {
+            "texto": "Es el mismo color, lo oscurece la sombra",
+            "ir": "sombra"
+          },
+          {
+            "texto": "Ok, lo cambio",
+            "ir": "cambio"
+          }
+        ]
+      },
+      "sombra": {
+        "texto": "No, pero son distintos. Tienen que ser iguales.",
+        "opciones": [
+          {
+            "texto": "Pero es la misma pintura...",
+            "ir": "iguales"
+          },
+          {
+            "texto": "Ok, lo cambio",
+            "ir": "cambio"
+          }
+        ]
+      },
+      "iguales": {
+        "texto": "No, pero son distintos. Tienen que ser iguales."
+      },
+      "cambio": {
+        "texto": "Gracias. Y que quede igual, eh. Igual."
+      }
+    }
+  },
+  "alejandro-baptista-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¿Otra vez vos? ¿Qué tenés para mostrarme?",
+        "opciones": [
+          {
+            "texto": "Te traigo la imagen",
+            "ir": "lo-vio-fede"
+          },
+          {
+            "texto": "Nada, nada",
+            "ir": "nada"
+          }
+        ]
+      },
+      "nada": {
+        "texto": "Bueno. *vuelve a mirar la pantalla* ...Este color no es el que pedí."
+      },
+      "lo-vio-fede": {
+        "texto": "¿Lo vio Fede antes?",
+        "opciones": [
+          {
+            "si": {
+              "flag": "fede-vio-imagen"
+            },
+            "texto": "Sí, ya lo vio",
+            "ir": "mira"
+          },
+          {
+            "si": {
+              "sinFlag": "fede-vio-imagen"
+            },
+            "texto": "No, todavía no",
+            "ir": "anda-a-fede"
+          }
+        ]
+      },
+      "anda-a-fede": {
+        "texto": "Entonces mostráselo a Fede primero. Yo estoy muy ocupado."
+      },
+      "mira": {
+        "texto": "*mira la imagen* ...Mmm. No, este color se ve distinto.",
+        "opciones": [
+          {
+            "texto": "Es la sombra, el color es el mismo",
+            "ir": "sombra"
+          },
+          {
+            "texto": "Lo vuelvo a cambiar",
+            "ir": "cambio"
+          }
+        ]
+      },
+      "sombra": {
+        "texto": "No, pero son distintos. Tienen que ser iguales."
+      },
+      "cambio": {
+        "texto": "Dale. Y mostráselo a Fede antes, eh."
+      }
+    }
+  },
+  "agustina-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola, hola! Soy Agustina, de Anteproyecto. ¡Ay, qué rico perfume tenés! ¿Cuál es?",
+        "opciones": [
+          {
+            "texto": "¡Gracias! Qué lindos tus anillos y pulseras",
+            "ir": "anillos"
+          },
+          {
+            "texto": "Es un secreto",
+            "ir": "secreto"
+          }
+        ]
+      },
+      "anillos": {
+        "texto": "¡Muchas gracias! ¡A las órdenes!"
+      },
+      "secreto": {
+        "texto": "Me parece bien, es mejor dar un aire misterioso. ¡Bienvenido!"
+      }
+    }
+  },
+  "agustina-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola de nuevo! Mmm... sigue oliendo rico tu perfume, eh.",
+        "opciones": [
+          {
+            "texto": "¡Me encantan tus pulseras!",
+            "ir": "gracias"
+          },
+          {
+            "texto": "¿Cuántos anillos tenés puestos?",
+            "ir": "cuantos"
+          }
+        ]
+      },
+      "gracias": {
+        "texto": "¡Muchas gracias! ¡A las órdenes!"
+      },
+      "cuantos": {
+        "texto": "*los cuenta* ...Hoy vine liviana, solo once."
+      }
+    }
+  },
+  "angela-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Angela, de Anteproyecto. ¿Sabés qué va a haber de comer en la fiesta? ¡No puedo esperar!",
+        "opciones": [
+          {
+            "texto": "Creo que va a haber carne",
+            "ir": "carne"
+          },
+          {
+            "texto": "Ni idea...",
+            "ir": "ni-idea"
+          }
+        ]
+      },
+      "carne": {
+        "texto": "¡Ojalá! Y que esté jugosa, eh. Bien rojita. La carne pasada no es carne de verdad.",
+        "opciones": [
+          {
+            "texto": "A mí me gusta bien cocida",
+            "ir": "cocida"
+          },
+          {
+            "texto": "¡Totalmente de acuerdo!",
+            "ir": "acuerdo"
+          }
+        ]
+      },
+      "ni-idea": {
+        "texto": "Yo espero que haya carne. Y jugosa, eh. Bien rojita. La carne pasada no es carne de verdad.",
+        "opciones": [
+          {
+            "texto": "A mí me gusta bien cocida",
+            "ir": "cocida"
+          },
+          {
+            "texto": "¡Totalmente de acuerdo!",
+            "ir": "acuerdo"
+          }
+        ]
+      },
+      "cocida": {
+        "texto": "¿Bien cocida? ¡Eso es una suela de zapato! Bueno... te perdono si después bailás con nosotros.",
+        "siguiente": "baile"
+      },
+      "acuerdo": {
+        "texto": "¡Eso! Por fin alguien que entiende.",
+        "siguiente": "baile"
+      },
+      "baile": {
+        "texto": "¡Y después de comer, a bailar! ¡No puedo esperar a que empiece la fiesta!",
+        "opciones": [
+          {
+            "texto": "¡Yo también!",
+            "ir": "tambien"
+          },
+          {
+            "texto": "Yo no bailo mucho...",
+            "ir": "no-bailo"
+          }
+        ]
+      },
+      "tambien": {
+        "texto": "¡Esa! Te esperamos en la pista, eh."
+      },
+      "no-bailo": {
+        "texto": "¡Hoy bailás! No acepto un no como respuesta. *te hace un pasito*"
+      }
+    }
+  },
+  "angela-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¿Ya sabés si hay carne? ¿Está jugosa? ¿Falta mucho para la fiesta? *baila un poquito mientras espera*"
+      }
+    }
+  },
+  "christian-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Christian, jefe de Anteproyecto. ¿Sos nuevo? Entonces te tengo que pasar lo más importante del trabajo: dónde merendar.",
+        "opciones": [
+          {
+            "texto": "¿Dónde hay buen café?",
+            "ir": "cafe"
+          },
+          {
+            "texto": "Me encantan los rolls de canela",
+            "ir": "canela"
+          }
+        ]
+      },
+      "cafe": {
+        "texto": "Para un buen café con un croissant de almendras, andá a Resistance Boulangerie. Hacé caso.",
+        "opciones": [
+          {
+            "texto": "¿Y para rolls de canela?",
+            "ir": "canela2"
+          },
+          {
+            "texto": "¡Anotado, gracias!",
+            "ir": "fin"
+          }
+        ]
+      },
+      "canela": {
+        "texto": "¡Entonces andá a By Luli! Los mejores rolls de canela, sin discusión.",
+        "opciones": [
+          {
+            "texto": "¿Y para un buen café?",
+            "ir": "cafe2"
+          },
+          {
+            "texto": "¡Anotado, gracias!",
+            "ir": "fin"
+          }
+        ]
+      },
+      "canela2": {
+        "texto": "By Luli. Los mejores, sin discusión.",
+        "siguiente": "fin"
+      },
+      "cafe2": {
+        "texto": "Resistance Boulangerie: café y croissant de almendras. No falla.",
+        "siguiente": "fin"
+      },
+      "fin": {
+        "texto": "De nada. Después me contás. Trabajar bien es importante, pero merendar bien... también."
+      }
+    }
+  },
+  "christian-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¿Y? ¿Fuiste a Resistance a probar el croissant de almendras? ¿Y los rolls de canela de By Luli? Mirá que te voy a preguntar, eh."
+      }
+    }
+  },
+  "daniela-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "Hola, ¿cómo estás? Soy Daniela, de Anteproyecto. ¡Bienvenido al equipo de 3D! Vamos a trabajar mucho juntos.",
+        "opciones": [
+          {
+            "texto": "¡Gracias, Daniela! Un gusto.",
+            "ir": "fin"
+          }
+        ]
+      },
+      "fin": {
+        "texto": "El gusto es mío. Espero que podamos charlar mucho durante la fiesta."
+      }
+    }
+  },
+  "daniela-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola de nuevo! ¿Cómo va ese primer día? Tomátelo con calma, que de a poco vas a ir conociendo a todos."
+      }
+    }
+  },
+  "diego-miguez-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola, este chico! ¡Diego Míguez, jefe de Anteproyecto! ¿Así que sos el nuevo de 3D? ¡Qué bueno! ¡Me llevo bárbaro con ellos, vamos a trabajar un montón juntos!",
+        "opciones": [
+          {
+            "texto": "¿Cómo son los de 3D?",
+            "ir": "3d"
+          },
+          {
+            "texto": "¿Míguez? ¿Como Pablo Míguez?",
+            "ir": "hermano"
+          }
+        ]
+      },
+      "3d": {
+        "texto": "Te aviso: son MUY ruidosos. ¡Pero son buena gente, eh! Te van a recibir re bien.",
+        "opciones": [
+          {
+            "texto": "¿Más ruidosos que vos?",
+            "ir": "ruidoso"
+          },
+          {
+            "texto": "¡Genial, gracias!",
+            "ir": "fin"
+          }
+        ]
+      },
+      "ruidoso": {
+        "texto": "¿YO? ¿RUIDOSO? ¡PARA NADA! ...Bueno, capaz un poquito.",
+        "siguiente": "fin"
+      },
+      "hermano": {
+        "texto": "¡Sí! Es mi hermano menor, también es jefe de proyecto. Él es el tranquilo de la familia, se porta mucho mejor que yo. ¡Pero el divertido soy yo, eh!",
+        "opciones": [
+          {
+            "texto": "¿Y cómo son los de 3D?",
+            "ir": "3d"
+          },
+          {
+            "texto": "¡Ja! Un gusto, Diego.",
+            "ir": "fin"
+          }
+        ]
+      },
+      "fin": {
+        "texto": "¡Bienvenido! ¡Cualquier cosa, gritame! ...Digo, avisame."
+      }
+    }
+  },
+  "diego-miguez-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Eh, este chico! ¿Todo bien? ¿Ya conociste a los de 3D? ¿Viste que son ruidosos? ¡Te lo dije! ...Y si ves a mi hermano, decile que no me porto tan mal."
+      }
+    }
+  },
+  "bruna-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Bruna, de Anteproyecto. ¡Qué lindo conocerte!",
+        "opciones": [
+          {
+            "si": {
+              "conoce": "jeny"
+            },
+            "texto": "¡Igualmente!",
+            "ir": "jeny-si"
+          },
+          {
+            "si": {
+              "noConoce": "jeny"
+            },
+            "texto": "¡Igualmente!",
+            "ir": "jeny-no"
+          }
+        ]
+      },
+      "jeny-si": {
+        "texto": "¡Ah, vi que ya conociste a Jeny! ¿Es lo más, no? A ella también le gusta el animé, y vivimos charlando de películas.",
+        "siguiente": "recreo"
+      },
+      "jeny-no": {
+        "texto": "Decime, ¿ya conociste a Jeny? ¡Tenés que conocerla! A ella también le gusta el animé, y vivimos charlando de películas.",
+        "siguiente": "recreo"
+      },
+      "recreo": {
+        "texto": "Así que ya sabés: cuando quieras un recreo para charlar, yo siempre estoy dispuesta.",
+        "opciones": [
+          {
+            "texto": "¡Gracias, Bruna!",
+            "ir": "consejo"
+          },
+          {
+            "texto": "¿Con quién trabajás?",
+            "ir": "equipo"
+          }
+        ]
+      },
+      "equipo": {
+        "texto": "Trabajo mucho con Fede y con Ale.",
+        "siguiente": "consejo"
+      },
+      "consejo": {
+        "texto": "Ah, un consejo de amiga: si una sombra cambia el color de la fachada, chequealo bien antes de mostrárselo a Ale... Creeme.",
+        "opciones": [
+          {
+            "texto": "¿Por qué?",
+            "ir": "por-que"
+          },
+          {
+            "texto": "¡Lo tendré en cuenta!",
+            "ir": "fin"
+          }
+        ]
+      },
+      "por-que": {
+        "texto": "Ya vas a ver. *se ríe* Vos chequealo.",
+        "siguiente": "fin"
+      },
+      "fin": {
+        "texto": "¡Nos vemos! Y si conseguís un ratito, ¡recreo y charlamos de pelis!"
+      }
+    }
+  },
+  "bruna-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola de nuevo! ¿Venís por un recreo? Yo siempre estoy dispuesta. ¿Viste alguna peli buena últimamente?"
+      }
+    }
+  },
+  "ema-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Ema, de Anteproyecto. ¡Qué bueno que viniste! Che... ¿te gustaría comprarme una rifa de arquitectura?",
+        "opciones": [
+          {
+            "texto": "¡Sí, claro!",
+            "ir": "si"
+          },
+          {
+            "texto": "¿Cuánto sale?",
+            "ir": "cuanto"
+          }
+        ]
+      },
+      "si": {
+        "texto": "¡Ay, muchísimas gracias! ¡Sos un sol! Te la anoto ya mismo. *anota tu nombre, re contenta*"
+      },
+      "cuanto": {
+        "texto": "La ayuda no tiene precio. Entonces... ¿cuántas querés?"
+      }
+    }
+  },
+  "ema-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola de nuevo! ¿Venís por otra rifa? *sonríe con la libreta en la mano*"
+      }
+    }
+  },
+  "facundo-calvo-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "Hola. Facundo, de Anteproyecto. ¿Vos de qué equipo sos?",
+        "opciones": [
+          {
+            "texto": "De 3D",
+            "ir": "3d"
+          }
+        ]
+      },
+      "3d": {
+        "texto": "Ah, mirá. Yo también modelo en 3D a veces. Me gusta Rhino.",
+        "siguiente": "ayuda"
+      },
+      "ayuda": {
+        "texto": "Si precisás ayuda en algo, estoy a las órdenes.",
+        "opciones": [
+          {
+            "texto": "¡Gracias, Facundo!",
+            "ir": "fin"
+          }
+        ]
+      },
+      "fin": {
+        "texto": "*asiente y sonríe*"
+      }
+    }
+  },
+  "facundo-calvo-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "Hola. *sonríe* Lo que precises, a las órdenes."
+      }
+    }
+  },
+  "pollo-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Facundo, pero todos me dicen Pollo.",
+        "opciones": [
+          {
+            "texto": "¿Por qué Pollo?",
+            "ir": "apodo"
+          },
+          {
+            "texto": "¡Un gusto, Pollo!",
+            "ir": "itau"
+          }
+        ]
+      },
+      "apodo": {
+        "texto": "Ah, no importa. No es nada especial... Es una historia para otro momento.",
+        "siguiente": "itau"
+      },
+      "itau": {
+        "texto": "Perdón si ando medio a las corridas: estoy con un proyecto que se llama Itaú y estoy súper ocupado.",
+        "opciones": [
+          {
+            "texto": "¿Llegás antes de la fiesta?",
+            "ir": "fiesta"
+          },
+          {
+            "texto": "¡Mucha suerte!",
+            "ir": "suerte"
+          }
+        ]
+      },
+      "fiesta": {
+        "texto": "Eso espero... ¡Quiero terminarlo a tiempo antes de la fiesta! Deseame suerte."
+      },
+      "suerte": {
+        "texto": "¡Gracias! Ojalá lo termine a tiempo antes de la fiesta."
+      }
+    }
+  },
+  "pollo-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "*teclea a toda velocidad* ¡Hola! No puedo charlar mucho, sigo con Itaú... ¡Pero ya casi, ya casi!",
+        "opciones": [
+          {
+            "texto": "¿Y por qué te dicen Pollo?",
+            "ir": "apodo"
+          },
+          {
+            "texto": "¡Fuerza, Pollo!",
+            "ir": "fuerza"
+          }
+        ]
+      },
+      "apodo": {
+        "texto": "¡Otra vez con eso! No importa, en serio. Historia para otro momento."
+      },
+      "fuerza": {
+        "texto": "¡Gracias! Nos vemos en la fiesta... si llego."
+      }
+    }
+  },
+  "fede-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Federico, Fede para los amigos. Soy de Anteproyecto, trabajo mucho con Bruna y con Ale.",
+        "opciones": [
+          {
+            "si": {
+              "sinFlag": "fede-vio-imagen"
+            },
+            "texto": "Te quería mostrar una imagen",
+            "ir": "imagen",
+            "efectos": [
+              {
+                "tipo": "flag",
+                "nombre": "fede-vio-imagen"
+              }
+            ]
+          },
+          {
+            "texto": "¡Un gusto, Fede!",
+            "ir": "auto"
+          }
+        ]
+      },
+      "imagen": {
+        "texto": "¡A ver! *mira la imagen con atención* ...Se ve bien, eh. Se nota que vas a tener talento para 3D.",
+        "siguiente": "ale"
+      },
+      "ale": {
+        "texto": "Ahora sí, mostrásela a Ale. Decile que ya la vi yo, que si no te manda de vuelta para acá.",
+        "siguiente": "auto"
+      },
+      "auto": {
+        "texto": "Ah, y si vivís para el mismo lado que yo, a la salida te llevo en el auto. ¡Avisame!",
+        "opciones": [
+          {
+            "texto": "¡Buenísimo, gracias!",
+            "ir": "fin"
+          }
+        ]
+      },
+      "fin": {
+        "texto": "¡De nada! Cualquier cosa, me decís."
+      }
+    }
+  },
+  "fede-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola de nuevo! ¿Necesitás algo?",
+        "opciones": [
+          {
+            "si": {
+              "sinFlag": "fede-vio-imagen"
+            },
+            "texto": "Te quería mostrar una imagen",
+            "ir": "imagen",
+            "efectos": [
+              {
+                "tipo": "flag",
+                "nombre": "fede-vio-imagen"
+              }
+            ]
+          },
+          {
+            "texto": "¿Me llevás a la salida?",
+            "ir": "auto"
+          },
+          {
+            "texto": "Nada, pasaba a saludar",
+            "ir": "saludo"
+          }
+        ]
+      },
+      "imagen": {
+        "texto": "¡A ver! *mira la imagen con atención* ...Se ve bien, eh. Se nota que vas a tener talento para 3D.",
+        "siguiente": "ale"
+      },
+      "ale": {
+        "texto": "Ahora sí, mostrásela a Ale. Decile que ya la vi yo, que si no te manda de vuelta para acá."
+      },
+      "auto": {
+        "texto": "¡Obvio! Si vivís para mi lado, te alcanzo. A la salida me buscás."
+      },
+      "saludo": {
+        "texto": "¡Buenísimo! Disfrutá el día."
+      }
+    }
+  },
+  "felipe-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Felipe, de Anteproyecto. ¡Qué bueno conocerte! Cualquier cosa que necesites, me decís.",
+        "opciones": [
+          {
+            "texto": "¿Sorrondegui? ¿Como Álvaro?",
+            "ir": "familia"
+          },
+          {
+            "texto": "¡Gracias, Felipe!",
+            "ir": "fin"
+          }
+        ]
+      },
+      "familia": {
+        "texto": "¡Sí! Es mi papá, el jefe de Ejecutivo. Y mi hermana Martina también trabajaba en Anteproyecto, pero ahora está de viaje de arquitectura.",
+        "opciones": [
+          {
+            "si": {
+              "conoce": "ema-nunez"
+            },
+            "texto": "¡Le acabo de comprar una rifa a Ema para ese viaje!",
+            "ir": "rifa"
+          },
+          {
+            "si": {
+              "noConoce": "ema-nunez"
+            },
+            "texto": "¿Un viaje de arquitectura?",
+            "ir": "viaje"
+          },
+          {
+            "texto": "¡Qué buena familia de arquitectos!",
+            "ir": "fin"
+          }
+        ]
+      },
+      "rifa": {
+        "texto": "¡Qué buena onda! Gracias por bancar el viaje. Martina va a estar feliz.",
+        "siguiente": "fin"
+      },
+      "viaje": {
+        "texto": "Sí, recorren obras por todos lados. Está buenísimo... pero para pagarlo hay que vender rifas, y vender rifas de arquitectura es súper cansador.",
+        "siguiente": "fin"
+      },
+      "fin": {
+        "texto": "¡Que disfrutes la fiesta! Nos vemos por ahí."
+      }
+    }
+  },
+  "felipe-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola de nuevo! ¿Todo bien? Si te perdés buscando algo, avisame que te ayudo."
+      }
+    }
+  },
+  "pancho-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Francisco, jefe de Anteproyecto... pero decime Pancho, como todos.",
+        "opciones": [
+          {
+            "texto": "¿Y con quién trabajás?",
+            "si": {
+              "noConoce": "sebastian-ramirez"
+            },
+            "ir": "seba"
+          },
+          {
+            "texto": "¡Ya conocí a Seba!",
+            "si": {
+              "conoce": "sebastian-ramirez"
+            },
+            "ir": "conoceSeba"
+          },
+          {
+            "texto": "¡Un gusto, Pancho!",
+            "ir": "fin"
+          }
+        ]
+      },
+      "seba": {
+        "texto": "Con Seba, Sebastián Ramírez. Trabajamos siempre de par en par: a donde voy yo, va Seba. Seguro anda por acá cerca.",
+        "siguiente": "elogio"
+      },
+      "conoceSeba": {
+        "texto": "¡Ah, buenísimo! Trabajamos siempre de par en par. A donde voy yo, va Seba.",
+        "siguiente": "elogio"
+      },
+      "elogio": {
+        "texto": "Es un crack, ¿eh? Trabaja muchísimo, no sé qué haría sin él. Nos llevamos bárbaro.",
+        "siguiente": "fin"
+      },
+      "fin": {
+        "texto": "¡Que te vaya bárbaro en tu primer día! Cualquier cosa, nos buscás a Seba o a mí... o a los dos, que es más fácil."
+      }
+    }
+  },
+  "pancho-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola de nuevo! ¿Viste a Seba? Siempre anda cerca mío... o yo cerca de él, nunca sé."
+      }
+    }
+  },
+  "seba-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "Hola... Soy Seba, jefe de Anteproyecto. Ya sé, soy medio callado. Pero cualquier cosa que necesites, acá estoy.",
+        "opciones": [
+          {
+            "texto": "¡Ya conocí a Pancho!",
+            "si": {
+              "conoce": "francisco-nunez"
+            },
+            "ir": "conocePancho"
+          },
+          {
+            "texto": "Voy a estar en el equipo de 3D.",
+            "ir": "tresD"
+          },
+          {
+            "texto": "¡Gracias, Seba!",
+            "ir": "fin"
+          }
+        ]
+      },
+      "conocePancho": {
+        "texto": "Ah, sí. Trabajamos siempre juntos. Seguro te habló bien de mí... Él también es un crack.",
+        "siguiente": "fin"
+      },
+      "tresD": {
+        "texto": "¿De 3D? Ah, entonces te van a decir que estoy siempre con Pancho. Es la broma de siempre.",
+        "siguiente": "jodones"
+      },
+      "jodones": {
+        "texto": "Son muy jodones... pero me gusta trabajar con ellos. Vamos a hacer buen equipo.",
+        "siguiente": "fin"
+      },
+      "fin": {
+        "texto": "Bueno... nos vemos por ahí."
+      }
+    }
+  },
+  "seba-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "Hola de nuevo. Sí, sí... Pancho anda por acá cerca."
+      }
+    }
+  },
+  "rubio-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Buenas! Gabriel, jefe de Anteproyecto. Pero acá todos me dicen El Rubio.",
+        "opciones": [
+          {
+            "texto": "¿El Rubio? Pero tenés canas...",
+            "ir": "canas"
+          },
+          {
+            "texto": "¡Un gusto, Rubio!",
+            "ir": "mate"
+          }
+        ]
+      },
+      "canas": {
+        "texto": "¡Ja! Ahora sí, pero en su momento era rubio de verdad, eh. El apodo quedó.",
+        "siguiente": "mate"
+      },
+      "mate": {
+        "texto": "Ey... ese matecito, ¿anda?",
+        "opciones": [
+          {
+            "texto": "Lo hice a la mañana, ya no está rico...",
+            "ir": "lavado"
+          },
+          {
+            "texto": "¡Sí, tomá!",
+            "ir": "sorbo"
+          }
+        ]
+      },
+      "lavado": {
+        "texto": "Ah, no, mate lavado no. Otro día me cebás uno recién hecho, ¿dale?"
+      },
+      "sorbo": {
+        "texto": "*Sssshhhrrrp... sssrrrp... SSSHHHRRRP*",
+        "siguiente": "gracias"
+      },
+      "gracias": {
+        "texto": "¡Ahhh, qué rico! Gracias, eh. Ya me caíste bien."
+      }
+    }
+  },
+  "rubio-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Buenas de nuevo! ¿Y? ¿Ese matecito anda?"
+      }
+    }
+  },
+  "guido-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Guido, de Anteproyecto. Entré hace no tanto, pero ya le agarré la mano. ¿Y vos? ¿En qué equipo estás?",
+        "opciones": [
+          {
+            "texto": "En 3D.",
+            "ir": "equipo"
+          }
+        ]
+      },
+      "equipo": {
+        "texto": "¡Buenísimo! Nos vamos a cruzar un montón. Che, ¿ya conociste a Trilce?",
+        "opciones": [
+          {
+            "texto": "¡Sí, ya la conocí!",
+            "si": {
+              "conoce": "trilce-lado"
+            },
+            "ir": "trilceSi"
+          },
+          {
+            "texto": "Todavía no.",
+            "si": {
+              "noConoce": "trilce-lado"
+            },
+            "ir": "trilceNo"
+          }
+        ]
+      },
+      "trilceSi": {
+        "texto": "¿Viste? Es muy buena compañera. Y esos lentes le quedan re bien.",
+        "siguiente": "fin"
+      },
+      "trilceNo": {
+        "texto": "Tenés que conocerla, entró hace poco también. Es muy buena compañera... y sus lentes le quedan re bien.",
+        "siguiente": "fin"
+      },
+      "fin": {
+        "texto": "¡Bueno, cualquier cosa me avisás! Nos vemos en la fiesta."
+      }
+    }
+  },
+  "guido-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Eh, hola de nuevo! ¿Cómo va ese primer día?"
+      }
+    }
+  },
+  "trilce-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola, hola! Soy Trilce, de Anteproyecto. Entré hace poco, ¡así que me encanta conocer gente nueva!",
+        "opciones": [
+          {
+            "texto": "¡Qué lindos lentes!",
+            "ir": "lentes"
+          },
+          {
+            "texto": "¡Un gusto, Trilce!",
+            "ir": "guido"
+          }
+        ]
+      },
+      "lentes": {
+        "texto": "¡Ay, muchas gracias! ¿Sos de 3D? ¡Vamos a hacer muy buen equipo!",
+        "siguiente": "guido"
+      },
+      "guido": {
+        "texto": "Che, ¿ya conociste a Guido?",
+        "opciones": [
+          {
+            "texto": "¡Sí! Me habló muy bien de vos.",
+            "si": {
+              "conoce": "guido-vazquez"
+            },
+            "ir": "guidoSi"
+          },
+          {
+            "texto": "Todavía no.",
+            "si": {
+              "noConoce": "guido-vazquez"
+            },
+            "ir": "guidoNo"
+          }
+        ]
+      },
+      "guidoSi": {
+        "texto": "¡Ay, qué divino! Es muy buen arquitecto, y me encanta lo amable que es.",
+        "siguiente": "fin"
+      },
+      "guidoNo": {
+        "texto": "¡Tenés que conocerlo! Es un excelente arquitecto y muy buena persona.",
+        "siguiente": "fin"
+      },
+      "fin": {
+        "texto": "¡Bueno, después seguimos charlando, que me encanta conversar!"
+      }
+    }
+  },
+  "trilce-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola otra vez! ¿Charlamos un ratito? Contame, ¿cómo va todo?"
+      }
+    }
+  },
+  "guillermo-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Guillermo, jefe de Anteproyecto. Trabajo mano a mano con el Gordo... digo, con Diego Míguez.",
+        "opciones": [
+          {
+            "texto": "¡Ya conocí a Diego!",
+            "si": {
+              "conoce": "diego-miguez"
+            },
+            "ir": "conoceDiego"
+          },
+          {
+            "texto": "¿El Gordo?",
+            "ir": "gordo"
+          },
+          {
+            "texto": "¡Un gusto, Guillermo!",
+            "ir": "oveja"
+          }
+        ]
+      },
+      "conoceDiego": {
+        "texto": "¿Viste? Ruidoso, pero buena gente. Trabajamos siempre juntos.",
+        "siguiente": "oveja"
+      },
+      "gordo": {
+        "texto": "Es un apodo de confianza, eh. Él nunca se dice así. Pero los de 3D le dicen así todo el tiempo... así que ya vas a ver.",
+        "siguiente": "oveja"
+      },
+      "oveja": {
+        "texto": "Che, vos que sos de 3D... ¿Viste la oveja que anda dando vueltas por acá?",
+        "opciones": [
+          {
+            "texto": "¡Sí, la vi!",
+            "si": {
+              "conoce": "oveja"
+            },
+            "ir": "ovejaSi"
+          },
+          {
+            "texto": "¿Una oveja?",
+            "si": {
+              "noConoce": "oveja"
+            },
+            "ir": "ovejaNo"
+          }
+        ]
+      },
+      "ovejaSi": {
+        "texto": "Esa oveja es de Gabriel. Definitivamente. No me preguntes cómo lo sé.",
+        "siguiente": "fin"
+      },
+      "ovejaNo": {
+        "texto": "Sí, una oveja. Y te digo una cosa: es de Gabriel, el de 3D. Definitivamente.",
+        "siguiente": "fin"
+      },
+      "fin": {
+        "texto": "Bueno, ¡que te vaya bárbaro! Y si ves al Gordo, saludalo de mi parte."
+      }
+    }
+  },
+  "guillermo-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola de nuevo! ¿Ya le preguntaste a Gabriel por su oveja?"
+      }
+    }
+  },
+  "joaquin-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Joaquín, jefe de Anteproyecto. Che, ¿vos andás en bici?",
+        "opciones": [
+          {
+            "texto": "¡Sí, me encanta!",
+            "ir": "si"
+          },
+          {
+            "texto": "No mucho...",
+            "ir": "no"
+          }
+        ]
+      },
+      "si": {
+        "texto": "¡Bien ahí! Entonces me vas a entender. Yo con mi bici... ¿cómo te explico? Es amor. Mirá, te muestro una foto. Y otra. Y esta, que salió en mi Instagram.",
+        "siguiente": "tip"
+      },
+      "no": {
+        "texto": "¡No sabés lo que te perdés! Yo con mi bici... es amor, te digo. Tengo el Instagram lleno de fotos de ella. Te muestro, mirá.",
+        "siguiente": "tip"
+      },
+      "tip": {
+        "texto": "Y te paso un tip: siempre revisá la presión de las ruedas antes de salir. ¡Cambia todo!",
+        "opciones": [
+          {
+            "texto": "¿Algún otro tip?",
+            "ir": "tip2"
+          },
+          {
+            "texto": "¡Gracias por el tip!",
+            "ir": "fin"
+          }
+        ]
+      },
+      "tip2": {
+        "texto": "¡Obvio! Lubricá la cadena cada tanto, usá casco siempre y en las subidas cambiá antes de que se ponga pesado, no en el medio. ¡Ah! Y hidratate.",
+        "opciones": [
+          {
+            "texto": "¿Algo más?",
+            "ir": "tip3"
+          },
+          {
+            "texto": "¡Anotado!",
+            "ir": "fin"
+          }
+        ]
+      },
+      "tip3": {
+        "texto": "Mmm... ¡Seguime en Instagram! Ahí está todo. Bueno, sobre todo fotos de mi bici.",
+        "siguiente": "fin"
+      },
+      "fin": {
+        "texto": "¡Cuando quieras salimos a pedalear! Bueno... yo y mi bici, y vos."
+      }
+    }
+  },
+  "joaquin-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Ey! ¿Viste la última foto que subí de mi bici? Quedó hermosa. Y acordate: ¡la presión de las ruedas!"
+      }
+    }
+  },
+  "katia-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Katia Sei Fong, de Anteproyecto.",
+        "opciones": [
+          {
+            "texto": "¿Sei Fong? ¿De dónde es tu apellido?",
+            "ir": "apellido"
+          },
+          {
+            "texto": "¡Un gusto, Katia!",
+            "ir": "arquitectura"
+          }
+        ]
+      },
+      "apellido": {
+        "texto": "Es chino... ¡pero yo de chino no sé nada, eh!",
+        "siguiente": "arquitectura"
+      },
+      "arquitectura": {
+        "texto": "Me encanta la arquitectura. Ah, y además soy la embajadora del bambú en Uruguay.",
+        "opciones": [
+          {
+            "texto": "¿Embajadora del bambú?",
+            "ir": "bambu"
+          }
+        ]
+      },
+      "bambu": {
+        "texto": "¡Sí! Es un material increíble: liviano, resistente y crece rapidísimo. Tengo algunas cañas, ¿querés?",
+        "opciones": [
+          {
+            "texto": "¡Sí, dale!",
+            "ir": "regalo"
+          },
+          {
+            "texto": "Bueno... ¿por qué no?",
+            "ir": "regalo"
+          }
+        ]
+      },
+      "regalo": {
+        "texto": "¡Tomá! Te regalo un brotecito de bambú para que empieces.",
+        "opciones": [
+          {
+            "texto": "¡Gracias, Katia!",
+            "efectos": [
+              {
+                "tipo": "flag",
+                "nombre": "tiene-bambu"
+              },
+              {
+                "tipo": "premio",
+                "imagen": "Insumos/Items/Bambú.png",
+                "alto": 150,
+                "texto": "¡Conseguiste un brote de bambú!",
+                "sonido": "Insumos/Sonidos/Right.mp3"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "katia-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola de nuevo! ¿Cómo va ese bambú?",
+        "opciones": [
+          {
+            "texto": "¿Qué hago con el bambú?",
+            "si": {
+              "flag": "tiene-bambu"
+            },
+            "ir": "cultivar"
+          },
+          {
+            "texto": "¡Todo bien, Katia!"
+          }
+        ]
+      },
+      "cultivar": {
+        "texto": "¡Podés plantarlo en tu casa! Pero cuidado, eh: puede crecer hasta 35 metros de altura."
+      }
+    }
+  },
+  "nicolas-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Buenas buenas! Soy Nicolás, de Anteproyecto. *cof, cof* Perdón...",
+        "opciones": [
+          {
+            "texto": "¿Estás bien? ¿Estás enfermo?",
+            "ir": "tos"
+          },
+          {
+            "texto": "¡Un gusto, Nicolás!",
+            "ir": "recreo"
+          }
+        ]
+      },
+      "tos": {
+        "texto": "¿Enfermo? No, no... *cof, cof* Es la edad.",
+        "siguiente": "recreo"
+      },
+      "recreo": {
+        "texto": "Vos sos de 3D, ¿no? Cada vez que quiero un recreo me voy a charlar a la oficina de 3D. Así que nos vamos a ver seguido. *cof*"
+      }
+    }
+  },
+  "nicolas-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Buenas buenas! *cof, cof* Ya me paso por la oficina de 3D a charlar un rato."
+      }
+    }
+  },
+  "pablo-miguez-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Pablo Míguez, jefe de proyecto. ¡Qué bueno tenerte por acá!",
+        "opciones": [
+          {
+            "texto": "¿Míguez? ¿Como Diego?",
+            "si": {
+              "conoce": "diego-miguez"
+            },
+            "ir": "diegoSi"
+          },
+          {
+            "texto": "¿Míguez? ¿Tenés familia acá?",
+            "si": {
+              "noConoce": "diego-miguez"
+            },
+            "ir": "diegoNo"
+          },
+          {
+            "texto": "¡Un gusto, Pablo!",
+            "ir": "arquitectura"
+          }
+        ]
+      },
+      "diegoSi": {
+        "texto": "Sí, es mi hermano mayor. Seguro lo escuchaste antes de verlo, ¿no? Tranquilo, yo soy el que se porta bien de la familia.",
+        "siguiente": "arquitectura"
+      },
+      "diegoNo": {
+        "texto": "Sí, mi hermano mayor, Diego. También es jefe. Lo vas a reconocer enseguida: es el que se escucha desde lejos. Yo soy el que se porta bien.",
+        "siguiente": "arquitectura"
+      },
+      "arquitectura": {
+        "texto": "A mí me encanta charlar de arquitectura. Si tenés alguna duda o algo que te interese, vení a preguntarme sin problema.",
+        "siguiente": "ideas"
+      },
+      "ideas": {
+        "texto": "Y otra cosa: siempre busco formas de mejorar la producción del equipo. Si se te ocurre alguna idea, ¡proponémela!",
+        "opciones": [
+          {
+            "texto": "¡Ya tengo una idea!",
+            "ir": "idea"
+          },
+          {
+            "texto": "¡Lo tengo en cuenta!",
+            "ir": "fin"
+          }
+        ]
+      },
+      "idea": {
+        "texto": "¡Me encanta! Pasá por mi escritorio cuando quieras y la charlamos con calma."
+      },
+      "fin": {
+        "texto": "¡Buenísimo! Cualquier cosa, acá estoy."
+      }
+    }
+  },
+  "pablo-miguez-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! ¿Alguna duda de arquitectura? ¿O alguna idea para mejorar el equipo? Soy todo oídos."
+      }
+    }
+  },
+  "pablo-rios-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Pablo Ríos, de Anteproyecto. ¡Felicitaciones por entrar!",
+        "opciones": [
+          {
+            "texto": "¡Katia me regaló un bambú!",
+            "si": {
+              "flag": "tiene-bambu"
+            },
+            "ir": "bambuSi"
+          },
+          {
+            "texto": "¡Gracias!",
+            "si": {
+              "sinFlag": "tiene-bambu"
+            },
+            "ir": "bambuNo"
+          }
+        ]
+      },
+      "bambuSi": {
+        "texto": "¡Ja! Ya empezó. Yo me siento al lado de Katia... ya tengo como 30 bambús en mi casa.",
+        "siguiente": "fin"
+      },
+      "bambuNo": {
+        "texto": "Yo me siento al lado de Katia. Si todavía no te ofreció bambú, ya te va a ofrecer... Yo ya tengo como 30 en mi casa.",
+        "siguiente": "fin"
+      },
+      "fin": {
+        "texto": "¡Mucha suerte en tu primer día!"
+      }
+    }
+  },
+  "pablo-rios-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola de nuevo! ¿Cómo va todo? Yo acá, contando bambús... ya van 31."
+      }
+    }
+  },
+  "paula-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Paula, de Anteproyecto. Estoy en el equipo de Master Plan, con Stephanie. ¡Felicitaciones por entrar!",
+        "opciones": [
+          {
+            "texto": "¡Ya conocí a Stephanie!",
+            "si": {
+              "conoce": "stephanie-pereyra"
+            },
+            "ir": "stephanie"
+          },
+          {
+            "texto": "¡Gracias, Paula!",
+            "ir": "fin"
+          }
+        ]
+      },
+      "stephanie": {
+        "texto": "¡Qué bueno! Trabajamos siempre juntas en los Master Plan.",
+        "siguiente": "fin"
+      },
+      "fin": {
+        "texto": "¡Espero verte en la fiesta!"
+      }
+    }
+  },
+  "paula-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola de nuevo! ¿Venís a la fiesta, no? ¡Nos vemos ahí!"
+      }
+    }
+  },
+  "stephanie-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Stephanie, jefa de Anteproyecto. Lidero el equipo de Master Plan junto con Nicolás Newton.",
+        "opciones": [
+          {
+            "texto": "¡Ya conocí a Nicolás!",
+            "si": {
+              "conoce": "nicolas-newton"
+            },
+            "ir": "nicolas"
+          },
+          {
+            "texto": "¡Ya conocí a Paula!",
+            "si": {
+              "conoce": "paula-bueno"
+            },
+            "ir": "paula"
+          },
+          {
+            "texto": "¿Master Plan?",
+            "ir": "masterplan"
+          }
+        ]
+      },
+      "nicolas": {
+        "texto": "¿Te saludó con un \"buenas buenas\"? Siempre. Hacemos muy buen equipo.",
+        "siguiente": "masterplan"
+      },
+      "paula": {
+        "texto": "¡Sí! Paula también es de Master Plan.",
+        "siguiente": "masterplan"
+      },
+      "masterplan": {
+        "texto": "Hay más gente que trabaja en Master Plan. Si querés, andá a conocerlos antes de que empiece la fiesta.",
+        "siguiente": "valientes"
+      },
+      "valientes": {
+        "texto": "Igual te digo: entrar justo antes de la fiesta de fin de año... es de valientes. ¡Mucha suerte!"
+      }
+    }
+  },
+  "stephanie-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola de nuevo! ¿Ya conociste a todo el equipo de Master Plan? Todavía estás a tiempo antes de la fiesta."
+      }
+    }
+  },
+  "santiago-hernandez-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Santiago, jefe de proyecto. Mmm... ¿Nosotros ya nos habíamos visto antes?",
+        "opciones": [
+          {
+            "texto": "Sí, ¡me parece que sí!",
+            "ir": "si"
+          },
+          {
+            "texto": "No, creo que no...",
+            "ir": "no"
+          }
+        ]
+      },
+      "si": {
+        "texto": "¡Sabía! Seguro fue en la facultad. Soy profesor ahí.",
+        "siguiente": "aprender"
+      },
+      "no": {
+        "texto": "¿No? Me parecía haberte visto en la facultad. Soy profesor ahí, ¿sabés?",
+        "siguiente": "aprender"
+      },
+      "aprender": {
+        "texto": "Igual que en la facultad, acá también se viene a aprender. Así que cualquier duda que tengas, preguntame."
+      }
+    }
+  },
+  "santiago-hernandez-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola de nuevo! ¿Alguna duda? Acordate que acá se viene a aprender."
+      }
+    }
+  },
+  "victoria-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Victoria, de Anteproyecto.",
+        "opciones": [
+          {
+            "texto": "¡Qué lindo tu teclado!",
+            "ir": "teclado"
+          },
+          {
+            "texto": "Che... ¿algo se mueve en tu cartera?",
+            "ir": "cartera"
+          }
+        ]
+      },
+      "teclado": {
+        "texto": "¡Gracias! Me encantan las cosas lindas. Si querés uno así, te paso el link para comprarlo.",
+        "opciones": [
+          {
+            "texto": "¡Dale! Y... ¿algo se mueve en tu cartera?",
+            "ir": "cartera"
+          }
+        ]
+      },
+      "cartera": {
+        "texto": "¡Ah, sí! Es Miso, mi erizo. Mirá, te lo muestro...",
+        "siguiente": "miso"
+      },
+      "miso": {
+        "nombre": "Miso",
+        "retrato": "Insumos/Splash-Personajes/Animales/Miso.png",
+        "texto": "*snif snif... fff, fff... snif*",
+        "siguiente": "misoMira"
+      },
+      "misoMira": {
+        "nombre": "Miso",
+        "retrato": "Insumos/Splash-Personajes/Animales/Miso.png",
+        "texto": "*te mira con sus ojitos redondos*",
+        "siguiente": "placer"
+      },
+      "placer": {
+        "texto": "Bueno, Miso vuelve a la cartera. ¡Es un placer conocerte!"
+      }
+    }
+  },
+  "victoria-miso": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola de nuevo! ¿Sabés qué? Le caíste bien a Miso.",
+        "siguiente": "miso"
+      },
+      "miso": {
+        "nombre": "Miso",
+        "retrato": "Insumos/Splash-Personajes/Animales/Miso.png",
+        "texto": "*te mira fijo... muy fijo*"
+      }
+    }
+  },
+  "victoria-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! ¿Te paso el link del teclado? Es divino, te va a encantar."
+      }
+    }
+  },
+  "vanessa-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Ay! ¡Me encontraste! Soy Vanessa... Yo no debería estar acá, eh.",
+        "siguiente": "lentes"
+      },
+      "lentes": {
+        "texto": "Tenía que venir a buscar mis lentes, que me los olvidé... Y bueno, ya que estoy, capaz me quedo de colada en la fiesta.",
+        "siguiente": "felicita"
+      },
+      "felicita": {
+        "texto": "¿Así que entraste a 3D? ¡Felicitaciones! Es el mejor equipo, posta.",
+        "opciones": [
+          {
+            "texto": "¿Y por qué te escondés?",
+            "ir": "historia",
+            "efectos": [
+              {
+                "tipo": "esconderse",
+                "id": "vanessa-scarenzio",
+                "en": "arbusto-vanessa",
+                "flag": "vanessa-escondida"
+              }
+            ]
+          }
+        ]
+      },
+      "historia": {
+        "texto": "Ah... esa es una historia para otro momento. ¡Chau!"
+      }
+    }
+  },
+  "arbusto-shhh": {
+    "inicio": "shhh",
+    "nodos": {
+      "shhh": {
+        "nombre": "Vanessa",
+        "retrato": "Insumos/Splash-Personajes/Anteproyecto/Vanessa-Scarenzio.png",
+        "texto": "¡Shhh!"
       }
     }
   },

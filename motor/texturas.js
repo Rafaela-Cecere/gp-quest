@@ -54,6 +54,10 @@ function achicar(img, r, ancho, alto) {
 }
 
 const pendientes = new Map();
+const recortes = new Map(); // clave → parte de la imagen original que quedó { x, y, w, h, ancho, alto }
+
+// Qué parte de la imagen original quedó en la textura (para ubicar puntos de la imagen original).
+export const recorteDe = clave => recortes.get(clave);
 
 // Devuelve (y recuerda) el lienzo listo para usar como textura.
 export function prepararImagen(ruta, alto) {
@@ -62,6 +66,7 @@ export function prepararImagen(ruta, alto) {
     pendientes.set(clave, cargarImagen(ruta).then(img => {
       if (!alto) return img;
       const r = recorte(img);
+      recortes.set(clave, { ...r, ancho: img.width, alto: img.height });
       const ancho = Math.max(1, Math.round((r.w * alto) / r.h));
       return achicar(img, r, ancho, Math.round(alto));
     }));
