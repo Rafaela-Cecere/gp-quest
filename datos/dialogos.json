@@ -457,7 +457,7 @@
       },
       "falta-uno": {
         "narrador": true,
-        "texto": "¡Conociste a todos los compañeros de la fiesta! Falta uno muy importante que te espera en la sala grande de reuniones..."
+        "texto": "¡Desafiaste a todo el equipo de 3D! Falta uno muy importante que te espera en la sala grande de reuniones..."
       }
     }
   },
@@ -2554,6 +2554,348 @@
         "nombre": "Vanessa",
         "retrato": "Insumos/Splash-Personajes/Anteproyecto/Vanessa-Scarenzio.png",
         "texto": "¡Shhh!"
+      }
+    }
+  },
+  "rosalia-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Rosalía, jefa de Administración de obra. ¡Qué bueno conocerte!",
+        "opciones": [
+          { "texto": "¿Qué hacen en Administración de obra?", "ir": "admin" },
+          { "texto": "¡Un gusto, Rosalía!", "ir": "cafe" }
+        ]
+      },
+      "admin": {
+        "texto": "Llevamos los papeles, los pagos y los números de las obras. ¡Mucho trabajo!",
+        "siguiente": "cafe"
+      },
+      "cafe": {
+        "texto": "Bueno, yo me voy a hacer un cafecito. ¿Querés uno?",
+        "opciones": [
+          { "texto": "¡Dale!", "ir": "si" },
+          { "texto": "No, gracias.", "ir": "no" }
+        ]
+      },
+      "si": {
+        "texto": "¡Ahí va! Bueno... primero me hago el mío, y después vemos."
+      },
+      "no": {
+        "texto": "¡Bueno! Cualquier cosa, ya sabés dónde encontrarme: al lado de la cafetera."
+      }
+    }
+  },
+  "rosalia-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola de nuevo! Justo iba a hacerme un cafecito... otro."
+      }
+    }
+  },
+  "rossana-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Rossana, de Dirección de obra. Che, ¿no viste a José por ahí?",
+        "opciones": [
+          { "texto": "¡Sí, lo vi recién!", "si": { "conoce": "jose-diaz" }, "ir": "visto" },
+          { "texto": "¿José?", "si": { "noConoce": "jose-diaz" }, "ir": "quien" }
+        ]
+      },
+      "visto": {
+        "texto": "¡Ay, gracias! Lo estoy buscando hace un rato. Es el director de Dirección de obra, anda siempre para todos lados.",
+        "siguiente": "fin"
+      },
+      "quien": {
+        "texto": "José, el director de Dirección de obra. Si lo ves, decile que lo estoy buscando, ¿dale?",
+        "siguiente": "fin"
+      },
+      "fin": {
+        "texto": "¡Un gusto conocerte! Y si ves a José, avisame."
+      }
+    }
+  },
+  "rossana-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! ¿Y? ¿Viste a José?"
+      }
+    }
+  },
+  "cecilia-p-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "...Que lo escriba...",
+        "opciones": [
+          { "texto": "¿Perdón?", "ir": "mail" },
+          { "texto": "¿Que escriba qué?", "ir": "mail" }
+        ]
+      },
+      "mail": {
+        "texto": "¡Ay, perdón! Nada, estaba pensando en un mail que leí hoy de mañana. La gente escribe cada cosa...",
+        "siguiente": "nuevo"
+      },
+      "nuevo": {
+        "texto": "Soy Cecilia, de Dirección de obra. ¿Vos sos quien entró hoy?",
+        "opciones": [
+          { "texto": "¡Sí! Hoy es mi primer día.", "ir": "consejo" }
+        ]
+      },
+      "consejo": {
+        "texto": "¡Qué bueno! Cualquier cosa que necesites, preguntame. Y un consejo: antes de mandar un mail, ¡leelo dos veces!"
+      }
+    }
+  },
+  "cecilia-p-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! ...Perdón, sigo pensando en ese mail. Que lo escriba, digo yo..."
+      }
+    }
+  },
+  "marina-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Marina, de Dirección de obra. Che, ¿sabés a quién le toca el viernes?",
+        "opciones": [
+          { "texto": "¿El viernes?", "ir": "explica" },
+          { "texto": "No sé, ¡recién llego!", "ir": "explica" }
+        ]
+      },
+      "explica": {
+        "texto": "¡El viernes dulce! En Dirección de obra, cada viernes a alguien le toca traer algo rico para compartir. Nos vamos rotando.",
+        "opciones": [
+          { "texto": "¿Y a quién le toca?", "ir": "nose" },
+          { "texto": "¡Me encanta la idea!", "ir": "idea" }
+        ]
+      },
+      "nose": {
+        "texto": "¡Eso es lo que estoy tratando de averiguar! Si te enterás, avisame."
+      },
+      "idea": {
+        "texto": "¿Viste? ¡Capaz un día te sumás! Bueno... ¿a quién le tocará?"
+      }
+    }
+  },
+  "marina-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! ¿Ya sabés a quién le toca el viernes? Yo todavía no..."
+      }
+    }
+  },
+  "jose-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy José, director de Dirección de obra. ¡Qué bueno tenerte en el estudio!",
+        "opciones": [
+          { "texto": "¡Rossana te está buscando!", "si": { "conoce": "rossana-rivero" }, "ir": "rossana" },
+          { "texto": "Estoy con un poco de nervios...", "ir": "nervios" },
+          { "texto": "¡Gracias, José!", "ir": "fin" }
+        ]
+      },
+      "rossana": {
+        "texto": "¿Otra vez? Siempre me está buscando... ¡Ya voy, ya voy!",
+        "siguiente": "fin"
+      },
+      "nervios": {
+        "texto": "¡Tranqui! Es normal el primer día.",
+        "siguiente": "fin"
+      },
+      "fin": {
+        "texto": "Cualquier cosa que necesites, ya sabés: contá contigo."
+      }
+    }
+  },
+  "jose-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! ¿Todo bien? Acordate: contá contigo."
+      }
+    }
+  },
+  "octavio-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Buenas buenas! Octavio, de Dirección de obra.",
+        "opciones": [
+          { "texto": "Tengo miedo de no encajar en el equipo...", "ir": "encajar" },
+          { "texto": "¿Será difícil aprender todo?", "ir": "aprender" },
+          { "texto": "¡Un gusto, Octavio!", "ir": "fin" }
+        ]
+      },
+      "encajar": {
+        "texto": "¿Eso? ¡Va como piña! En dos días ya estás como en casa.",
+        "siguiente": "fin"
+      },
+      "aprender": {
+        "texto": "¿Difícil? ¡Va como piña! Preguntás, mirás, y listo.",
+        "siguiente": "fin"
+      },
+      "fin": {
+        "texto": "¡Nos vemos! Y tranqui, que todo va como piña."
+      }
+    }
+  },
+  "octavio-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Buenas buenas! ¿Cómo va eso? ...¿Viste? ¡Va como piña!"
+      }
+    }
+  },
+  "rodrigo-melgar-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Rodrigo, de Dirección de obra. ¿Te gusta escuchar música mientras trabajás?",
+        "opciones": [
+          { "texto": "¡Sí, me encanta!", "ir": "si" },
+          { "texto": "Prefiero el silencio...", "ir": "no" }
+        ]
+      },
+      "si": {
+        "texto": "¡Bien! Entonces nos vamos a llevar bárbaro. Eso sí: acá yo siempre pido que pongan a Jaime.",
+        "opciones": [
+          { "texto": "Victoria dice que pongan a Luana...", "si": { "conoce": "victoria-cocina" }, "ir": "luana" },
+          { "texto": "¡Anotado: Jaime!", "ir": "fin" }
+        ]
+      },
+      "no": {
+        "texto": "¿Silencio? Mmm... ¿Y si ponemos a Jaime? Con Jaime cambia todo.",
+        "opciones": [
+          { "texto": "Victoria dice que pongan a Luana...", "si": { "conoce": "victoria-cocina" }, "ir": "luana" },
+          { "texto": "¡Anotado: Jaime!", "ir": "fin" }
+        ]
+      },
+      "luana": {
+        "texto": "¿Luana? ¡Típico de Victoria! Siempre con Luana... pero acá lo que va es Jaime.",
+        "siguiente": "fin"
+      },
+      "fin": {
+        "texto": "Si alguna vez tenés el parlante, ya sabés: ¡poné a Jaime!"
+      }
+    }
+  },
+  "rodrigo-melgar-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! ¿Quién tiene el parlante? ¡Que pongan a Jaime! ...Y que Victoria no ponga a Luana."
+      }
+    }
+  },
+  "santiago-figueroa-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Santiago, de Dirección de obra. Perdón la cara, pero... ¿nadie prende el aire acá? ¡Hace un calor!",
+        "opciones": [
+          { "texto": "¿Querés que lo prenda yo?", "ir": "prender" },
+          { "texto": "A mí me parece que está bien...", "ir": "bien" }
+        ]
+      },
+      "prender": {
+        "texto": "¡Sos un ángel! Pero ojo, que después alguien dice que tiene frío y lo apaga... siempre pasa.",
+        "siguiente": "fin"
+      },
+      "bien": {
+        "texto": "¿Bien? ¡Me estoy derritiendo! Bueno, cada uno con su temperatura.",
+        "siguiente": "fin"
+      },
+      "fin": {
+        "texto": "Igual, ¡un gusto conocerte! Cualquier cosa que necesites, avisame."
+      }
+    }
+  },
+  "santiago-figueroa-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola de nuevo! ...¿Todavía nadie prendió el aire? Increíble."
+      }
+    }
+  },
+  "paco-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Holaaa! Soy Francisco, pero todos me dicen Paco. ¡Un gusto!",
+        "opciones": [
+          { "texto": "¿De qué área sos, Paco?", "ir": "area" },
+          { "texto": "¡Un gusto, Paco!", "ir": "area" }
+        ]
+      },
+      "area": {
+        "texto": "Ahora estoy en Dirección de obra. Antes estaba en Anteproyecto, pero decidí pasarme. Así que mucho no nos vamos a ver...",
+        "siguiente": "ante"
+      },
+      "ante": {
+        "texto": "¡Pero Anteproyecto es re divertido! Y vos vas a trabajar con los chicos de 3D, ¿no? Seguro encajás re bien.",
+        "siguiente": "fin"
+      },
+      "fin": {
+        "texto": "¡Que te vaya bárbaro! ¡Nos vemos en la fiesta!"
+      }
+    }
+  },
+  "paco-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Eh, hola! ¿Qué tal todo con los de 3D? ¡Saludalos de mi parte!"
+      }
+    }
+  },
+  "victoria-cocina-intro": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Soy Victoria, de Dirección de obra. ¿Te gusta escuchar música mientras trabajás?",
+        "opciones": [
+          { "texto": "¡Sí, me encanta!", "ir": "si" },
+          { "texto": "Prefiero el silencio...", "ir": "no" }
+        ]
+      },
+      "si": {
+        "texto": "¡Bien! Yo siempre pido que pongan a Luana.",
+        "opciones": [
+          { "texto": "Rodrigo me dijo que pongan a Jaime...", "si": { "conoce": "rodrigo-melgar" }, "ir": "jaime" },
+          { "texto": "¡Anotado: Luana!", "ir": "fin" }
+        ]
+      },
+      "no": {
+        "texto": "¿Silencio? ¡No! Con un poco de Luana se trabaja mucho mejor.",
+        "opciones": [
+          { "texto": "Rodrigo me dijo que pongan a Jaime...", "si": { "conoce": "rodrigo-melgar" }, "ir": "jaime" },
+          { "texto": "¡Anotado: Luana!", "ir": "fin" }
+        ]
+      },
+      "jaime": {
+        "texto": "¡Típico de Rodri! Él siempre con Jaime... pero acá lo que va es Luana.",
+        "siguiente": "fin"
+      },
+      "fin": {
+        "texto": "Si alguna vez tenés el parlante, ya sabés: ¡poné a Luana!"
+      }
+    }
+  },
+  "victoria-cocina-otra-vez": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! ¿Quién tiene el parlante? ¡Que pongan a Luana! ...Y que Rodri no ponga a Jaime."
       }
     }
   },

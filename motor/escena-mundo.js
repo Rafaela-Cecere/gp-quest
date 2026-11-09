@@ -2,25 +2,28 @@
 // Todas las posiciones están en píxeles de la imagen del mapa (assets exportados a escala x2).
 // La posición de personajes y objetos es la de su base (los pies).
 
-import { CELDA } from './colision.js';
-import { MapaEnPiezas, medidasMapa } from './mapa.js';
-import { Controles } from './controles.js';
-import { Dialogo } from './dialogo.js';
-import { Interfaz } from './interfaz.js';
-import { Estado } from './estado.js';
-import { audiosUsados, altoDe, spritesDe } from './datos.js';
-import { crearTexturasBase, crearObjeto, crearCopa, crearSpritePersonaje, crearParticulas, profundidad } from './mundo-vista.js';
-import { claveTextura, registrarLienzos } from './texturas.js';
-import { Trafico } from './trafico.js';
-import { Desafio, precargarDesafio } from './desafio.js';
-import { FruitNinja, precargarFruitNinja } from './fruit-ninja.js';
-import { PingPong, precargarPingPong } from './ping-pong.js';
-import { Poses } from './poses.js';
+import { CELDA } from './colision.js?v=20261109012624';
+import { MapaEnPiezas, medidasMapa } from './mapa.js?v=20261109012624';
+import { Controles } from './controles.js?v=20261109012624';
+import { Dialogo } from './dialogo.js?v=20261109012624';
+import { Interfaz } from './interfaz.js?v=20261109012624';
+import { Estado } from './estado.js?v=20261109012624';
+import { audiosUsados, altoDe, spritesDe } from './datos.js?v=20261109012624';
+import { crearTexturasBase, crearObjeto, crearCopa, crearSpritePersonaje, crearParticulas, profundidad } from './mundo-vista.js?v=20261109012624';
+import { claveTextura, registrarLienzos } from './texturas.js?v=20261109012624';
+import { Trafico } from './trafico.js?v=20261109012624';
+import { Desafio, precargarDesafio } from './desafio.js?v=20261109012624';
+import { FruitNinja, precargarFruitNinja } from './fruit-ninja.js?v=20261109012624';
+import { PingPong, precargarPingPong } from './ping-pong.js?v=20261109012624';
+import { Poses } from './poses.js?v=20261109012624';
 
 const PIES = { ancho: 56, alto: 24 }; // caja de colisión en los pies de cada personaje
 const ALTO_BASE_SOLIDA = 40;          // alto de la parte que choca en los objetos sólidos
 const TILES_VISIBLES = { corto: 8, largo: 13 }; // tiles que entran como mínimo en cada lado de la pantalla
 const ESPERA_TRAS_DIALOGO = 300;      // ms, evita reabrir el diálogo con la misma tecla que lo cerró
+const MARGEN_EJE = 1.2;               // cerca de la diagonal, el otro eje tiene que ganar por este factor
+const ESPERA_GIRO = 80;               // ms que tiene que durar un giro de 90° para que el jugador gire
+const OPUESTA = { izquierda: 'derecha', derecha: 'izquierda', frente: 'espalda', espalda: 'frente' };
 
 export class EscenaMundo extends Phaser.Scene {
   constructor() {
@@ -54,6 +57,8 @@ export class EscenaMundo extends Phaser.Scene {
 
   create() {
     this.estado = this.datos.estado ?? new Estado();
+    this.estado.mundo ??= this.mundo;
+    this.estado.personajes ??= this.personajes;
     crearTexturasBase(this);
     registrarLienzos(this, this.datos.lienzos);
 
@@ -304,10 +309,9 @@ export class EscenaMundo extends Phaser.Scene {
   // Elige la imagen del jugador según hacia dónde camina. De costado alterna los cuadros de caminata.
   animarJugador(v, moviendo) {
     const t = this.texturasJugador;
-    if (moviendo) {
-      if (Math.abs(v.x) >= Math.abs(v.y)) this.direccion = v.x < 0 ? 'izquierda' : 'derecha';
-      else this.direccion = v.y < 0 ? 'espalda' : 'frente';
-    }
+    if (moviendo) this.elegirDireccion(v, !this.moviaAntes);
+    else this.cambioPendiente = null;
+    this.moviaAntes = moviendo;
     const deCostado = this.direccion === 'izquierda' || this.direccion === 'derecha';
     // Ciclo de caminata de la dirección actual (si hay cuadros para esa dirección).
     let ciclo = null;
@@ -341,6 +345,28 @@ export class EscenaMundo extends Phaser.Scene {
     this.jugador.setFlipX(this.direccion === 'izquierda');
     // Si hay cuadros de caminata, no hace falta el saltito que simula los pasos.
     this.saltoActivo = !ciclo;
+  }
+
+  // Hacia dónde mira el jugador al caminar. Para que no titile entre costado y frente/espalda:
+  // - cerca de la diagonal se queda con el eje que venía (hace falta que el otro gane por un margen);
+  // - un giro de 90° espera un instante (si se sueltan dos teclas casi juntas, no llega a girar);
+  //   darse vuelta del todo (de izquierda a derecha, de frente a espalda) o arrancar a caminar
+  //   es inmediato.
+  elegirDireccion(v, arranca) {
+    const ax = Math.abs(v.x), ay = Math.abs(v.y);
+    const deCostado = this.direccion === 'izquierda' || this.direccion === 'derecha';
+    const horizontal = deCostado ? ay <= ax * MARGEN_EJE : ax > ay * MARGEN_EJE;
+    const nueva = horizontal ? (v.x < 0 ? 'izquierda' : 'derecha') : (v.y < 0 ? 'espalda' : 'frente');
+    if (nueva === this.direccion) {
+      this.cambioPendiente = null;
+      return;
+    }
+    const ahora = this.time.now;
+    if (this.cambioPendiente?.direccion !== nueva) this.cambioPendiente = { direccion: nueva, desde: ahora };
+    if (arranca || OPUESTA[this.direccion] === nueva || ahora - this.cambioPendiente.desde >= ESPERA_GIRO) {
+      this.direccion = nueva;
+      this.cambioPendiente = null;
+    }
   }
 
   // Cada paso varía un poco el tono para que no suene siempre igual.
@@ -447,14 +473,8 @@ export class EscenaMundo extends Phaser.Scene {
       if (!(this.dialogo.abierto && this.dialogo.personaje?.id === entidad.datos.id)) this.mirarAlFrente(entidad);
     });
     const p = entidad.datos;
-    const obj = this.mundo.objetivo;
-    const antes = this.estado.cantidadContactos(this.personajes);
     if (sumaContacto && entidad.tipo === 'personaje' && (!p.agendaAlFinal || this.estado.terminado)) {
       if (this.estado.agregarContacto(p.id)) this.interfaz.mostrarAviso(`Nuevo contacto: ${p.nombre}`);
-    }
-    const despues = this.estado.cantidadContactos(this.personajes);
-    if (!this.estado.terminado && antes < obj.contactosNecesarios && despues >= obj.contactosNecesarios) {
-      this.time.delayedCall(1500, () => this.felicitar());
     }
     this.interfaz.actualizar();
 
@@ -508,6 +528,9 @@ export class EscenaMundo extends Phaser.Scene {
     if (this.musica) this.fundirMusica(volumen, 0, 400, () => this.musica.pause());
     const desafio = new Desafio(config);
     const gano = await desafio.correr();
+    const completosAntes = this.estado.desafiosCompletos();
+    // Ganar siempre deja "desafio-<id>-ganado" (es lo que cuenta el objetivo).
+    if (gano) this.estado.activarFlag(`desafio-${id}-ganado`);
     for (const efecto of (gano ? config.alGanar : config.alPerder) || []) this.aplicarEfecto(efecto, { id });
     await desafio.cerrar();
     if (this.musica) {
@@ -516,6 +539,11 @@ export class EscenaMundo extends Phaser.Scene {
     }
     this.desafioActivo = false;
     this.ultimoCierre = performance.now();
+    this.interfaz.actualizar();
+    // Con el último desafío del equipo de 3D: confeti, felicitaciones y aparece Martín.
+    if (gano && this.estado.equipo().includes(id) && !completosAntes && this.estado.desafiosCompletos() && !this.estado.terminado) {
+      this.time.delayedCall(800, () => this.felicitar());
+    }
   }
 
   // Minijuego de frutas (mundo.json → fruitNinja). Como en los desafíos, el mundo se frena mientras dura.
@@ -936,12 +964,13 @@ export class EscenaMundo extends Phaser.Scene {
     });
   }
 
-  // Al llegar a los contactos necesarios: confeti y el diálogo de felicitaciones
+  // Al ganarle a todo el equipo de 3D: confeti y el diálogo de felicitaciones
   // (mundo.objetivo.dialogoAlCompletar). Si hay un diálogo o desafío en curso, espera a que termine.
   felicitar() {
+    this.actualizarVisibilidad();
     const id = this.mundo.objetivo.dialogoAlCompletar;
     if (!id || !this.dialogo.dialogos[id]) {
-      this.interfaz.mostrarAviso('¡Ya conocés suficiente gente! Buscá al invitado especial');
+      this.interfaz.mostrarAviso('¡Desafiaste a todo el equipo! Buscá al invitado especial');
       return;
     }
     if (this.dialogo.abierto || this.desafioActivo) {

@@ -6,8 +6,13 @@ export const ARCHIVOS = {
   dialogos: 'datos/dialogos.json',
 };
 
+// En la versión publicada, el código se pide con ?v=<sello de la publicación> (lo agrega
+// herramientas/publicar.ps1). Los datos se piden con el mismo sello, así nunca se mezclan
+// datos de una publicación con código de otra. En esta PC no hay sello.
+const VERSION = new URL(import.meta.url).searchParams.get('v');
+
 async function cargarJSON(ruta) {
-  const respuesta = await fetch(ruta, { cache: 'no-store' });
+  const respuesta = await fetch(VERSION ? `${ruta}?v=${VERSION}` : ruta, { cache: 'no-store' });
   if (!respuesta.ok) throw new Error(`No se pudo cargar ${ruta}`);
   try {
     return await respuesta.json();
@@ -54,16 +59,18 @@ export function spritesDe(p) {
 // Qué imágenes hay que preparar y a qué tamaño: [{ ruta, alto }].
 export function texturasUsadas({ mundo, personajes, dialogos }) {
   const pedidos = [];
-  const agregarPersonaje = p => {
+  const agregarPersonaje = (p, grupo) => {
     const alto = altoDe(p, mundo);
     const todas = [p.sprite, p.spriteEspalda, p.spriteLado,
       ...(p.caminando || []), ...(p.caminandoFrente || []), ...(p.caminandoEspalda || []),
       ...Object.values(p.quieto || {}), ...(p.animacion?.cuadros || [])];
     for (const ruta of todas) {
-      if (ruta) pedidos.push({ ruta, alto });
+      if (ruta) pedidos.push({ ruta, alto, grupo });
     }
   };
-  agregarPersonaje(mundo.jugador);
+  // Los cuadros del jugador se recortan todos con el mismo marco (ver prepararLienzos):
+  // así no cambia de tamaño ni se corre al pasar de una imagen a otra.
+  agregarPersonaje(mundo.jugador, 'jugador');
   personajes.forEach(agregarPersonaje);
   for (const o of mundo.objetos) {
     pedidos.push({ ruta: o.imagen, alto: o.alto || 0 });

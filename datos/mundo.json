@@ -190,9 +190,8 @@
     "velocidad": 420
   },
   "objetivo": {
-    "titulo": "¡Hablá con 100 personas para conocer a un invitado especial!",
+    "titulo": "¡Desafiá a todos los del equipo de 3D para conocer a un invitado especial!",
     "fundador": "martin-gomez-platero",
-    "contactosNecesarios": 12,
     "dialogoAlCompletar": "objetivo-cumplido"
   },
   "intro": {
@@ -204,8 +203,7 @@
       "Respirá hondo... ¡Y bienvenido a GP!"
     ],
     "extraPrimerTexto": 1,
-    "contador": "PERSONAS CONOCIDAS: {conocidas}/{total}",
-    "total": 100,
+    "contador": "INTEGRANTES DE 3D DESAFIADOS: {desafiados}/{equipo}",
     "animacion": "",
     "cuadros": [
       "Insumos/Items/Bus/Bus-01.png",

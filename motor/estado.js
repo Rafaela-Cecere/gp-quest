@@ -61,9 +61,33 @@ export class Estado {
     if (cond.conoce && !this.conoce(cond.conoce)) return false;
     if (cond.noConoce && this.conoce(cond.noConoce)) return false;
     if (cond.contactosMinimos != null && this.cantidadContactos(personajes) < cond.contactosMinimos) return false;
+    if (cond.desafiosCompletos && !this.desafiosCompletos()) return false;
     // "azar": probabilidad en % de que se cumpla (se sortea cada vez que se abre el diálogo).
     if (cond.azar != null && Math.random() * 100 >= cond.azar) return false;
     return true;
+  }
+
+  // ---------- Objetivo: desafiar al equipo de 3D ----------
+  // Los personajes marcados "desafiar" son los que hay que desafiar. Un desafío ganado deja la
+  // flag "desafio-<id>-ganado". Hay que asignar this.mundo y this.personajes (lo hace main.js).
+
+  equipo() {
+    return (this.personajes || []).filter(p => p.desafiar).map(p => p.id);
+  }
+
+  ganoDesafio(id) {
+    return !!this.flags[`desafio-${id}-ganado`];
+  }
+
+  desafiosGanados() {
+    return this.equipo().filter(id => this.ganoDesafio(id));
+  }
+
+  // Ganados todos los del equipo que ya tienen un desafío armado (en mundo.desafios).
+  // Así, mientras se van agregando desafíos, alcanza con ganar los que existen.
+  desafiosCompletos() {
+    const disponibles = this.equipo().filter(id => this.mundo?.desafios?.[id]);
+    return disponibles.length > 0 && disponibles.every(id => this.ganoDesafio(id));
   }
 
   // Contactos que cuentan para el objetivo: no cuentan los que se agregan recién al final

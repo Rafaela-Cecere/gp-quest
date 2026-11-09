@@ -2,7 +2,7 @@
 // Los PNG originales son grandes (por ejemplo 400×850): se recortan los bordes transparentes
 // y se achican con buena calidad, así en pantalla quedan nítidos y ocupan poca memoria.
 
-import { cargarImagen } from './colision.js';
+import { cargarImagen } from './colision.js?v=20261109012624';
 
 // alto: alto final en píxeles del mundo (0 = tamaño original, sin recortar).
 export function claveTextura(ruta, alto) {
@@ -85,9 +85,46 @@ export async function asegurarTextura(escena, ruta, alto) {
   return clave;
 }
 
+// Un grupo de imágenes del mismo tamaño (los cuadros de un personaje, dibujados en el mismo lienzo)
+// se recorta con un único marco: el que abarca el contenido de todas. Si se recortara cada una por
+// su lado, al pasar de un cuadro a otro el personaje cambiaría de tamaño y se correría.
+async function prepararGrupo(pedidos) {
+  const imagenes = await Promise.all(pedidos.map(p => cargarImagen(p.ruta).catch(e => { console.warn(e.message); return null; })));
+  const validas = imagenes.filter(Boolean);
+  if (!validas.length) return;
+  const mismoTamano = validas.every(img => img.width === validas[0].width && img.height === validas[0].height);
+  let marco = null;
+  if (mismoTamano) {
+    for (const img of validas) {
+      const r = recorte(img);
+      marco = marco
+        ? (({ x0, y0, x1, y1 }) => ({ x: x0, y: y0, w: x1 - x0, h: y1 - y0 }))({
+          x0: Math.min(marco.x, r.x), y0: Math.min(marco.y, r.y),
+          x1: Math.max(marco.x + marco.w, r.x + r.w), y1: Math.max(marco.y + marco.h, r.y + r.h),
+        })
+        : r;
+    }
+  }
+  pedidos.forEach((p, i) => {
+    const img = imagenes[i];
+    const clave = claveTextura(p.ruta, p.alto);
+    if (!img || !p.alto || pendientes.has(clave)) return;
+    const r = marco || recorte(img);
+    recortes.set(clave, { ...r, ancho: img.width, alto: img.height });
+    const ancho = Math.max(1, Math.round((r.w * p.alto) / r.h));
+    pendientes.set(clave, Promise.resolve(achicar(img, r, ancho, Math.round(p.alto))));
+  });
+}
+
 // Prepara muchas de una, de a algunas por vez para no saturar la memoria.
 // Devuelve un Map clave → lienzo, para registrarlas después en la escena.
 export async function prepararLienzos(pedidos, deAPedazos = 6) {
+  const grupos = new Map();
+  for (const p of pedidos) if (p.grupo && p.ruta) (grupos.get(p.grupo) ?? grupos.set(p.grupo, []).get(p.grupo)).push(p);
+  for (const lista of grupos.values()) {
+    const unicosGrupo = [...new Map(lista.map(p => [claveTextura(p.ruta, p.alto), p])).values()];
+    await prepararGrupo(unicosGrupo);
+  }
   const unicos = [...new Map(pedidos.filter(p => p.ruta).map(p => [claveTextura(p.ruta, p.alto), p])).values()];
   const lienzos = new Map();
   for (let i = 0; i < unicos.length; i += deAPedazos) {

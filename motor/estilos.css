@@ -6,7 +6,8 @@
   --crema: #f4e9d8;
   --acento: #a3412c;        /* rojo tierra */
   --acento-claro: #e3907a;  /* rojo tierra para texto sobre fondo oscuro */
-  --fuente: "Pixelify Sans", ui-monospace, monospace;
+  /* Tiny5 trae solo los números (ver index.html); las letras salen de Pixelify Sans. */
+  --fuente: "Tiny5", "Pixelify Sans", ui-monospace, monospace;
   --radio-grande: 18px;
   --radio-medio: 12px;
   --pildora: 999px;
@@ -311,6 +312,7 @@ button {
 .tarjeta-nombre { font-weight: 600; margin-top: 6px; }
 .tarjeta-puesto { color: var(--acento-claro); font-size: 14px; }
 .tarjeta-frase { font-size: 14px; margin-top: 6px; opacity: 0.85; }
+.tarjeta-desafiado { font-size: 14px; margin-top: 6px; color: var(--acento-claro); }
 
 .modal-botones {
   display: flex;

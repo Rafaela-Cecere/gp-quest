@@ -3,6 +3,7 @@
     "id": "rafaela",
     "nombre": "Rafaela Cecere",
     "puesto": "Equipo 3D",
+    "desafiar": true,
     "sprite": "Insumos/NPC/MUJERES/3D/Rafaela-Front.png",
     "spriteEspalda": "Insumos/NPC/MUJERES/3D/Rafaela-Back.png",
     "spriteLado": "Insumos/NPC/MUJERES/3D/Rafaela-Side.png",
@@ -26,6 +27,7 @@
     "id": "bruno",
     "nombre": "Bruno Matus",
     "puesto": "Equipo 3D",
+    "desafiar": true,
     "sprite": "Insumos/NPC/HOMBRES/3D/Bruno-Front.png",
     "spriteEspalda": "Insumos/NPC/HOMBRES/3D/Bruno-Back.png",
     "spriteLado": "Insumos/NPC/HOMBRES/3D/Bruno-Side.png",
@@ -49,6 +51,7 @@
     "id": "rulo",
     "nombre": "Pablo \"Rulo\" Ivaldi",
     "puesto": "Equipo 3D",
+    "desafiar": true,
     "sprite": "Insumos/NPC/HOMBRES/3D/Pelado-Front.png",
     "spriteEspalda": "Insumos/NPC/HOMBRES/3D/Pelado-Back.png",
     "spriteLado": "Insumos/NPC/HOMBRES/3D/Pelado-Side.png",
@@ -104,6 +107,7 @@
     "id": "juan",
     "nombre": "Juan Delgado",
     "puesto": "Equipo 3D",
+    "desafiar": true,
     "sprite": "Insumos/NPC/HOMBRES/3D/Juan-Front.png",
     "spriteEspalda": "Insumos/NPC/HOMBRES/3D/Juan-Back.png",
     "spriteLado": "Insumos/NPC/HOMBRES/3D/Juan-Side.png",
@@ -127,6 +131,7 @@
     "id": "rodrigo",
     "nombre": "Rodrigo Figueredo",
     "puesto": "Equipo 3D",
+    "desafiar": true,
     "sprite": "Insumos/NPC/HOMBRES/3D/Rodrigo-Front.png",
     "spriteEspalda": "Insumos/NPC/HOMBRES/3D/Rodrigo-Back.png",
     "spriteLado": "Insumos/NPC/HOMBRES/3D/Rodrigo-Side.png",
@@ -150,6 +155,7 @@
     "id": "roby",
     "nombre": "Roby",
     "puesto": "Equipo 3D",
+    "desafiar": true,
     "sprite": "Insumos/NPC/HOMBRES/3D/Roby-Front.png",
     "spriteEspalda": "Insumos/NPC/HOMBRES/3D/Roby-Back.png",
     "spriteLado": "Insumos/NPC/HOMBRES/3D/Roby-Side.png",
@@ -167,6 +173,7 @@
     "id": "gabriel",
     "nombre": "Gabriel Cabrera",
     "puesto": "Equipo 3D",
+    "desafiar": true,
     "sprite": "Insumos/NPC/HOMBRES/3D/Gabriel-Front.png",
     "spriteEspalda": "Insumos/NPC/HOMBRES/3D/Gabriel-Back.png",
     "spriteLado": "Insumos/NPC/HOMBRES/3D/Gabriel-Side.png",
@@ -190,6 +197,7 @@
     "id": "pablo-martinez",
     "nombre": "Pablo Martínez",
     "puesto": "",
+    "desafiar": true,
     "sprite": "Insumos/NPC/HOMBRES/3D/Pablo-Front.png",
     "spriteEspalda": "Insumos/NPC/HOMBRES/3D/Pablo-Back.png",
     "spriteLado": "Insumos/NPC/HOMBRES/3D/Pablo-Side.png",
@@ -292,12 +300,12 @@
     "frase": "¡Bienvenido a GP!",
     "agendaAlFinal": true,
     "si": {
-      "contactosMinimos": 12
+      "desafiosCompletos": true
     },
     "dialogos": [
       {
         "si": {
-          "contactosMinimos": 12
+          "desafiosCompletos": true
         },
         "id": "martin-final"
       },
@@ -773,8 +781,20 @@
   },
   {
     "id": "francisco-tapia",
-    "nombre": "Francisco Tapia",
+    "nombre": "Francisco \"Paco\" Tapia",
     "puesto": "Dirección de obra",
+    "frase": "¡Anteproyecto es re divertido!",
+    "dialogos": [
+      {
+        "si": {
+          "conoce": "francisco-tapia"
+        },
+        "id": "paco-otra-vez"
+      },
+      {
+        "id": "paco-intro"
+      }
+    ],
     "sprite": "Insumos/NPC/HOMBRES/Direccion-de-obra/Francisco-Tapia-Front.png",
     "spriteEspalda": "Insumos/NPC/HOMBRES/Direccion-de-obra/Francisco-Tapia-Back.png",
     "spriteLado": "Insumos/NPC/HOMBRES/Direccion-de-obra/Francisco-Tapia-Side.png",
@@ -784,8 +804,20 @@
   },
   {
     "id": "jose-diaz",
-    "nombre": "Jose Díaz",
-    "puesto": "Dirección de obra",
+    "nombre": "José Díaz",
+    "puesto": "Director de Dirección de obra",
+    "frase": "Contá contigo.",
+    "dialogos": [
+      {
+        "si": {
+          "conoce": "jose-diaz"
+        },
+        "id": "jose-otra-vez"
+      },
+      {
+        "id": "jose-intro"
+      }
+    ],
     "sprite": "Insumos/NPC/HOMBRES/Direccion-de-obra/Jose-Díaz-Front.png",
     "spriteEspalda": "Insumos/NPC/HOMBRES/Direccion-de-obra/Jose-Díaz-Back.png",
     "spriteLado": "Insumos/NPC/HOMBRES/Direccion-de-obra/Jose-Díaz-Side.png",
@@ -797,6 +829,18 @@
     "id": "octavio-russi",
     "nombre": "Octavio Russi",
     "puesto": "Dirección de obra",
+    "frase": "¡Va como piña!",
+    "dialogos": [
+      {
+        "si": {
+          "conoce": "octavio-russi"
+        },
+        "id": "octavio-otra-vez"
+      },
+      {
+        "id": "octavio-intro"
+      }
+    ],
     "sprite": "Insumos/NPC/HOMBRES/Direccion-de-obra/Octavio-Russi-Front.png",
     "spriteEspalda": "Insumos/NPC/HOMBRES/Direccion-de-obra/Octavio-Russi-Back.png",
     "spriteLado": "Insumos/NPC/HOMBRES/Direccion-de-obra/Octavio-Russi-Side.png",
@@ -808,6 +852,18 @@
     "id": "rodrigo-melgar",
     "nombre": "Rodrigo Melgar",
     "puesto": "Dirección de obra",
+    "frase": "¡Que pongan a Jaime!",
+    "dialogos": [
+      {
+        "si": {
+          "conoce": "rodrigo-melgar"
+        },
+        "id": "rodrigo-melgar-otra-vez"
+      },
+      {
+        "id": "rodrigo-melgar-intro"
+      }
+    ],
     "sprite": "Insumos/NPC/HOMBRES/Direccion-de-obra/Rodrigo-Melgar-Front.png",
     "spriteEspalda": "Insumos/NPC/HOMBRES/Direccion-de-obra/Rodrigo-Melgar-Back.png",
     "spriteLado": "Insumos/NPC/HOMBRES/Direccion-de-obra/Rodrigo-Melgar-Side.png",
@@ -816,9 +872,44 @@
     "y": 4725
   },
   {
+    "id": "victoria-cocina",
+    "nombre": "Victoria Cocina",
+    "puesto": "Dirección de obra",
+    "frase": "¡Que pongan a Luana!",
+    "dialogos": [
+      {
+        "si": {
+          "conoce": "victoria-cocina"
+        },
+        "id": "victoria-cocina-otra-vez"
+      },
+      {
+        "id": "victoria-cocina-intro"
+      }
+    ],
+    "sprite": "Insumos/NPC/MUJERES/Direccion-de-obra/Victoria-Cocina-Front.png",
+    "spriteEspalda": "Insumos/NPC/MUJERES/Direccion-de-obra/Victoria-Cocina-Back.png",
+    "spriteLado": "Insumos/NPC/MUJERES/Direccion-de-obra/Victoria-Cocina-Side.png",
+    "retrato": "Insumos/Splash-Personajes/Dirección de Obra/Victoria-Cocina.png",
+    "x": 8374,
+    "y": 4725
+  },
+  {
     "id": "santiago-figueroa",
     "nombre": "Santiago Figueroa",
     "puesto": "Dirección de obra",
+    "frase": "¿Nadie prende el aire?",
+    "dialogos": [
+      {
+        "si": {
+          "conoce": "santiago-figueroa"
+        },
+        "id": "santiago-figueroa-otra-vez"
+      },
+      {
+        "id": "santiago-figueroa-intro"
+      }
+    ],
     "sprite": "Insumos/NPC/HOMBRES/Direccion-de-obra/Santiago-Figueroa-Front.png",
     "spriteEspalda": "Insumos/NPC/HOMBRES/Direccion-de-obra/Santiago-Figueroa-Back.png",
     "spriteLado": "Insumos/NPC/HOMBRES/Direccion-de-obra/Santiago-Figueroa-Side.png",
@@ -1212,6 +1303,18 @@
     "id": "marina-atella",
     "nombre": "Marina Atella",
     "puesto": "Dirección de obra",
+    "frase": "¿A quién le toca el viernes?",
+    "dialogos": [
+      {
+        "si": {
+          "conoce": "marina-atella"
+        },
+        "id": "marina-otra-vez"
+      },
+      {
+        "id": "marina-intro"
+      }
+    ],
     "sprite": "Insumos/NPC/MUJERES/Direccion-de-obra/Marina-Atella-Front.png",
     "spriteEspalda": "Insumos/NPC/MUJERES/Direccion-de-obra/Marina-Atella-Back.png",
     "spriteLado": "Insumos/NPC/MUJERES/Direccion-de-obra/Marina-Atella-Side.png",
@@ -1222,7 +1325,19 @@
   {
     "id": "rosalia-lopez",
     "nombre": "Rosalía López",
-    "puesto": "Dirección de obra",
+    "puesto": "Jefa de Administración de obra",
+    "frase": "Voy a hacerme un cafecito.",
+    "dialogos": [
+      {
+        "si": {
+          "conoce": "rosalia-lopez"
+        },
+        "id": "rosalia-otra-vez"
+      },
+      {
+        "id": "rosalia-intro"
+      }
+    ],
     "sprite": "Insumos/NPC/MUJERES/Direccion-de-obra/Rosalía-López-Front.png",
     "spriteEspalda": "Insumos/NPC/MUJERES/Direccion-de-obra/Rosalía-López-Back.png",
     "spriteLado": "Insumos/NPC/MUJERES/Direccion-de-obra/Rosalía-López-Side.png",
@@ -1234,6 +1349,18 @@
     "id": "rossana-rivero",
     "nombre": "Rossana Rivero",
     "puesto": "Dirección de obra",
+    "frase": "¿Alguien vio a José?",
+    "dialogos": [
+      {
+        "si": {
+          "conoce": "rossana-rivero"
+        },
+        "id": "rossana-otra-vez"
+      },
+      {
+        "id": "rossana-intro"
+      }
+    ],
     "sprite": "Insumos/NPC/MUJERES/Direccion-de-obra/Rossana-Rivero-Front.png",
     "spriteEspalda": "Insumos/NPC/MUJERES/Direccion-de-obra/Rossana-Back.png",
     "spriteLado": "Insumos/NPC/MUJERES/Direccion-de-obra/Rossana-Rivero-Side.png",
@@ -1245,6 +1372,18 @@
     "id": "cecilia-pelegrinetti",
     "nombre": "Cecilia Pelegrinetti",
     "puesto": "Dirección de obra",
+    "frase": "Que lo escriba...",
+    "dialogos": [
+      {
+        "si": {
+          "conoce": "cecilia-pelegrinetti"
+        },
+        "id": "cecilia-p-otra-vez"
+      },
+      {
+        "id": "cecilia-p-intro"
+      }
+    ],
     "sprite": "Insumos/NPC/MUJERES/Direccion-de-obra/Cecilia-Pelegrinetti-Front.png",
     "spriteEspalda": "Insumos/NPC/MUJERES/Direccion-de-obra/Cecilia-Pelegrinetti-Back.png",
     "spriteLado": "Insumos/NPC/MUJERES/Direccion-de-obra/Cecilia-Pelegrinetti-Side.png",

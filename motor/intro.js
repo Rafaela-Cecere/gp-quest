@@ -3,7 +3,7 @@
 // Tocar la pantalla (o una tecla) adelanta al siguiente texto. "Saltar" la termina.
 // Se configura en datos/mundo.json → "intro".
 
-import { esVideo } from './datos.js';
+import { esVideo } from './datos.js?v=20261109012624';
 
 const MS_POR_LETRA = 47;   // cuánto tiempo queda cada texto según su largo
 const MS_MINIMO = 2310;
@@ -12,10 +12,12 @@ const FUNDIDO = 700;       // tiene que coincidir con la transición de .intro-*
 const pausa = ms => new Promise(r => setTimeout(r, ms));
 
 export class Intro {
-  constructor(config, { conocidas, total }) {
+  constructor(config, { conocidas, total, desafiados = 0, equipo = 0 }) {
     this.config = config;
     this.conocidas = conocidas;
     this.total = config.total ?? total;
+    this.desafiados = desafiados;
+    this.equipo = equipo;
     this.saltada = false;
 
     this.el = document.createElement('div');
@@ -94,7 +96,8 @@ export class Intro {
     this.elEscena.classList.remove('visible');
     await pausa(FUNDIDO);
     const plantilla = this.config.contador || 'PERSONAS CONOCIDAS: {conocidas}/{total}';
-    this.elContador.textContent = plantilla.replace('{conocidas}', this.conocidas).replace('{total}', this.total);
+    this.elContador.textContent = plantilla.replace('{conocidas}', this.conocidas).replace('{total}', this.total)
+      .replace('{desafiados}', this.desafiados).replace('{equipo}', this.equipo);
     this.elContador.classList.add('visible');
     await this.esperar(2500);
   }

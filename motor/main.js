@@ -1,13 +1,13 @@
 // Punto de entrada: carga los datos del juego y arranca Phaser.
 // Si es la primera vez, muestra la intro mientras el juego carga por detrás.
 
-import { EscenaMundo } from './escena-mundo.js';
-import { cargarDatos, texturasUsadas } from './datos.js';
-import { cargarColision } from './colision.js';
-import { prepararLienzos } from './texturas.js';
-import { Estado } from './estado.js';
-import { Intro } from './intro.js';
-import { AvisoGirar, hayQueAvisarGirar } from './aviso-girar.js';
+import { EscenaMundo } from './escena-mundo.js?v=20261109012624';
+import { cargarDatos, texturasUsadas } from './datos.js?v=20261109012624';
+import { cargarColision } from './colision.js?v=20261109012624';
+import { prepararLienzos } from './texturas.js?v=20261109012624';
+import { Estado } from './estado.js?v=20261109012624';
+import { Intro } from './intro.js?v=20261109012624';
+import { AvisoGirar, hayQueAvisarGirar } from './aviso-girar.js?v=20261109012624';
 
 function mostrarError(mensaje) {
   const el = document.createElement('div');
@@ -24,7 +24,10 @@ function empezarIntro(datos, estado) {
   if (!config.lineas?.length || params.has('sinIntro') || params.has('hablar') || params.has('desafio')) return null;
   if (estado.introVista && !params.has('intro')) return null;
   const total = datos.personajes.filter(p => p.dialogos?.length && !p.agendaAlFinal && !p.noCuenta).length;
-  return new Intro(config, { conocidas: estado.contactos.length, total });
+  return new Intro(config, {
+    conocidas: estado.contactos.length, total,
+    desafiados: estado.desafiosGanados().length, equipo: estado.equipo().length,
+  });
 }
 
 async function iniciar() {
@@ -40,6 +43,8 @@ async function iniciar() {
     const datos = await cargarDatos();
     // Un solo estado de la partida, compartido con la escena del juego.
     datos.estado = new Estado();
+    datos.estado.mundo = datos.mundo;
+    datos.estado.personajes = datos.personajes;
     // En el celular, siempre primero el aviso de girar (su toque pone pantalla completa);
     // después la intro, si corresponde. Mientras tanto el juego carga por detrás.
     const aviso = hayQueAvisarGirar(datos.mundo.intro) ? new AvisoGirar(datos.mundo.intro) : null;
@@ -66,7 +71,10 @@ async function iniciar() {
     datos.lienzos = lienzos;
     // Espera la tipografía pixel (sin bloquear si no hay internet).
     await Promise.race([
-      document.fonts.load('24px "Pixelify Sans"').catch(() => {}),
+      Promise.all([
+        document.fonts.load('24px "Pixelify Sans"'),
+        document.fonts.load('24px "Tiny5"', '0123456789'),
+      ]).catch(() => {}),
       new Promise(r => setTimeout(r, 1500)),
     ]);
 

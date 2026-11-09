@@ -14,10 +14,13 @@ export class Interfaz {
           <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>
         </svg>
       </button>
+      <button class="hud-boton hud-desafios" title="Integrantes de 3D que desafiaste">Desafíos <span class="hud-contador"></span></button>
       <button class="hud-boton hud-agenda" title="Agenda de contactos">Agenda <span class="hud-contador"></span></button>`;
     document.body.appendChild(this.hud);
-    this.elContador = this.hud.querySelector('.hud-contador');
+    this.elContador = this.hud.querySelector('.hud-agenda .hud-contador');
+    this.elDesafios = this.hud.querySelector('.hud-desafios .hud-contador');
     this.hud.querySelector('.hud-agenda').addEventListener('click', () => this.abrirAgenda());
+    this.hud.querySelector('.hud-desafios').addEventListener('click', () => this.abrirAgenda());
 
     // Pantalla completa. En iPhone el navegador no lo permite: ahí el botón no aparece
     // (se puede usar "Agregar a pantalla de inicio" desde Safari).
@@ -95,16 +98,16 @@ export class Interfaz {
 
   textoObjetivo() {
     const obj = this.mundo.objetivo;
-    const cantidad = this.estado.cantidadContactos(this.personajes);
     if (this.estado.terminado) return '¡Objetivo cumplido! Seguí conociendo gente.';
-    if (cantidad < obj.contactosNecesarios) {
-      return `${obj.titulo} Llevás ${cantidad} de ${obj.contactosNecesarios}.`;
+    if (!this.estado.desafiosCompletos()) {
+      return `${obj.titulo} Desafiaste a ${this.estado.desafiosGanados().length} de ${this.estado.equipo().length}.`;
     }
     return `${obj.titulo} ¡Ya podés conocer al invitado especial, buscalo!`;
   }
 
   actualizar() {
     this.elContador.textContent = `${this.estado.contactos.length}/${this.conocibles().length}`;
+    this.elDesafios.textContent = `${this.estado.desafiosGanados().length}/${this.estado.equipo().length}`;
   }
 
   // Por defecto dura 2,6 s (ver .aviso en estilos.css); se puede pedir más.
@@ -137,6 +140,12 @@ export class Interfaz {
       puesto.className = 'tarjeta-puesto';
       puesto.textContent = conocido ? p.puesto || '' : 'Todavía no se conocen';
       tarjeta.append(img, nombre, puesto);
+      if (conocido && p.desafiar && this.estado.ganoDesafio(p.id)) {
+        const sello = document.createElement('div');
+        sello.className = 'tarjeta-desafiado';
+        sello.textContent = '✓ Desafío ganado';
+        tarjeta.append(sello);
+      }
       if (conocido && p.frase) {
         const frase = document.createElement('div');
         frase.className = 'tarjeta-frase';
