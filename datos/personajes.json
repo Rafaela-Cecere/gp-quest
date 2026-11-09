@@ -8,8 +8,8 @@
     "spriteEspalda": "Insumos/NPC/MUJERES/3D/Rafaela-Back.png",
     "spriteLado": "Insumos/NPC/MUJERES/3D/Rafaela-Side.png",
     "retrato": "Insumos/Splash-Personajes/3D/Rafaela-Cecere.png",
-    "x": 7013,
-    "y": 4014,
+    "x": 7021,
+    "y": 3976,
     "frase": "Qué bárbaro...",
     "dialogos": [
       {
@@ -112,8 +112,8 @@
     "spriteEspalda": "Insumos/NPC/HOMBRES/3D/Juan-Back.png",
     "spriteLado": "Insumos/NPC/HOMBRES/3D/Juan-Side.png",
     "retrato": "Insumos/Splash-Personajes/3D/Juan-Delgado.png",
-    "x": 7008,
-    "y": 5688,
+    "x": 6794,
+    "y": 5911,
     "frase": "¡Ora ora ora!",
     "dialogos": [
       {
@@ -136,8 +136,8 @@
     "spriteEspalda": "Insumos/NPC/HOMBRES/3D/Rodrigo-Back.png",
     "spriteLado": "Insumos/NPC/HOMBRES/3D/Rodrigo-Side.png",
     "retrato": "Insumos/Splash-Personajes/3D/Rodrigo-Figueredo.png",
-    "x": 7238,
-    "y": 5273,
+    "x": 7059,
+    "y": 5282,
     "frase": "Recomendado.",
     "dialogos": [
       {
@@ -243,8 +243,8 @@
     "spriteEspalda": "Insumos/NPC/MUJERES/Otros/Jeny-Back.png",
     "spriteLado": "Insumos/NPC/MUJERES/Otros/Jeny-Side.png",
     "retrato": "Insumos/Splash-Personajes/Otros/Jeny.png",
-    "x": 7677,
-    "y": 4519,
+    "x": 6851,
+    "y": 3976,
     "frase": "¿Ya viste Guerreras K-Pop?",
     "dialogos": [
       {
@@ -322,8 +322,8 @@
     "spriteEspalda": "Insumos/NPC/HOMBRES/Gestion-de-Talento/Franco-Paladino-Back.png",
     "spriteLado": "Insumos/NPC/HOMBRES/Gestion-de-Talento/Franco-Paladino-Side.png",
     "retrato": "Insumos/Splash-Personajes/Gestion de Talento/Franco-Paladino.png",
-    "x": 6599,
-    "y": 6749,
+    "x": 6541,
+    "y": 7026,
     "frase": "Hoy no llueve. Seguro.",
     "dialogos": [
       {
@@ -345,8 +345,8 @@
     "spriteEspalda": "Insumos/NPC/MUJERES/Gestion-de-Talento/Analia-Dibot-Back.png",
     "spriteLado": "Insumos/NPC/MUJERES/Gestion-de-Talento/Analia-Dibot-Side.png",
     "retrato": "Insumos/Splash-Personajes/Gestion de Talento/Analía-Dibot.png",
-    "x": 7203,
-    "y": 7989,
+    "x": 7152,
+    "y": 8087,
     "frase": "El pescado no va al microondas.",
     "dialogos": [
       {
@@ -707,8 +707,8 @@
     "spriteEspalda": "Insumos/NPC/HOMBRES/Anteproyecto/Pablo-Míguez-Back.png",
     "spriteLado": "Insumos/NPC/HOMBRES/Anteproyecto/Pablo-Míguez-Side.png",
     "retrato": "Insumos/Splash-Personajes/Anteproyecto/Pablo-Míguez.png",
-    "x": 6880,
-    "y": 4490
+    "x": 6853,
+    "y": 4486
   },
   {
     "id": "pablo-rios",
@@ -845,8 +845,8 @@
     "spriteEspalda": "Insumos/NPC/HOMBRES/Direccion-de-obra/Octavio-Russi-Back.png",
     "spriteLado": "Insumos/NPC/HOMBRES/Direccion-de-obra/Octavio-Russi-Side.png",
     "retrato": "Insumos/Splash-Personajes/Dirección de Obra/Octavio-Russi.png",
-    "x": 8101,
-    "y": 4723
+    "x": 7303,
+    "y": 4313
   },
   {
     "id": "rodrigo-melgar",
@@ -891,7 +891,7 @@
     "spriteEspalda": "Insumos/NPC/MUJERES/Direccion-de-obra/Victoria-Cocina-Back.png",
     "spriteLado": "Insumos/NPC/MUJERES/Direccion-de-obra/Victoria-Cocina-Side.png",
     "retrato": "Insumos/Splash-Personajes/Dirección de Obra/Victoria-Cocina.png",
-    "x": 8374,
+    "x": 8094,
     "y": 4725
   },
   {
@@ -1342,8 +1342,8 @@
     "spriteEspalda": "Insumos/NPC/MUJERES/Direccion-de-obra/Rosalía-López-Back.png",
     "spriteLado": "Insumos/NPC/MUJERES/Direccion-de-obra/Rosalía-López-Side.png",
     "retrato": "Insumos/Splash-Personajes/Dirección de Obra/Rosalía-López.png",
-    "x": 8088,
-    "y": 5075
+    "x": 8073,
+    "y": 5189
   },
   {
     "id": "rossana-rivero",
@@ -1365,8 +1365,8 @@
     "spriteEspalda": "Insumos/NPC/MUJERES/Direccion-de-obra/Rossana-Back.png",
     "spriteLado": "Insumos/NPC/MUJERES/Direccion-de-obra/Rossana-Rivero-Side.png",
     "retrato": "Insumos/Splash-Personajes/Dirección de Obra/Rossana-Rivero.png",
-    "x": 7663,
-    "y": 4112
+    "x": 7460,
+    "y": 4313
   },
   {
     "id": "cecilia-pelegrinetti",
@@ -1388,8 +1388,8 @@
     "spriteEspalda": "Insumos/NPC/MUJERES/Direccion-de-obra/Cecilia-Pelegrinetti-Back.png",
     "spriteLado": "Insumos/NPC/MUJERES/Direccion-de-obra/Cecilia-Pelegrinetti-Side.png",
     "retrato": "Insumos/Splash-Personajes/Dirección de Obra/Cecilia-Pelegrinetti.png",
-    "x": 8279,
-    "y": 5076
+    "x": 8191,
+    "y": 5190
   },
   {
     "id": "cecilia-igorra",

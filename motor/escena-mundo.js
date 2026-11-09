@@ -2,20 +2,20 @@
 // Todas las posiciones están en píxeles de la imagen del mapa (assets exportados a escala x2).
 // La posición de personajes y objetos es la de su base (los pies).
 
-import { CELDA } from './colision.js?v=20261109012624';
-import { MapaEnPiezas, medidasMapa } from './mapa.js?v=20261109012624';
-import { Controles } from './controles.js?v=20261109012624';
-import { Dialogo } from './dialogo.js?v=20261109012624';
-import { Interfaz } from './interfaz.js?v=20261109012624';
-import { Estado } from './estado.js?v=20261109012624';
-import { audiosUsados, altoDe, spritesDe } from './datos.js?v=20261109012624';
-import { crearTexturasBase, crearObjeto, crearCopa, crearSpritePersonaje, crearParticulas, profundidad } from './mundo-vista.js?v=20261109012624';
-import { claveTextura, registrarLienzos } from './texturas.js?v=20261109012624';
-import { Trafico } from './trafico.js?v=20261109012624';
-import { Desafio, precargarDesafio } from './desafio.js?v=20261109012624';
-import { FruitNinja, precargarFruitNinja } from './fruit-ninja.js?v=20261109012624';
-import { PingPong, precargarPingPong } from './ping-pong.js?v=20261109012624';
-import { Poses } from './poses.js?v=20261109012624';
+import { CELDA } from './colision.js?v=20261109175224';
+import { MapaEnPiezas, medidasMapa } from './mapa.js?v=20261109175224';
+import { Controles } from './controles.js?v=20261109175224';
+import { Dialogo } from './dialogo.js?v=20261109175224';
+import { Interfaz } from './interfaz.js?v=20261109175224';
+import { Estado } from './estado.js?v=20261109175224';
+import { audiosUsados, altoDe, spritesDe } from './datos.js?v=20261109175224';
+import { crearTexturasBase, crearObjeto, crearCopa, crearSpritePersonaje, crearParticulas, profundidad } from './mundo-vista.js?v=20261109175224';
+import { claveTextura, registrarLienzos } from './texturas.js?v=20261109175224';
+import { Trafico } from './trafico.js?v=20261109175224';
+import { Desafio, precargarDesafio } from './desafio.js?v=20261109175224';
+import { FruitNinja, precargarFruitNinja } from './fruit-ninja.js?v=20261109175224';
+import { PingPong, precargarPingPong } from './ping-pong.js?v=20261109175224';
+import { Poses } from './poses.js?v=20261109175224';
 
 const PIES = { ancho: 56, alto: 24 }; // caja de colisión en los pies de cada personaje
 const ALTO_BASE_SOLIDA = 40;          // alto de la parte que choca en los objetos sólidos

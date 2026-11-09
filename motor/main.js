@@ -1,13 +1,13 @@
 // Punto de entrada: carga los datos del juego y arranca Phaser.
 // Si es la primera vez, muestra la intro mientras el juego carga por detrás.
 
-import { EscenaMundo } from './escena-mundo.js?v=20261109012624';
-import { cargarDatos, texturasUsadas } from './datos.js?v=20261109012624';
-import { cargarColision } from './colision.js?v=20261109012624';
-import { prepararLienzos } from './texturas.js?v=20261109012624';
-import { Estado } from './estado.js?v=20261109012624';
-import { Intro } from './intro.js?v=20261109012624';
-import { AvisoGirar, hayQueAvisarGirar } from './aviso-girar.js?v=20261109012624';
+import { EscenaMundo } from './escena-mundo.js?v=20261109175224';
+import { cargarDatos, texturasUsadas } from './datos.js?v=20261109175224';
+import { cargarColision } from './colision.js?v=20261109175224';
+import { prepararLienzos } from './texturas.js?v=20261109175224';
+import { Estado } from './estado.js?v=20261109175224';
+import { Intro } from './intro.js?v=20261109175224';
+import { AvisoGirar, hayQueAvisarGirar } from './aviso-girar.js?v=20261109175224';
 
 function mostrarError(mensaje) {
   const el = document.createElement('div');

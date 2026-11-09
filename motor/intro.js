@@ -3,7 +3,7 @@
 // Tocar la pantalla (o una tecla) adelanta al siguiente texto. "Saltar" la termina.
 // Se configura en datos/mundo.json → "intro".
 
-import { esVideo } from './datos.js?v=20261109012624';
+import { esVideo } from './datos.js?v=20261109175224';
 
 const MS_POR_LETRA = 47;   // cuánto tiempo queda cada texto según su largo
 const MS_MINIMO = 2310;

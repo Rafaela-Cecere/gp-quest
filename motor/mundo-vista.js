@@ -1,6 +1,6 @@
 // Cómo se dibujan las cosas del mundo. Lo usan el juego y el editor, así se ven igual en los dos.
 
-import { claveTextura } from './texturas.js?v=20261109012624';
+import { claveTextura } from './texturas.js?v=20261109175224';
 
 export const CAPAS = {
   suelo: 'Suelo (debajo de los personajes)',
