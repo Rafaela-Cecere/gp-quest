@@ -1,7 +1,7 @@
 // Autos que pasan por la calle. Cada recorrido va de (x, y) a (x2, y2); cada tanto sale un auto
 // con una de sus imágenes elegida al azar. Las imágenes miran hacia abajo (el frente abajo).
 
-import { claveTextura } from './texturas.js?v=20261109175224';
+import { claveTextura } from './texturas.js?v=20261110015204';
 
 const DESVANECER = 300; // px al principio y al final del recorrido donde el auto aparece/desaparece
 

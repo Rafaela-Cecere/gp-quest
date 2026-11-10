@@ -9,7 +9,7 @@
 //   "animacion": { "cuadros": [...], "cada": [10, 20], "duracion": 4, "msPorCuadro": 170 }
 //       de vez en cuando (cada 10 a 20 segundos) repite esos cuadros un rato (Leonardo y la sopladora).
 
-import { recorteDe } from './texturas.js?v=20261109175224';
+import { recorteDe } from './texturas.js?v=20261110015204';
 
 const azar = (a, b) => a + Math.random() * (b - a);
 // Poses que eligen solos [pose, espejado, peso]: casi siempre de frente, a veces de costado, poco de espaldas.

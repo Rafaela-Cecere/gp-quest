@@ -1,7 +1,7 @@
 // Colisión del mundo: una grilla de celdas chicas (8 px) que dice dónde no se puede caminar.
 // Se arma leyendo las imágenes de colisión de cada pieza del mapa: lo rojo bloquea.
 
-import { medidasMapa, piezasConPosicion } from './mapa.js?v=20261109175224';
+import { medidasMapa, piezasConPosicion } from './mapa.js?v=20261110015204';
 
 export const CELDA = 8;
 

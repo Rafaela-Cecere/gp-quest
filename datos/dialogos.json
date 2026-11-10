@@ -148,19 +148,39 @@
         ]
       },
       "placer": {
-        "texto": "El placer es mío. Ahora, si me disculpás, voy a buscar un tecito para empezar la fiesta bien arriba."
+        "texto": "El placer es mío. Ahora, si me disculpás, voy a buscar un tecito para empezar la fiesta bien arriba.",
+        "siguiente": "desafio"
       },
       "consejo": {
         "texto": "Ah, sí... Bruno. Probablemente los chicos le dijeron que lo iban a despedir si no terminaba la entrega... ¡Pero te juro que somos normales!",
         "opciones": [
           {
             "texto": "Ah... sí... claro...",
+            "ir": "desafio",
             "efectos": [
               {
                 "tipo": "flag",
                 "nombre": "rafaela-amiga"
               }
             ]
+          }
+        ]
+      },
+      "desafio": {
+        "narrador": true,
+        "texto": "¿Quisieras desafiar a Rafaela para ver qué tan bien la conocés?",
+        "opciones": [
+          {
+            "texto": "Sí",
+            "efectos": [
+              {
+                "tipo": "desafio",
+                "id": "rafaela"
+              }
+            ]
+          },
+          {
+            "texto": "No"
           }
         ]
       }
@@ -170,7 +190,34 @@
     "inicio": "hola",
     "nodos": {
       "hola": {
-        "texto": "Si tenés tiempo, podés desafiar a algún jefe de proyecto para ver qué tan bien lo conocés. ¡Rulo siempre habla de su tío!"
+        "texto": "Si tenés tiempo, podés desafiar a algún jefe de proyecto para ver qué tan bien lo conocés. ¡Rulo siempre habla de su tío!",
+        "siguiente": "desafio"
+      },
+      "desafio": {
+        "narrador": true,
+        "texto": "¿Quisieras desafiar a Rafaela para ver qué tan bien la conocés?",
+        "opciones": [
+          {
+            "texto": "Sí",
+            "efectos": [
+              {
+                "tipo": "desafio",
+                "id": "rafaela"
+              }
+            ]
+          },
+          {
+            "texto": "No"
+          }
+        ]
+      }
+    }
+  },
+  "rafaela-ganado": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Hola! Ya sabés: Pocitos, no penthouse. Y el mayordomo Jaime no existe... todavía."
       }
     }
   },
@@ -178,7 +225,34 @@
     "inicio": "hola",
     "nodos": {
       "hola": {
-        "texto": "¡Gracias por la buena onda! ¿Sabías que ya casi sale el GTA VI? Creo que me voy a tomar el día para jugarlo..."
+        "texto": "¡Gracias por la buena onda! ¿Sabías que ya casi sale el GTA VI? Creo que me voy a tomar el día para jugarlo...",
+        "siguiente": "desafio"
+      },
+      "desafio": {
+        "narrador": true,
+        "texto": "¿Quisieras desafiar a Bruno para ver qué tan bien lo conocés?",
+        "opciones": [
+          {
+            "texto": "Sí",
+            "efectos": [
+              {
+                "tipo": "desafio",
+                "id": "bruno"
+              }
+            ]
+          },
+          {
+            "texto": "No"
+          }
+        ]
+      }
+    }
+  },
+  "bruno-ganado": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Eh, rival! ¿Una de GeoGuessr? ...Bueno, cuando salga el GTA VI ya no voy a tener tiempo. *patito de hule*"
       }
     }
   },
@@ -199,10 +273,30 @@
         ]
       },
       "ayuda": {
-        "texto": "¿En serio? Gracias, pero no es necesario... ya puse las balas, ahora es solo apretar el gatillo. Soy Bruno, un gusto."
+        "texto": "¿En serio? Gracias, pero no es necesario... ya puse las balas, ahora es solo apretar el gatillo. Soy Bruno, un gusto.",
+        "siguiente": "desafio"
       },
       "tranqui": {
-        "texto": "¿Será?. *snif* Ahora que lo decis, puede que tengas razón... Soy Bruno, encantado."
+        "texto": "¿Será?. *snif* Ahora que lo decis, puede que tengas razón... Soy Bruno, encantado.",
+        "siguiente": "desafio"
+      },
+      "desafio": {
+        "narrador": true,
+        "texto": "¿Quisieras desafiar a Bruno para ver qué tan bien lo conocés?",
+        "opciones": [
+          {
+            "texto": "Sí",
+            "efectos": [
+              {
+                "tipo": "desafio",
+                "id": "bruno"
+              }
+            ]
+          },
+          {
+            "texto": "No"
+          }
+        ]
       }
     }
   },
@@ -331,7 +425,34 @@
     "inicio": "hola",
     "nodos": {
       "hola": {
-        "texto": "¿Ya desafiaste al jefe de 3D? Siempre anda hablando de física cuántica..."
+        "texto": "¿Ya desafiaste al jefe de 3D? Siempre anda hablando de física cuántica...",
+        "siguiente": "desafio"
+      },
+      "desafio": {
+        "narrador": true,
+        "texto": "¿Quisieras desafiar a Juan para ver qué tan bien lo conocés?",
+        "opciones": [
+          {
+            "texto": "Sí",
+            "efectos": [
+              {
+                "tipo": "desafio",
+                "id": "juan"
+              }
+            ]
+          },
+          {
+            "texto": "No"
+          }
+        ]
+      }
+    }
+  },
+  "juan-ganado": {
+    "inicio": "hola",
+    "nodos": {
+      "hola": {
+        "texto": "¡Ahí viene quien conoce a Elvis! ¿Te mostré la última foto? Bueno, te la muestro igual."
       }
     }
   },
@@ -352,10 +473,30 @@
         ]
       },
       "asi": {
-        "texto": "Si, siguió a Gabriel desde su casa hasta la fiesta, tas loco. Soy Juan, un gusto."
+        "texto": "Si, siguió a Gabriel desde su casa hasta la fiesta, tas loco. Soy Juan, un gusto.",
+        "siguiente": "desafio"
       },
       "tranquilo": {
-        "texto": "Si, soy integrante  de 3D, me llamo Juan. Cualquier duda, preguntame. O al Rodri, que sabe todo. O más bien le pregunta a Claudia..."
+        "texto": "Si, soy integrante  de 3D, me llamo Juan. Cualquier duda, preguntame. O al Rodri, que sabe todo. O más bien le pregunta a Claudia...",
+        "siguiente": "desafio"
+      },
+      "desafio": {
+        "narrador": true,
+        "texto": "¿Quisieras desafiar a Juan para ver qué tan bien lo conocés?",
+        "opciones": [
+          {
+            "texto": "Sí",
+            "efectos": [
+              {
+                "tipo": "desafio",
+                "id": "juan"
+              }
+            ]
+          },
+          {
+            "texto": "No"
+          }
+        ]
       }
     }
   },

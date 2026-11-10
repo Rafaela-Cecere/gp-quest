@@ -14,14 +14,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&display=swap" rel="stylesheet">
   <!-- Solo los números, de otra fuente pixel: en Pixelify el 2 y el 5 parecen una S. -->
   <link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap&text=0123456789" rel="stylesheet">
-  <link rel="stylesheet" href="motor/estilos.css?v=20261109175224">
+  <link rel="stylesheet" href="motor/estilos.css?v=20261110015204">
 </head>
 <body>
   <div id="juego"></div>
   <script>
     // Si este index.html quedo viejo en el cache del celular, se recarga con la version nueva.
     (function () {
-      var esta = '20261109175224';
+      var esta = '20261110015204';
       fetch('version.txt?t=' + Date.now(), { cache: 'no-store' })
         .then(function (r) { return r.ok ? r.text() : esta; })
         .then(function (nueva) {
@@ -35,7 +35,7 @@
         .catch(function () {});
     })();
   </script>
-  <script src="motor/lib/phaser.min.js?v=20261109175224"></script>
-  <script type="module" src="motor/main.js?v=20261109175224"></script>
+  <script src="motor/lib/phaser.min.js?v=20261110015204"></script>
+  <script type="module" src="motor/main.js?v=20261110015204"></script>
 </body>
 </html>

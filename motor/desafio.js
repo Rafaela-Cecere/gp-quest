@@ -31,7 +31,12 @@ export function precargarDesafio(config) {
     audio.loop = true;
     musicas.set(config.musica, audio);
   }
-  for (const ruta of Object.values(config.sonidos || {})) {
+  // Sonidos generales y los propios de algunas respuestas o del final (por ejemplo, el patito de Bruno).
+  const propios = [
+    ...(config.preguntas || []).flatMap(p => (p.respuestas || []).map(r => r.sonido)),
+    config.sonidoGanar, config.sonidoPerder,
+  ].filter(Boolean);
+  for (const ruta of [...Object.values(config.sonidos || {}), ...propios]) {
     if (sonidos.has(ruta)) continue;
     const audio = new Audio(ruta);
     audio.preload = 'auto';
@@ -92,8 +97,17 @@ export class Desafio {
 
   // Sonidos de "correcta", "incorrecta" y "victoria" (mundo.json → desafios → sonidos).
   sonar(cual) {
-    const ruta = this.c.sonidos?.[cual];
+    this.sonarArchivo(this.c.sonidos?.[cual]);
+  }
+
+  // Un sonido propio (respuesta.sonido, sonidoGanar, sonidoPerder). Con "demora", después de los
+  // sonidos de correcta/incorrecta, para que no se pisen.
+  sonarArchivo(ruta, demora = 0) {
     if (!ruta) return;
+    if (demora) {
+      setTimeout(() => this.sonarArchivo(ruta), demora);
+      return;
+    }
     const audio = sonidos.get(ruta)?.cloneNode() ?? new Audio(ruta);
     audio.volume = this.c.volumenSonidos ?? 0.5;
     audio.play().catch(() => {});
@@ -206,6 +220,7 @@ export class Desafio {
         this.sacudir();
       }
       this.sonar(bien ? 'correcta' : 'incorrecta');
+      this.sonarArchivo(elegida.sonido, 450);
       this.splash(bien ? 'festejo' : 'derrotado', bien ? 'correcta' : 'incorrecta');
       await this.escribir(elegida.reaccion || '');
       await this.continuar();
@@ -222,6 +237,7 @@ export class Desafio {
     } else {
       this.sacudir();
     }
+    this.sonarArchivo(gano ? this.c.sonidoGanar : this.c.sonidoPerder, gano ? 900 : 0);
     await this.escribir((gano ? this.c.textoGanar : this.c.textoPerder) || '');
     await this.continuar();
 

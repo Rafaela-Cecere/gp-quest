@@ -14,6 +14,12 @@
     "dialogos": [
       {
         "si": {
+          "flag": "desafio-rafaela-ganado"
+        },
+        "id": "rafaela-ganado"
+      },
+      {
+        "si": {
           "flag": "rafaela-amiga"
         },
         "id": "rafaela-otra-vez"
@@ -36,6 +42,12 @@
     "y": 3348,
     "frase": "*ruidos de pato de hule*",
     "dialogos": [
+      {
+        "si": {
+          "flag": "desafio-bruno-ganado"
+        },
+        "id": "bruno-ganado"
+      },
       {
         "si": {
           "conoce": "bruno"
@@ -118,6 +130,12 @@
     "dialogos": [
       {
         "si": {
+          "flag": "desafio-juan-ganado"
+        },
+        "id": "juan-ganado"
+      },
+      {
+        "si": {
           "conoce": "juan"
         },
         "id": "juan-otra-vez"
@@ -160,8 +178,8 @@
     "spriteEspalda": "Insumos/NPC/HOMBRES/3D/Roby-Back.png",
     "spriteLado": "Insumos/NPC/HOMBRES/3D/Roby-Side.png",
     "retrato": "Insumos/Splash-Personajes/3D/Martin-Robaina.png",
-    "x": 8044,
-    "y": 3286,
+    "x": 8013,
+    "y": 3287,
     "frase": "Tengo que ir a buscar a la enana.",
     "dialogos": [
       {
@@ -260,7 +278,7 @@
   },
   {
     "id": "arturo",
-    "nombre": "Arturo",
+    "nombre": "Arturo De los Santos",
     "puesto": "Director de anteproyecto",
     "sprite": "Insumos/NPC/HOMBRES/Anteproyecto/Arturo-Front.png",
     "spriteEspalda": "Insumos/NPC/HOMBRES/Anteproyecto/Arturo-Back.png",

@@ -768,6 +768,258 @@
           "nombre": "desafio-rulo-ganado"
         }
       ]
+    },
+    "rafaela": {
+      "titulo": "¡A ver si me conocés de verdad!",
+      "musica": "Insumos/Sonidos/Desafio.mp3",
+      "volumen": 0.15,
+      "sonidos": {
+        "correcta": "Insumos/Sonidos/Right.mp3",
+        "incorrecta": "Insumos/Sonidos/Wrong.mp3",
+        "victoria": "Insumos/Sonidos/Victory.mp3"
+      },
+      "volumenSonidos": 0.5,
+      "duracionEntrada": 4000,
+      "erroresParaPerder": 2,
+      "rival": {
+        "nombre": "Rafaela",
+        "splash": {
+          "desafiante": "Insumos/Splash-Personajes/3D/Rafaela-Cecere-Desafiante.png",
+          "pregunta": "Insumos/Splash-Personajes/3D/Rafaela-Cecere-Arrogante.png",
+          "correcta": "Insumos/Splash-Personajes/3D/Rafaela-Cecere.png",
+          "incorrecta": "Insumos/Splash-Personajes/3D/Rafaela-Cecere-Desepcionada.png",
+          "gana": "Insumos/Splash-Personajes/3D/Rafaela-Cecere-Desafiante.png",
+          "pierde": "Insumos/Splash-Personajes/3D/Rafaela-Cecere-Desepcionada.png"
+        }
+      },
+      "jugador": {
+        "splash": {
+          "neutral": "Insumos/Personaje-Principal/Splash-Desafio-de-opiniones/PP-Neutral.png",
+          "festejo": "Insumos/Personaje-Principal/Splash-Desafio-de-opiniones/PP-Festejo.png",
+          "derrotado": "Insumos/Personaje-Principal/Splash-Desafio-de-opiniones/PP-Derrotado.png"
+        }
+      },
+      "preguntas": [
+        {
+          "texto": "¿Dónde vivo?",
+          "respuestas": [
+            {
+              "texto": "En un apartamento en Pocitos.",
+              "correcta": true,
+              "reaccion": "¡Sí, es correcto! Los chicos de 3D siempre inventan que vivo en un penthouse, pero vivo en Pocitos."
+            },
+            {
+              "texto": "En un penthouse en Punta Carretas.",
+              "reaccion": "Muy mal. Si eso es lo que pensás, me conocés menos de lo que creés."
+            }
+          ]
+        },
+        {
+          "texto": "Los chicos de 3D insisten en que tengo un mayordomo que no existe. ¿Cuál es el nombre del mayordomo inventado?",
+          "respuestas": [
+            {
+              "texto": "Jaime.",
+              "correcta": true,
+              "reaccion": "Correcto, igual que el del reclame de jugo Tang de 1993."
+            },
+            {
+              "texto": "Alfred.",
+              "reaccion": "No, ese es el de Batman. El mío se llamaría Jaime."
+            }
+          ]
+        },
+        {
+          "texto": "Por último, ¿qué idiomas hablo además del español?",
+          "respuestas": [
+            {
+              "texto": "Inglés y japonés.",
+              "correcta": true,
+              "reaccion": "¡Muy bien! Me encanta la cultura japonesa y por eso aprendí su idioma."
+            },
+            {
+              "texto": "Inglés y chino.",
+              "reaccion": "Incorrecto. Claramente lo que a mí me gusta es Japón, no China..."
+            }
+          ]
+        }
+      ],
+      "textoPerder": "Qué bárbaro... parece que no estás a la altura de ser parte de 3D... Intentalo de nuevo.",
+      "textoGanar": "¡Muy bien! Me parece que estás listo para formar parte del equipo. ¡Excelente performance!",
+      "alGanar": [
+        {
+          "tipo": "flag",
+          "nombre": "desafio-rafaela-ganado"
+        }
+      ]
+    },
+    "juan": {
+      "titulo": "¡A ver qué tanto sabés de mí!",
+      "musica": "Insumos/Sonidos/Desafio.mp3",
+      "volumen": 0.15,
+      "sonidos": {
+        "correcta": "Insumos/Sonidos/Right.mp3",
+        "incorrecta": "Insumos/Sonidos/Wrong.mp3",
+        "victoria": "Insumos/Sonidos/Victory.mp3"
+      },
+      "volumenSonidos": 0.5,
+      "duracionEntrada": 4000,
+      "erroresParaPerder": 2,
+      "rival": {
+        "nombre": "Juan",
+        "splash": {
+          "desafiante": "Insumos/Splash-Personajes/3D/Juan-Delgado-Desafiante.png",
+          "pregunta": "Insumos/Splash-Personajes/3D/Juan-Delgado-Arrogante.png",
+          "correcta": "Insumos/Splash-Personajes/3D/Juan-Delgado.png",
+          "incorrecta": "Insumos/Splash-Personajes/3D/Juan-Delgado-Desepcionado.png",
+          "gana": "Insumos/Splash-Personajes/3D/Juan-Delgado-Desafiante.png",
+          "pierde": "Insumos/Splash-Personajes/3D/Juan-Delgado-Desepcionado.png"
+        }
+      },
+      "jugador": {
+        "splash": {
+          "neutral": "Insumos/Personaje-Principal/Splash-Desafio-de-opiniones/PP-Neutral.png",
+          "festejo": "Insumos/Personaje-Principal/Splash-Desafio-de-opiniones/PP-Festejo.png",
+          "derrotado": "Insumos/Personaje-Principal/Splash-Desafio-de-opiniones/PP-Derrotado.png"
+        }
+      },
+      "preguntas": [
+        {
+          "texto": "¿En qué departamento nací?",
+          "respuestas": [
+            {
+              "texto": "Paysandú.",
+              "correcta": true,
+              "reaccion": "Muy bien, todos saben que Paysandú es el mejor departamento de Uruguay."
+            },
+            {
+              "texto": "Montevideo.",
+              "reaccion": "No, claramente soy de Paysandú, el mejor departamento de Uruguay."
+            }
+          ]
+        },
+        {
+          "texto": "¿Cómo se llaman dos de mis gatos?",
+          "respuestas": [
+            {
+              "texto": "Elvis y Corito.",
+              "correcta": true,
+              "reaccion": "¡Correcto! Los michis son lo mejor."
+            },
+            {
+              "texto": "Simba y Coco.",
+              "reaccion": "Muy mal, claramente nunca viste ninguna de las 100 fotos que tengo de Elvis."
+            }
+          ]
+        },
+        {
+          "texto": "Por último, ¿qué frase suelo decir?",
+          "respuestas": [
+            {
+              "texto": "Qué difícil es pedir perdón, ¿eh?",
+              "correcta": true,
+              "reaccion": "¡Bien ahí! Es importante pedirle perdón a la gente, en especial a los de Paysandú."
+            },
+            {
+              "texto": "Ah, pero qué bárbaro...",
+              "reaccion": "No, esa frase patética nunca la diría yo... Muy mal."
+            }
+          ]
+        }
+      ],
+      "textoPerder": "Te falta cultura. Vení a verme para que te muestre las fotos de mis michis, y así conocerme mejor.",
+      "textoGanar": "Me conocés mejor de lo que parece, ¡muy bien!",
+      "alGanar": [
+        {
+          "tipo": "flag",
+          "nombre": "desafio-juan-ganado"
+        }
+      ]
+    },
+    "bruno": {
+      "titulo": "¡Preparate, que esto es nivel difícil!",
+      "musica": "Insumos/Sonidos/Desafio.mp3",
+      "volumen": 0.15,
+      "sonidos": {
+        "correcta": "Insumos/Sonidos/Right.mp3",
+        "incorrecta": "Insumos/Sonidos/Wrong.mp3",
+        "victoria": "Insumos/Sonidos/Victory.mp3"
+      },
+      "volumenSonidos": 0.5,
+      "duracionEntrada": 4000,
+      "erroresParaPerder": 2,
+      "rival": {
+        "nombre": "Bruno",
+        "splash": {
+          "desafiante": "Insumos/Splash-Personajes/3D/Bruno-Matus-Desafiante.png",
+          "pregunta": "Insumos/Splash-Personajes/3D/Bruno-Matus-Arrogante.png",
+          "correcta": "Insumos/Splash-Personajes/3D/Bruno-Matus.png",
+          "incorrecta": "Insumos/Splash-Personajes/3D/Bruno-Matus-Desepcionado.png",
+          "gana": "Insumos/Splash-Personajes/3D/Bruno-Matus-Desafiante.png",
+          "pierde": "Insumos/Splash-Personajes/3D/Bruno-Matus-Desepcionado.png"
+        }
+      },
+      "jugador": {
+        "splash": {
+          "neutral": "Insumos/Personaje-Principal/Splash-Desafio-de-opiniones/PP-Neutral.png",
+          "festejo": "Insumos/Personaje-Principal/Splash-Desafio-de-opiniones/PP-Festejo.png",
+          "derrotado": "Insumos/Personaje-Principal/Splash-Desafio-de-opiniones/PP-Derrotado.png"
+        }
+      },
+      "preguntas": [
+        {
+          "texto": "¿Cuál es el juego con el que estoy obsesionado actualmente?",
+          "respuestas": [
+            {
+              "texto": "GTA VI.",
+              "correcta": true,
+              "reaccion": "¡Claro que sí! ¿Sabías que demoraron más de 10 años en hacerlo?"
+            },
+            {
+              "texto": "Red Dead Redemption 2.",
+              "reaccion": "Emm, no... Es del 2018. Ahora mismo estoy obsesionado con el GTA VI."
+            }
+          ]
+        },
+        {
+          "texto": "¿Qué ruido es el que más suelo hacer?",
+          "respuestas": [
+            {
+              "texto": "Patito de hule.",
+              "correcta": true,
+              "reaccion": "¡Correcto! *patito de hule*",
+              "sonido": "Insumos/Sonidos/Patito.mp3"
+            },
+            {
+              "texto": "HUTSWAA NANDAAA.",
+              "reaccion": "No. Si bien es parte de mi repertorio, todos saben que el que más hago es el patito de hule... *patito de hule*",
+              "sonido": "Insumos/Sonidos/Patito.mp3"
+            }
+          ]
+        },
+        {
+          "texto": "Según los chicos, ¿de qué tengo más conocimiento?",
+          "respuestas": [
+            {
+              "texto": "Países y capitales.",
+              "correcta": true,
+              "reaccion": "¡Bueeeeenaaaa! Soy buenísimo en el GeoGuessr, te gano cuando quieras."
+            },
+            {
+              "texto": "Películas y series.",
+              "reaccion": "No, todos saben que soy buenísimo en el GeoGuessr..."
+            }
+          ]
+        }
+      ],
+      "textoPerder": "*patito de hule* Mejor suerte la próxima...",
+      "sonidoPerder": "Insumos/Sonidos/Patito.mp3",
+      "textoGanar": "¡Bueno, bien! Me conocés bastante. Cuando quieras, hablamos un rato de videojuegos o geografía.",
+      "alGanar": [
+        {
+          "tipo": "flag",
+          "nombre": "desafio-bruno-ganado"
+        }
+      ]
     }
   },
   "distanciaParaHablar": 170,

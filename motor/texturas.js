@@ -2,7 +2,7 @@
 // Los PNG originales son grandes (por ejemplo 400×850): se recortan los bordes transparentes
 // y se achican con buena calidad, así en pantalla quedan nítidos y ocupan poca memoria.
 
-import { cargarImagen } from './colision.js?v=20261109175224';
+import { cargarImagen } from './colision.js?v=20261110015204';
 
 // alto: alto final en píxeles del mundo (0 = tamaño original, sin recortar).
 export function claveTextura(ruta, alto) {
